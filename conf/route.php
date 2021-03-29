@@ -4,9 +4,11 @@ class Routing
 {
 	public static function run() 
 	{
+
 		// Контроллер и его метод по умолчанию
 		$controllerName = "IndexController";
 		$action = "indexPage";
+
 
 		// Получить имя необходимого контроллера
 		$route = explode("/", $_SERVER['REQUEST_URI']);
