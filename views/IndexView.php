@@ -2,10 +2,9 @@
 
 class IndexView extends View
 {
-	public function render($pageData) 
+    public function render($pageData) 
     {
-		$pageTpl = '/public/main.tpl.php';
-		include ROOT. $pageTpl;
-	}
-
+        $pageTpl = '/public/main.tpl.php';
+        include ROOT. $pageTpl;
+    }
 }

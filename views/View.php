@@ -3,6 +3,6 @@
 abstract class View 
 {
     protected $pageTpl = null;
-    
-	abstract public function render($pageData);
+
+    abstract public function render($pageData);
 }
