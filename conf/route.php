@@ -8,7 +8,6 @@ class Routing
         $controllerName = "IndexController";
         $action = "indexPage";
 
-
         // Получить имя необходимого контроллера
         $route = explode("/", $_SERVER['REQUEST_URI']);
 

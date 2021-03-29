@@ -14,8 +14,8 @@ class IndexController extends Controller
     public function indexPage() 
     {
         $this->pageData['title'] = "Главная страница";
-        $this->view->render($this->pageData);
+        $this->pageData['users'] = $this->model->getUsers();
 
-        //$this->model->getUsers();
+        $this->view->render($this->pageData);
     }
 }
