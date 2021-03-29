@@ -4,7 +4,7 @@ class IndexModel extends Model
 {
     public function getUsers()
     {
-	    $sql = "SELECT * FROM users";
+        $sql = "SELECT * FROM users";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
@@ -15,9 +15,7 @@ class IndexModel extends Model
         echo $res["date_create"];
         /*foreach ($res as $elem)
         {
-            echo $elem . "\n";
+        echo $elem . "\n";
         }*/
     }
-
-
 }

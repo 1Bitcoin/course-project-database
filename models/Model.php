@@ -2,10 +2,10 @@
 
 class Model 
 {
-	protected $db = null;
+    protected $db = null;
 
-	public function __construct()
-	{
-		$this->db = DB::connToDB();
-	}
+    public function __construct()
+    {
+        $this->db = DB::connToDB();
+    }
 }
