@@ -2,5 +2,6 @@
 
 class ErrorModel extends Model 
 {
+    
 
 }
