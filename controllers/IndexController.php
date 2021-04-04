@@ -2,6 +2,7 @@
 
 require_once(MODEL_PATH . 'IndexModel.php');
 require_once(VIEW_PATH . 'IndexView.php');
+require_once(CONTROLLER_PATH . 'Controller.php');
 
 class IndexController extends Controller 
 {

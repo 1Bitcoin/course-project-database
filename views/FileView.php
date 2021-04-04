@@ -2,11 +2,11 @@
 
 require_once(VIEW_PATH . 'View.php');
 
-class IndexView extends View
+class FileView extends View
 {
     public function render($pageData) 
     {
-        $pageTpl = '/public/main.tpl.php';
+        $pageTpl = '/public/list.tpl.php';
         readfile(ROOT . $pageTpl);
     }
 }

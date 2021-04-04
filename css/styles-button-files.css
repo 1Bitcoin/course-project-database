@@ -1,0 +1,22 @@
+.button24 {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: 25px;
+  outline: none;
+  border-width: 1px 0;
+  border-style: solid none;
+  border-color: #FDBE33 #000 #D77206;
+  border-radius: 10px;
+  background: linear-gradient(#F3AE0F, #E38916) #E38916;
+  transition: 0.2s;
+  width: 10%;
+  height: 8%;
+
+  text-align:center;
+  position: absolute;
+  top: 10px;
+  right: 30px;
+} 
+a.button24:hover { background: linear-gradient(#f5ae00, #f59500) #f5ae00; }
+a.button24:active { background: linear-gradient(#f59500, #f5ae00) #f59500; }

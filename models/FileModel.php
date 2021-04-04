@@ -2,7 +2,7 @@
 
 require_once(MODEL_PATH . 'Model.php');
 
-class IndexModel extends Model 
+class FileModel extends Model 
 {
     public function getUsers()
     {
@@ -10,9 +10,7 @@ class IndexModel extends Model
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        //print_r($res);
-        
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);    
         return $res;
     }
 }

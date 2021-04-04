@@ -2,6 +2,7 @@
 
 require_once(MODEL_PATH . 'LoginModel.php');
 require_once(VIEW_PATH . 'LoginView.php');
+require_once(CONTROLLER_PATH . 'Controller.php');
 
 class LoginController extends Controller 
 {
