@@ -14,7 +14,11 @@ class FileController extends Controller
 
     public function showFiles() 
     {
-        $this->pageData['users'] = $this->model->getUsers();
+        $limit = 1;
+        $this->pageData = $this->model->getUsers($limit);  
+
+        //print_r($this->pageData['title']);
+
         $this->view->render($this->pageData);
     }
 }

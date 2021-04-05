@@ -7,6 +7,6 @@ class FileView extends View
     public function render($pageData) 
     {
         $pageTpl = '/public/list.tpl.php';
-        readfile(ROOT . $pageTpl);
+        include ROOT . $pageTpl;
     }
 }
