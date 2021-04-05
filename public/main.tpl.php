@@ -24,7 +24,7 @@
         Для асинхронной загрузки файла на сервер воспользуйтесь формой ниже.
       </p>
 
-      <a href="list" class="button24">Список файлов</a>
+      <a href="list?page=1" class="button24">Список файлов</a>
 
       <div class="row">
         <div class="col-md-6 col-sm-12">

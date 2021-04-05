@@ -34,9 +34,11 @@
     $total_records = $pageData['count'];  
     $total_pages = ceil($total_records / $pageData['limit']);  
     $pagLink = "<nav><ul class='pagination'>";  
-    for ($i=1; $i<=$total_pages; $i++) {  
-                $pagLink .= "<li><a href='list?page=".$i."'>".$i."</a></li>";  
-    };  
+
+    for ($i = 1; $i <= $total_pages; $i++) 
+    {  
+        $pagLink .= "<li><a href='list?page=".$i."'>".$i."</a></li>";  
+    };
     echo $pagLink . "</ul></nav>";  
     ?>
 
@@ -46,7 +48,7 @@ $(document).ready(function(){
         items: <?php echo $total_records;?>,
         itemsOnPage: <?php echo $pageData['limit'];?>,
         cssStyle: 'light-theme',
-        currentPage : <?php echo 1;?>, // to do
+        currentPage : <?php echo $pageData['page'];?>,
         hrefTextPrefix : 'list?page='
     });
 });

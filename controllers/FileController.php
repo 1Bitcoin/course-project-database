@@ -14,11 +14,16 @@ class FileController extends Controller
 
     public function showFiles() 
     {
-        $limit = 1;
-        $this->pageData = $this->model->getUsers($limit);  
+        $limit = 2;
+        $page = 1;
 
-        //print_r($this->pageData['title']);
+        // Получить номер страницы из url
+        if (isset($_GET['page'])) 
+        {  
+            $page = $_GET['page'];  
+        } 
 
+        $this->pageData = $this->model->getUsers($limit, $page);  
         $this->view->render($this->pageData);
     }
 }
