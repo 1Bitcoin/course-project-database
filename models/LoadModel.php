@@ -22,8 +22,7 @@ class LoadModel extends Model
             $newFileName = md5(time() . $fileName);
 
             // Директория загрузки файлов
-            $uploadFileDir = '/var/www/course-project-database/uploaded_files/';
-            $dest_path = $uploadFileDir . $newFileName;
+            $dest_path = UPLOAD_PATH . $newFileName;
 
             if (move_uploaded_file($fileTmpPath, $dest_path)) 
             {
