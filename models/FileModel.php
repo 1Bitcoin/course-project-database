@@ -4,33 +4,27 @@ require_once(MODEL_PATH . 'Model.php');
 
 class FileModel extends Model 
 {
-    public function getUsers($limit, $page)
-    {   
-        /*$sql = "INSERT INTO users (id, email, password, date_create, uploaded_files, raiting, privilege_level) 
-                VALUES (228, 'fury@mail.ru', '12345', '2011-04-15 00:02:00', 0, 0, 0)";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();*/
+    public function filesPagination($limit, $page)
+    {
+        // Проверить номер страницы
+        if (!isset($page)) 
+        {  
+            $page = 1;  
+        } 
 
         $page_first_result = ($page - 1) * $limit; 
-        $sql = "SELECT * FROM users LIMIT " . $page_first_result . ',' . $limit;
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        $table = 'files';
 
-        $res['users'] = $stmt->fetchAll(PDO::FETCH_ASSOC);    
-        $res['limit'] = $limit; 
+        // Формируем данные для передачи в html форму
         $res['title'] = "Список файлов";
+        $res['files'] = $this->repo->getRowsByLimit($page_first_result, $limit);    
+        $res['limit'] = $limit; 
         $res['page'] = $page;
 
-        $sql = "SELECT COUNT(*) FROM users";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);    
-        $total_records = $row['COUNT(*)'];  
+        // Получить число записей в таблице
+        $rows = $this->repo->getCountRows(); 
+        $res['count'] = $rows[0]['COUNT(*)'];
         
-        $res['count'] = $total_records;
-
         return $res;
     }
 }

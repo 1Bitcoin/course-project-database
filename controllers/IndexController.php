@@ -8,15 +8,12 @@ class IndexController extends Controller
 {
     public function __construct() 
     {
-        $this->model = new IndexModel();
         $this->view = new IndexView();
     }
 
     public function indexPage() 
     {
         $this->pageData['title'] = "Главная страница";
-        $this->pageData['users'] = $this->model->getUsers();
-
         $this->view->render($this->pageData);
     }
 }

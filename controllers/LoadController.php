@@ -8,12 +8,18 @@ class LoadController extends Controller
 {
     public function __construct() 
     {
-        $this->model = new LoadModel();
+        $MyStorage = new MySqlStorage();
+        $FileRepository = new FileRepository($MyStorage);
+
+        $this->model = new LoadModel($FileRepository);
         $this->view = new LoadView();
     }
 
     public function loadFile()
     {
-        $this->model->load($_FILES);
+        $dataFiles = $_FILES;
+        $infoFile = $this->model->loadFile($dataFiles);
+        $this->model->addFile($infoFile);
     }
+
 }

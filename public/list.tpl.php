@@ -16,15 +16,19 @@
     <table class="table table-bordered">  
         <thead>  
         <tr>  
-            <th>Имя</th>  
-            <th>Оклад</th> 
+            <th>Имя файла</th>  
+            <th>Дата загрузки</th> 
+            <th>Рейтинг</th> 
+            <th>Размер</th> 
         </tr>  
         </thead>  
         <tbody>   
-            <?php foreach($pageData['users'] as $user): ?>
+            <?php foreach($pageData['files'] as $file): ?>
                 <tr>  
-                    <td><?php echo $user["email"]; ?></td>  
-                    <td><?php echo $user["password"]; ?></td>   
+                    <td><?php echo $file["name"]; ?></td>  
+                    <td><?php echo $file["date_upload"]; ?></td>   
+                    <td><?php echo $file["raiting"]; ?></td>   
+                    <td><?php echo $file["size"]; ?></td>   
                 </tr>
             <?php endforeach; ?> 
         </tbody>  

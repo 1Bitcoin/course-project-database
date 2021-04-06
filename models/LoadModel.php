@@ -4,13 +4,13 @@ require_once(MODEL_PATH . 'Model.php');
 
 class LoadModel extends Model 
 {
-    public function load($dataFile)
+    public function loadFile($dataFile)
     {
         $messages = '';
 
         if (isset($dataFile['file']) && $dataFile['file']['error'] === UPLOAD_ERR_OK)
         {
-            // get details of the uploaded file
+            // Получаем информацию о загруженном файле
             $fileTmpPath = $dataFile['file']['tmp_name'];
             $fileName = $dataFile['file']['name'];
             $fileSize = $dataFile['file']['size'];
@@ -18,38 +18,41 @@ class LoadModel extends Model
             $fileNameCmps = explode(".", $fileName);
             $fileExtension = strtolower(end($fileNameCmps));
 
-            // sanitize file-name
-            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+            // Изменяем имя файла для хранения
+            $newFileName = md5(time() . $fileName);
 
-            // check if file has one of the following extensions
-            $allowedfileExtensions = array('html', 'php', 'js');
+            // Директория загрузки файлов
+            $uploadFileDir = '/var/www/course-project-database/uploaded_files/';
+            $dest_path = $uploadFileDir . $newFileName;
 
-            if (!in_array($fileExtension, $allowedfileExtensions))
+            if (move_uploaded_file($fileTmpPath, $dest_path)) 
             {
-                // directory in which the uploaded file will be moved
-                $uploadFileDir = '/var/www/course-project-database/uploaded_files/';
-                $dest_path = $uploadFileDir . $newFileName;
-
-                if (move_uploaded_file($fileTmpPath, $dest_path)) 
-                {
-                    $message ='File is successfully uploaded.';
-                }
-                else 
-                {
-                    $message = 'There was some error moving the file to upload directory. Please make sure the upload directory is writable by web server.';
-                }
+                $message ='Файл успешно загружен.';
             }
-            else
+            else 
             {
-                $message = 'Upload failed. Banned file types: ' . implode(',', $allowedfileExtensions);
+                $message = 'Возникла проблема с записью файла в директорию. На директории должны быть права записи.';
             }
         }
         else
         {
-            $message = 'There is some error in the file upload. Please check the following error.<br>';
+            $message = 'Ошибка во время загрузки файла. Изучите возникшую ошибку.<br>';
             $message .= 'Error:' . $dataFile['file']['error'];
         }
+        
+        $infoFile['name'] = $fileName; 
+        $infoFile['size'] = $fileSize; 
+        $infoFile['type'] = $fileType; 
+        $infoFile['hash'] = $newFileName;
+        $infoFile['date_upload'] = date("Y-m-d H:i:s");; 
+
+        return $infoFile;
     }  
+
+    public function addFile($infoFile)
+    {
+        $this->repo->addFile($infoFile);  
+    }
 }
 
 
