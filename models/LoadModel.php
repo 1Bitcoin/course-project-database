@@ -7,6 +7,7 @@ class LoadModel extends Model
     public function loadFile($dataFile)
     {
         $messages = '';
+        $infoFile = array();
 
         if (isset($dataFile['file']) && $dataFile['file']['error'] === UPLOAD_ERR_OK)
         {
@@ -32,25 +33,29 @@ class LoadModel extends Model
             {
                 $message = 'Возникла проблема с записью файла в директорию. На директории должны быть права записи.';
             }
+
+            $infoFile['name'] = $fileName; 
+            $infoFile['size'] = $fileSize; 
+            $infoFile['type'] = $fileType; 
+            $infoFile['hash'] = $newFileName;
+            $infoFile['date_upload'] = date("Y-m-d H:i:s"); 
         }
         else
         {
             $message = 'Ошибка во время загрузки файла. Изучите возникшую ошибку.<br>';
             $message .= 'Error:' . $dataFile['file']['error'];
+            print_r($message);
         }
-        
-        $infoFile['name'] = $fileName; 
-        $infoFile['size'] = $fileSize; 
-        $infoFile['type'] = $fileType; 
-        $infoFile['hash'] = $newFileName;
-        $infoFile['date_upload'] = date("Y-m-d H:i:s");; 
 
         return $infoFile;
     }  
 
     public function addFile($infoFile)
     {
-        $this->repo->addFile($infoFile);  
+        if (isset($infoFile['name']))
+        {
+            $this->repo->addFile($infoFile);  
+        } 
     }
 }
 
