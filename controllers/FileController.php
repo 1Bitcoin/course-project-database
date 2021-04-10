@@ -10,10 +10,10 @@ class FileController extends Controller
 {
     public function __construct() 
     {
-        $MyStorage = new MySqlStorage();
-        $FileRepository = new FileRepository($MyStorage);
+        $myStorage = new MySqlStorage();
+        $fileRepository = new FileRepository($myStorage);
 
-        $this->model = new FileModel($FileRepository);
+        $this->model = new FileModel($fileRepository);
         $this->view = new FileView();
     }
 

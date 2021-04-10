@@ -4,6 +4,11 @@ require_once(MODEL_PATH . 'Model.php');
 
 class LoadModel extends Model 
 {
+    public function __construct(FileRepository $fileRepository) 
+    {
+        $this->repo = $fileRepository;
+    }
+    
     public function loadFile($dataFile)
     {
         $messages = '';

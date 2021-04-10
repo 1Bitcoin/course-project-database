@@ -4,6 +4,11 @@ require_once(MODEL_PATH . 'Model.php');
 
 class FileModel extends Model 
 {
+    public function __construct(FileRepository $fileRepository) 
+    {
+        $this->repo = $fileRepository;
+    }
+
     public function filesPagination($limit, $page)
     {
         // Проверить номер страницы
