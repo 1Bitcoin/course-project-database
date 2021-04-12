@@ -12,7 +12,7 @@
     <!-- Custom styles -->
     <link href="../css/jquery.dm-uploader.min.css" rel="stylesheet">
     <link href="../css/styles-main.css" rel="stylesheet">
-    <link href="../css/styles-button-files.css" rel="stylesheet">
+    <link href="../css/styles-button.css" rel="stylesheet">
   </head>
 
   <body>
@@ -24,7 +24,8 @@
         Для асинхронной загрузки файла на сервер воспользуйтесь формой ниже.
       </p>
 
-      <a href="list?page=1" class="button24">Список файлов</a>
+      <a href="list?page=1" class="button-list">Список файлов</a>
+      <a href="register" class="button-register">Регистрация</a>
 
       <div class="row">
         <div class="col-md-6 col-sm-12">

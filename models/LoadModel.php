@@ -28,9 +28,9 @@ class LoadModel extends Model
             $newFileName = md5(time() . $fileName);
 
             // Директория загрузки файлов
-            $dest_path = UPLOAD_PATH . $newFileName;
+            $destPath = UPLOAD_PATH . $newFileName;
 
-            if (move_uploaded_file($fileTmpPath, $dest_path)) 
+            if (move_uploaded_file($fileTmpPath, $destPath)) 
             {
                 $message ='Файл успешно загружен.';
             }
@@ -43,7 +43,6 @@ class LoadModel extends Model
             $infoFile['size'] = $fileSize; 
             $infoFile['type'] = $fileType; 
             $infoFile['hash'] = $newFileName;
-            $infoFile['date_upload'] = date("Y-m-d H:i:s"); 
         }
         else
         {

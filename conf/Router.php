@@ -5,6 +5,7 @@ require(CONTROLLER_PATH . "LoginController.php");
 require(CONTROLLER_PATH . "LoadController.php");
 require(CONTROLLER_PATH . "ErrorController.php");
 require(CONTROLLER_PATH . "FileController.php");
+require(CONTROLLER_PATH . "RegisterController.php");
 
 class Routing 
 {
@@ -28,6 +29,11 @@ class Routing
                 $controller = new LoadController();
                 $controller->loadFile();  
                 break;  
+
+            case "/register":
+                $controller = new RegisterController();
+                $controller->registerPage();  
+                break; 
 
             case "/list":
                 $controller = new FileController();

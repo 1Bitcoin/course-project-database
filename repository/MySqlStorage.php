@@ -14,41 +14,62 @@ class MySqlStorage implements StorageInterface
 
     public function findAll($table)
     {
-        $sql = 'SELECT * FROM ' . $table;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
+        $sql = "SELECT * FROM $table";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
     }
 
-    public function addFile($table, $infoFile)
+    public function addFile($infoFile)
     {
-        $sql = 'INSERT INTO ' . $table . '(date_upload, name, hash, type, size)' . 'VALUES(' . "'" . $infoFile['date_upload'] . "'" . ','
-             . "'" .$infoFile['name'] . "'" . ',' . "'" . $infoFile['hash'] . "'" . ',' . "'" . $infoFile['type'] . "'" . ',' 
-             . $infoFile['size'] . ');';
-                
-        $stmt = $this->connection->prepare($sql);
-        $status = $stmt->execute();
+        $name = $infoFile['name'];
+        $hash = $infoFile['hash'];
+        $type = $infoFile['type'];
+        $size = $infoFile['size'];
+
+        $sql = "INSERT INTO files (`name`, `hash`, `type`, `size`) VALUES ('$name', '$hash', '$type', '$size')";
+        $status = mysqli_query($this->connection, $sql);   
+        
+        return $status;
+    }
+    
+    public function addUser($infoUser)
+    {
+        $email = $infoUser['email'];
+        $hashPassword = $infoUser['hash_password'];
+
+        $sql = "INSERT INTO users (`email`, `hashPassword`) VALUES ('$email', '$hashPassword')";
+        $status = mysqli_query($this->connection, $sql);   
         
         return $status;
     }
 
+    public function checkUniquenessUser($infoUser)
+    {
+        $email = $infoUser['email'];
+        $hashPassword = $infoUser['hash_password'];
+
+        $sql = "SELECT * FROM users WHERE `email` = '$email' AND `hashPassword` = '$hashPassword'";
+        $result = mysqli_query($this->connection, $sql);   
+        
+        return mysqli_num_rows($result);
+    }
+
     public function getCountRows($table)
     {
-        $sql = 'SELECT COUNT(*) FROM ' . $table;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
+        $result = mysqli_query($this->connection, "SELECT * FROM $table");
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return mysqli_num_rows($result);
     }
 
     public function getRowsByLimit($table, $start, $end)
     {
-        $sql = 'SELECT * FROM ' . $table . ' LIMIT ' . $start . ',' . $end;
-        $stmt = $this->connection->prepare($sql);
-        $stmt->execute();
+        $sql = "SELECT * FROM $table LIMIT $start, $end";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $rows;
     }
 
     public function create($part, $data)

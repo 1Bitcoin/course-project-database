@@ -1,9 +1,9 @@
 <?php
 
-require_once(ROOT . '/repository/FileRepositoryInterface.php');
+require_once(ROOT . '/repository/UserRepositoryInterface.php');
 require_once(ROOT . '/repository/StorageInterface.php');
 
-class FileRepository implements FileRepositoryInterface
+class UserRepository implements UserRepositoryInterface
 {
     private $storage;
     
@@ -21,37 +21,42 @@ class FileRepository implements FileRepositoryInterface
     */
     public function all()
     {
-        return $this->storage->findAll('files');
+        return $this->storage->findAll('users');
     }
 
-    public function addFile($infoFile)
+    public function checkUniquenessUser($infoUser)
     {
-        return $this->storage->addFile($infoFile);
+        return $this->storage->checkUniquenessUser($infoUser);
+    }
+
+    public function addUser($infoUser)
+    {
+        return $this->storage->addUser($infoUser);
     }
 
     public function getRowsByLimit($start, $end)
     {
-        return $this->storage->getRowsByLimit('files', $start, $end);
+        return $this->storage->getRowsByLimit('users', $start, $end);
     }
 
     public function getCountRows()
     {
-        return $this->storage->getCountRows('files');
+        return $this->storage->getCountRows('users');
     }
 
     public function create($data)
     {
-        return $this->storage->create('files', $data);
+        return $this->storage->create('users', $data);
     }
 
     public function update($id, $data)
     {
-        return $this->storage->update('files', $id, $data);
+        return $this->storage->update('users', $id, $data);
     }
 
     public function delete($id)
     {
-        return $this->repo->delete('files', $id);
+        return $this->repo->delete('users', $id);
     }
 
 }

@@ -28,7 +28,7 @@ class FileModel extends Model
 
         // Получить число записей в таблице
         $rows = $this->repo->getCountRows(); 
-        $res['count'] = $rows[0]['COUNT(*)'];
+        $res['count'] = $rows;
         
         return $res;
     }

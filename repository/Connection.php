@@ -2,34 +2,30 @@
 
 class Connection
 {
-    protected static $instance;
+    protected static $link;
 
     public static function getInstance() 
     {
-        if (empty(self::$instance)) 
-        {
-            $db_info = array(
+
+        $db_info = array(
             "db_host" => "localhost",
             "db_port" => "3306",
             "db_user" => "root",
             "db_pass" => "1234",
-            "db_name" => "file_hosting",
-            "db_charset" => "UTF-8");
+            "db_name" => "file_hosting");
 
-            try
-            {
-                self::$instance = new PDO("mysql:host=" . $db_info['db_host'] . ';port=' . $db_info['db_port'] . 
-                ';dbname=' . $db_info['db_name'], $db_info['db_user'], $db_info['db_pass']);
+        self::$link = mysqli_connect($db_info['db_host'], $db_info['db_user'], $db_info['db_pass'], $db_info['db_name']);
 
-                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);  
-                self::$instance->query('SET NAMES utf8');
-                self::$instance->query('SET CHARACTER SET utf8');
-            } 
-            catch(PDOException $error) 
-            {
-                echo $error->getMessage();
-            }
+        if (self::$link == false)
+        {
+            //print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
         }
-        return self::$instance;
+        else 
+        {
+            //print("Соединение установлено успешно");
+            mysqli_set_charset(self::$link, "utf8");
+        }
+        
+        return self::$link;
     }
 }
