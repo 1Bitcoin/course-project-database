@@ -24,6 +24,11 @@ class UserRepository implements UserRepositoryInterface
         return $this->storage->findAll('users');
     }
 
+    public function checkExistsUser($infoUser)
+    {
+        return $this->storage->checkExistsUser($infoUser);
+    }
+
     public function checkUniquenessUser($infoUser)
     {
         return $this->storage->checkUniquenessUser($infoUser);

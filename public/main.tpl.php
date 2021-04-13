@@ -25,7 +25,7 @@
       </p>
 
       <a href="list?page=1" class="button-list">Список файлов</a>
-      <a href="register" class="button-register">Регистрация</a>
+      <a href="logout" class="button-logout">Выйти из аккаунта</a>
 
       <div class="row">
         <div class="col-md-6 col-sm-12">

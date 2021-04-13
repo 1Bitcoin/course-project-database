@@ -7,7 +7,6 @@
 <html>
 <head>
 	<title>Авторизация</title>
-   <!--Made with love by Mutiullah Samim -->
    
 	<!--Bootsrap 4 CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -31,18 +30,23 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="email">
+						<input type="text" name="email" class="form-control" placeholder="email">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password">
+						<input type="password" name="password" class="form-control" placeholder="password">
 					</div>
 					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
+						<input type="submit" name="login" value="Login" class="btn float-right login_btn">
 					</div>
+
+                    <?php
+                        echo '<div style="color: red;">' . array_shift($pageData) . '</div><hr>';
+                    ?>
+
 				</form>
 			</div>
 			<div class="card-footer">

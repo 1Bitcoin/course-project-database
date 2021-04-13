@@ -45,12 +45,24 @@ class MySqlStorage implements StorageInterface
         return $status;
     }
 
-    public function checkUniquenessUser($infoUser)
+    public function checkExistsUser($infoUser)
     {
         $email = $infoUser['email'];
         $hashPassword = $infoUser['hash_password'];
 
-        $sql = "SELECT * FROM users WHERE `email` = '$email' AND `hashPassword` = '$hashPassword'";
+        $sql = "SELECT * FROM users WHERE email = '$email' AND hashPassword = '$hashPassword'";
+        $answerSql = mysqli_query($this->connection, $sql);  
+        $result['response'] = mysqli_fetch_assoc($answerSql);
+        $result['nums'] = mysqli_num_rows($answerSql);   
+        
+        return $result;
+    }
+
+    public function checkUniquenessUser($infoUser)
+    {
+        $email = $infoUser['email'];
+
+        $sql = "SELECT * FROM users WHERE email = '$email'";
         $result = mysqli_query($this->connection, $sql);   
         
         return mysqli_num_rows($result);

@@ -7,7 +7,6 @@
 <html>
 <head>
 	<title>Регистрация</title>
-   <!--Made with love by Mutiullah Samim -->
    
 	<!--Bootsrap 4 CDN-->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -49,8 +48,12 @@
 					</div>
 
 					<div class="form-group">
-						<input type="submit" value="Register" class="btn float-right login_btn">
+						<input type="submit" name="register" value="Register" class="btn float-right login_btn">
 					</div>
+
+                    <?php
+                        echo '<div style="color: red;">' . array_shift($pageData) . '</div><hr>';
+                    ?>
 				</form>
 			</div>
 		</div>

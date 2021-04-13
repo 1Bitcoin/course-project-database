@@ -11,18 +11,35 @@ class RegisterModel extends Model
 
     public function userRegister($infoUser)
     {
-        if ($infoUser['hash_password'] == $infoUser['repeat_hash_password'])
+        $errors = array();
+
+        if ($infoUser['email'] == "")
+            $errors[] = "Введите email!";
+
+        if ($infoUser['hash_password'] == "")
+            $errors[] = "Введите пароль!";
+
+        if (!$this->repo->checkUniquenessUser($infoUser))
         {
-            // Если такого пользователя нет в базе данных, то добавляем его.
-            if (!$this->repo->checkUniquenessUser($infoUser))
+            if ($infoUser['hash_password'] == $infoUser['repeat_hash_password'])
             {
-                $status = $this->repo->addUser($infoUser);
+                $infoUser['hash_password'] = md5($infoUser['hash_password']);
+                $infoUser['repeat_hash_password'] = md5($infoUser['repeat_hash_password']);
+                
+                $this->repo->addUser($infoUser);
+            }
+            else
+            {
+                // Введенные пароли не совпадают
+                $errors[] = "Пароли не совпадают!";
             }
         }
         else
         {
-
+            // Пользователь уже зарегистрирован
+            $errors[] = "Пользователь уже зарегистрирован!";
         }
-    }
 
+        return $errors;
+    }
 }

@@ -6,6 +6,7 @@ require(CONTROLLER_PATH . "LoadController.php");
 require(CONTROLLER_PATH . "ErrorController.php");
 require(CONTROLLER_PATH . "FileController.php");
 require(CONTROLLER_PATH . "RegisterController.php");
+require(CONTROLLER_PATH . "LogoutController.php");
 
 class Routing 
 {
@@ -38,6 +39,11 @@ class Routing
             case "/list":
                 $controller = new FileController();
                 $controller->showFiles();  
+                break;  
+
+            case "/logout":
+                $controller = new LogoutController();
+                $controller->logout();  
                 break;  
 
             default:
