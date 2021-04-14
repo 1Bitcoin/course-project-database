@@ -30,8 +30,15 @@ class LoginController extends Controller
         }
         else
         {
-            // Иначе отображаем форму для авторизации
-            $this->view->render($this->pageData);
+            // Иначе отображаем форму для авторизации, если пользователь не авторизован.
+            if (isset($_SESSION['logged_user']))
+            {
+                $this->mainView->render($this->pageData);
+            }
+            else
+            {
+                $this->view->render($this->pageData);
+            } 
         }
     }
 
