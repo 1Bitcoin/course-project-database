@@ -21,15 +21,26 @@ class LoginModel extends Model
 
         $infoUser['hash_password'] = md5($infoUser['hash_password']);
 
+        // Существует ли пользователь с таким email.
         $result = $this->repo->checkExistsUser($infoUser);
 
         if ($result['nums'])
         {
-            $_SESSION['logged_user'] = $result['response'];
+            // Если существует, то проверить подходит ли пароль.
+            $response = $this->repo->checkCoincidenceUser($infoUser);
+            
+            if ($response['response'])
+            {
+                // Если пароль верный, авторизуем.
+                $_SESSION['logged_user'] = $response['response'];
+            }
+            else
+            {
+                $errors[] = "Неверный пароль!";
+            }          
         }
         else
         {
-            // Пользователь не зарегестрирован
             $errors[] = "Пользователь не зарегестрирован!";
         }
 

@@ -48,6 +48,17 @@ class MySqlStorage implements StorageInterface
     public function checkExistsUser($infoUser)
     {
         $email = $infoUser['email'];
+
+        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $answerSql = mysqli_query($this->connection, $sql);  
+        $result['nums'] = mysqli_num_rows($answerSql);   
+        
+        return $result;
+    }
+
+    public function checkCoincidenceUser($infoUser)
+    {
+        $email = $infoUser['email'];
         $hashPassword = $infoUser['hash_password'];
 
         $sql = "SELECT * FROM users WHERE email = '$email' AND hashPassword = '$hashPassword'";
