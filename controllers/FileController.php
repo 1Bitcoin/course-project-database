@@ -36,12 +36,23 @@ class FileController extends Controller
 
     public function getFile() 
     {
-        $hash = $_GET['hash'];
-        $this->pageData = $this->model->getFileByHash($hash);
-
-        if (!empty($this->pageData))
-            $this->view->filePage($this->pageData);
+        if (isset($_GET['hash']))
+        {
+            $hash = $_GET['hash'];
+            $this->pageData = $this->model->getFileByHash($hash);
+    
+            if (empty($this->pageData['error']))
+            {
+                $this->view->filePage($this->pageData['info']);
+            }
+            else
+            {
+                $this->errorView->render($this->pageData['error']);
+            }
+        }
         else
-            $this->errorView->render();
+        {
+            $this->errorView->render($this->pageData);
+        }
     }
 }

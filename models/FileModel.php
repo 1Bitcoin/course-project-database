@@ -38,10 +38,22 @@ class FileModel extends Model
 
     public function getFileByHash($hash)
     {
+        $answer;
+        $error = array();
         $datePage['file'] = $this->repo->getFileByHash($hash);
-        $datePage['user'] = $this->userRepository->getUserById($datePage['file']['user_id']);
-        $datePage['role'] = $this->roleRepository->getRoleById($datePage['user']['role_id']);
-        
-        return $datePage;
+
+        if (!empty($datePage['file']))
+        {
+            $datePage['user'] = $this->userRepository->getUserById($datePage['file']['user_id']);
+            $datePage['role'] = $this->roleRepository->getRoleById($datePage['user']['role_id']);
+            $answer['info'] = $datePage;
+        }
+        else
+        {
+            $error[] = "Файла с хэшем " . $hash . " нет на сервере";
+            $answer['error'] = $error;
+        }
+
+        return $answer;
     }
 }
