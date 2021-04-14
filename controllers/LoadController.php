@@ -18,6 +18,7 @@ class LoadController extends Controller
     public function loadFile()
     {
         $dataFiles = $_FILES;
+        $dataFiles['user_id'] = $_SESSION['logged_user']['id'];
         $infoFile = $this->model->loadFile($dataFiles);
         $this->model->addFile($infoFile);
     }

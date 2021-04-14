@@ -46,6 +46,7 @@ class RegisterController extends Controller
     {
         // Получаем данные из формы, экранируем(для безопасности), пароли хэшируем.
         $infoUser['email'] = htmlspecialchars($_POST['email']);
+        $infoUser['name'] = htmlspecialchars($_POST['name']);
         $infoUser['hash_password'] = htmlspecialchars($_POST['password']);
         $infoUser['repeat_hash_password'] = htmlspecialchars($_POST['repeat_password']);
 

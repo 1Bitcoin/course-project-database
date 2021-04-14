@@ -21,14 +21,42 @@ class MySqlStorage implements StorageInterface
         return $rows;
     }
 
+    public function getFileByHash($hash)
+    {
+        $sql = "SELECT * FROM file WHERE hash = '$hash'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
+        
+        return $rows;
+    }
+
+    public function getUserById($id)
+    {
+        $sql = "SELECT * FROM user WHERE id = '$id'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
+        
+        return $rows;
+    }
+
+    public function getRoleById($id)
+    {
+        $sql = "SELECT * FROM role WHERE id = '$id'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
+        
+        return $rows;
+    }
+
     public function addFile($infoFile)
     {
         $name = $infoFile['name'];
         $hash = $infoFile['hash'];
         $type = $infoFile['type'];
         $size = $infoFile['size'];
+        $user_id = $infoFile['user_id'];
 
-        $sql = "INSERT INTO files (`name`, `hash`, `type`, `size`) VALUES ('$name', '$hash', '$type', '$size')";
+        $sql = "INSERT INTO file (`name`, `hash`, `type`, `size`, `user_id`) VALUES ('$name', '$hash', '$type', '$size', '$user_id')";
         $status = mysqli_query($this->connection, $sql);   
         
         return $status;
@@ -37,9 +65,11 @@ class MySqlStorage implements StorageInterface
     public function addUser($infoUser)
     {
         $email = $infoUser['email'];
+        $name = $infoUser['name'];
         $hashPassword = $infoUser['hash_password'];
 
-        $sql = "INSERT INTO users (`email`, `hashPassword`) VALUES ('$email', '$hashPassword')";
+        $sql = "INSERT INTO user (`email`, `name`, `hash_password`) VALUES ('$email', '$name', '$hashPassword')";
+        echo $sql;
         $status = mysqli_query($this->connection, $sql);   
         
         return $status;
@@ -49,21 +79,8 @@ class MySqlStorage implements StorageInterface
     {
         $email = $infoUser['email'];
 
-        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $sql = "SELECT * FROM user WHERE email = '$email'";
         $answerSql = mysqli_query($this->connection, $sql);  
-        $result['nums'] = mysqli_num_rows($answerSql);   
-        
-        return $result;
-    }
-
-    public function checkCoincidenceUser($infoUser)
-    {
-        $email = $infoUser['email'];
-        $hashPassword = $infoUser['hash_password'];
-
-        $sql = "SELECT * FROM users WHERE email = '$email' AND hashPassword = '$hashPassword'";
-        $answerSql = mysqli_query($this->connection, $sql);  
-        $result['response'] = mysqli_fetch_assoc($answerSql);
         $result['nums'] = mysqli_num_rows($answerSql);   
         
         return $result;
@@ -73,10 +90,23 @@ class MySqlStorage implements StorageInterface
     {
         $email = $infoUser['email'];
 
-        $sql = "SELECT * FROM users WHERE email = '$email'";
+        $sql = "SELECT * FROM user WHERE email = '$email'";
         $result = mysqli_query($this->connection, $sql);   
         
         return mysqli_num_rows($result);
+    }
+
+    public function checkCoincidenceUser($infoUser)
+    {
+        $email = $infoUser['email'];
+        $hashPassword = $infoUser['hash_password'];
+
+        $sql = "SELECT * FROM user WHERE email = '$email' AND hash_password = '$hashPassword'";
+        $answerSql = mysqli_query($this->connection, $sql);  
+        $result['response'] = mysqli_fetch_assoc($answerSql);
+        $result['nums'] = mysqli_num_rows($answerSql);   
+        
+        return $result;
     }
 
     public function getCountRows($table)

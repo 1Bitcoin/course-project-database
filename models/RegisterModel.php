@@ -16,11 +16,14 @@ class RegisterModel extends Model
         if ($infoUser['email'] == "")
             $errors[] = "Введите email!";
 
+        if ($infoUser['name'] == "")
+            $errors[] = "Введите name!";
+
         if ($infoUser['hash_password'] == "")
             $errors[] = "Введите пароль!";
 
         if (!$this->repo->checkUniquenessUser($infoUser))
-        {
+        {           
             if ($infoUser['hash_password'] == $infoUser['repeat_hash_password'])
             {
                 $infoUser['hash_password'] = md5($infoUser['hash_password']);

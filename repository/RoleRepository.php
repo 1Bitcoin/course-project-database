@@ -1,9 +1,9 @@
 <?php
 
-require_once(ROOT . '/repository/FileRepositoryInterface.php');
+require_once(ROOT . '/repository/RoleRepositoryInterface.php');
 require_once(ROOT . '/repository/StorageInterface.php');
 
-class FileRepository implements FileRepositoryInterface
+class RoleRepository implements RoleRepositoryInterface
 {
     private $storage;
     
@@ -21,42 +21,27 @@ class FileRepository implements FileRepositoryInterface
     */
     public function all()
     {
-        return $this->storage->findAll('file');
+        return $this->storage->findAll('role');
     }
     
-    public function getFileByHash($hash)
+    public function getRoleById($id)
     {
-        return $this->storage->getFileByHash($hash);
-    }
-
-    public function addFile($infoFile)
-    {
-        return $this->storage->addFile($infoFile);
-    }
-
-    public function getRowsByLimit($start, $end)
-    {
-        return $this->storage->getRowsByLimit('file', $start, $end);
-    }
-
-    public function getCountRows()
-    {
-        return $this->storage->getCountRows('file');
+        return $this->storage->getRoleById($id);
     }
 
     public function create($data)
     {
-        return $this->storage->create('file', $data);
+        return $this->storage->create('role', $data);
     }
 
     public function update($id, $data)
     {
-        return $this->storage->update('file', $id, $data);
+        return $this->storage->update('role', $id, $data);
     }
 
     public function delete($id)
     {
-        return $this->repo->delete('file', $id);
+        return $this->repo->delete('role', $id);
     }
 
 }

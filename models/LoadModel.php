@@ -21,6 +21,7 @@ class LoadModel extends Model
             $fileName = $dataFile['file']['name'];
             $fileSize = $dataFile['file']['size'];
             $fileType = $dataFile['file']['type'];
+            $fileUser = $dataFile['user_id'];
             $fileNameCmps = explode(".", $fileName);
             $fileExtension = strtolower(end($fileNameCmps));
 
@@ -43,6 +44,7 @@ class LoadModel extends Model
             $infoFile['size'] = $fileSize; 
             $infoFile['type'] = $fileType; 
             $infoFile['hash'] = $newFileName;
+            $infoFile['user_id'] = $fileUser;
         }
         else
         {

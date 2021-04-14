@@ -24,6 +24,11 @@ class UserRepository implements UserRepositoryInterface
         return $this->storage->findAll('users');
     }
 
+    public function getUserById($id)
+    {
+        return $this->storage->getUserById($id);
+    }
+
     public function checkCoincidenceUser($infoUser)
     {
         return $this->storage->checkCoincidenceUser($infoUser);

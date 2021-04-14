@@ -41,6 +41,11 @@ class Routing
                 $controller->showFiles();  
                 break;  
 
+            case "/file":
+                $controller = new FileController();
+                $controller->getFile();  
+                break;  
+
             case "/logout":
                 $controller = new LogoutController();
                 $controller->logout();  

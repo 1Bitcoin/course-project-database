@@ -4,32 +4,44 @@ require_once(MODEL_PATH . 'Model.php');
 
 class FileModel extends Model 
 {
-    public function __construct(FileRepository $fileRepository) 
+    protected $userRepository;
+    protected $roleRepository;
+
+    public function __construct(FileRepository $fileRepository, UserRepository $userRepository, RoleRepository $roleRepository) 
     {
         $this->repo = $fileRepository;
+        $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     public function filesPagination($limit, $page)
     {
         // Проверить номер страницы
         if (!isset($page)) 
-        {  
             $page = 1;  
-        } 
 
         $page_first_result = ($page - 1) * $limit; 
         $table = 'files';
 
         // Формируем данные для передачи в html форму
-        $res['title'] = "Список файлов";
-        $res['files'] = $this->repo->getRowsByLimit($page_first_result, $limit);    
-        $res['limit'] = $limit; 
-        $res['page'] = $page;
+        $result['title'] = "Список файлов";
+        $result['files'] = $this->repo->getRowsByLimit($page_first_result, $limit);    
+        $result['limit'] = $limit; 
+        $result['page'] = $page;
 
         // Получить число записей в таблице
         $rows = $this->repo->getCountRows(); 
-        $res['count'] = $rows;
+        $result['count'] = $rows;
         
-        return $res;
+        return $result;
+    }
+
+    public function getFileByHash($hash)
+    {
+        $datePage['file'] = $this->repo->getFileByHash($hash);
+        $datePage['user'] = $this->userRepository->getUserById($datePage['file']['user_id']);
+        $datePage['role'] = $this->roleRepository->getRoleById($datePage['user']['role_id']);
+        
+        return $datePage;
     }
 }

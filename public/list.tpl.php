@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageData['title'];?></title>
+    <title>Список файлов</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.js"></script>
@@ -17,18 +17,12 @@
         <thead>  
         <tr>  
             <th>Имя файла</th>  
-            <th>Дата загрузки</th> 
-            <th>Рейтинг</th> 
-            <th>Размер</th> 
         </tr>  
         </thead>  
         <tbody>   
             <?php foreach($pageData['files'] as $file): ?>
                 <tr>  
-                    <td><?php echo $file["name"]; ?></td>  
-                    <td><?php echo $file["date_upload"]; ?></td>   
-                    <td><?php echo $file["raiting"]; ?></td>   
-                    <td><?php echo $file["size"]; ?></td>   
+                    <td><a href="file?hash=<?php echo $file["hash"]; ?>"> <?php echo $file["name"]; ?></td>  
                 </tr>
             <?php endforeach; ?> 
         </tbody>  

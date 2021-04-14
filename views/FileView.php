@@ -9,4 +9,10 @@ class FileView extends View
         $pageTpl = '/public/list.tpl.php';
         include ROOT . $pageTpl;
     }
+
+    public function filePage($pageData) 
+    {
+        $pageTpl = '/public/file.tpl.php';
+        include ROOT . $pageTpl;
+    }
 }
