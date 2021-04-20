@@ -50,8 +50,9 @@ class LoginController extends Controller
 
         $this->pageData = $this->model->userLogin($infoUser);
 
-       if (empty($this->pageData))
+       if (empty($this->pageData['errors']))
         {
+            $_SESSION['logged_user'] = $this->pageData['userInfo'];
             $this->mainView->render($this->pageData);
         }
         else

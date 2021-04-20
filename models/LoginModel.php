@@ -11,13 +11,13 @@ class LoginModel extends Model
     
     public function userLogin($infoUser)
     {
-        $errors = array();
+        $answer = array();
 
         if ($infoUser['email'] == "")
-            $errors[] = "Введите email!";
+            $answer['errors'] = "Введите email!";
 
         if ($infoUser['hash_password'] == "")
-            $errors[] = "Введите пароль!";
+            $answer['errors'] = "Введите пароль!";
 
         $infoUser['hash_password'] = md5($infoUser['hash_password']);
 
@@ -32,18 +32,18 @@ class LoginModel extends Model
             if ($response['response'])
             {
                 // Если пароль верный, авторизуем.
-                $_SESSION['logged_user'] = $response['response'];
+                $answer['userInfo'] = $response['response'];
             }
             else
             {
-                $errors[] = "Неверный пароль!";
+                $answer['errors'] = "Неверный пароль!";
             }          
         }
         else
         {
-            $errors[] = "Пользователь не зарегестрирован!";
+            $answer['errors'] = "Пользователь не зарегестрирован!";
         }
 
-        return $errors;
+        return $answer;
     }
 }
