@@ -51,7 +51,10 @@
 			</div>
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
-					Don't have an account?<a href="/register">Sign Up</a>
+					Не имеете аккаунта?<a href="/register">Регистрация</a>
+				</div>
+                <div class="d-flex justify-content-center links">
+					<a href="/">На главную</a>
 				</div>
 			</div>
 		</div>

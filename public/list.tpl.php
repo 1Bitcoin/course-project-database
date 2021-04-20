@@ -10,23 +10,58 @@
     <script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="../css/simplePagination.css" />
+    <link href="../css/styles-list-button.css" rel="stylesheet">
+    <link href="../css/style-table.css" rel="stylesheet">
+    <link href="../css/style-header.css" rel="stylesheet">
+    <link href="../css/style-logo.css" rel="stylesheet">
     <script src="../js/simplePagination.js"></script>
 </head>
 <body>
-    <table class="table table-bordered">  
-        <thead>  
-        <tr>  
-            <th>Имя файла</th>  
-        </tr>  
-        </thead>  
-        <tbody>   
-            <?php foreach($pageData['files'] as $file): ?>
-                <tr>  
-                    <td><a href="file?hash=<?php echo $file["hash"]; ?>"> <?php echo $file["name"]; ?></td>  
-                </tr>
-            <?php endforeach; ?> 
-        </tbody>  
-    </table>
+    <div id = "wrap">
+        <header>
+        <p class="logo"><a href="/">
+            <img src="/public/logo.png" alt="Логотип в шапке" width="80" height="80" />
+        </a></p>
+        </header>
+    </div>
+
+    <div class="my-table">
+    <table>
+    <caption>
+        Холодные закуски
+    </caption>
+    <tr>
+        <th class="test">Наименование</th> 
+        <th>Выход, гр.</th>
+        <th>Цена, руб.</th>
+    </tr>
+    <tr>
+        <td>Ассорти из овощей, зелени и сыра</td>
+        <td>250</td>
+        <td>190</td>
+    </tr>
+    <tr>
+        <td>Ассорти мясное</td>
+        <td>250</td>
+        <td>300</td>
+    </tr>
+    <tr>
+        <td>Ассорти рыбное (семга с/с, форель с/с)</td>
+        <td>250</td>
+        <td>350</td>
+    </tr>
+    <tr>
+        <td>Ассорти грибное</td>
+        <td>120</td>
+        <td>150</td>
+    </tr>
+    <tr>
+        <td>Соления из бочки (помидоры, огурцы, перец, чеснок, капуста)</td>
+        <td>250</td>
+        <td>180</td>
+    </tr>
+</table>
+</div>
         
     <?php  
     $total_records = $pageData['count'];  
@@ -51,7 +86,6 @@ $(document).ready(function(){
     });
 });
 </script>
-
 
 </body>
 </html>

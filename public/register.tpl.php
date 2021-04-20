@@ -52,10 +52,17 @@
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
 						<input type="password" name= "repeat_password" class="form-control" placeholder="repeat password">
+                        
 					</div>
 
 					<div class="form-group">
 						<input type="submit" name="register" value="Register" class="btn float-right login_btn">
+                        <div class="d-flex justify-content-center links">
+                            Имеете аккаунт?<a href="/login">Авторизация</a>
+                        </div>
+                        <div class="d-flex justify-content-center links">
+                            <a href="/">На главную</a>
+                        </div>
 					</div>
 
                     <?php
