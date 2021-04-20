@@ -28,52 +28,34 @@
     <div class="my-table">
     <table>
     <caption>
-        Холодные закуски
+        Список файлов
     </caption>
     <tr>
-        <th class="test">Наименование</th> 
-        <th>Выход, гр.</th>
-        <th>Цена, руб.</th>
+        <th class="test"></th> 
     </tr>
-    <tr>
-        <td>Ассорти из овощей, зелени и сыра</td>
-        <td>250</td>
-        <td>190</td>
-    </tr>
-    <tr>
-        <td>Ассорти мясное</td>
-        <td>250</td>
-        <td>300</td>
-    </tr>
-    <tr>
-        <td>Ассорти рыбное (семга с/с, форель с/с)</td>
-        <td>250</td>
-        <td>350</td>
-    </tr>
-    <tr>
-        <td>Ассорти грибное</td>
-        <td>120</td>
-        <td>150</td>
-    </tr>
-    <tr>
-        <td>Соления из бочки (помидоры, огурцы, перец, чеснок, капуста)</td>
-        <td>250</td>
-        <td>180</td>
-    </tr>
+
+    <?php foreach($pageData['files'] as $file): ?>
+        <tr>  
+            <td><a href="file?hash=<?php echo $file["hash"]; ?>"> <?php echo $file["name"]; ?></td>  
+        </tr>
+    <?php endforeach; ?> 
+
 </table>
 </div>
-        
-    <?php  
-    $total_records = $pageData['count'];  
-    $total_pages = ceil($total_records / $pageData['limit']);  
-    $pagLink = "<nav><ul class='pagination'>";  
+   
+<div class="php-pagination">
+<?php  
+$total_records = $pageData['count'];  
+$total_pages = ceil($total_records / $pageData['limit']);  
+$pagLink = "<nav><ul class='pagination'>";  
 
-    for ($i = 1; $i <= $total_pages; $i++) 
-    {  
-        $pagLink .= "<li><a href='list?page=".$i."'>".$i."</a></li>";  
-    };
-    echo $pagLink . "</ul></nav>";  
-    ?>
+for ($i = 1; $i <= $total_pages; $i++) 
+{  
+    $pagLink .= "<li><a href='list?page=".$i."'>".$i."</a></li>";  
+};
+echo $pagLink . "</ul></nav>";  
+?>
+</div>
 
 <script>
 $(document).ready(function(){
