@@ -7,11 +7,13 @@ class FileModel extends Model
     protected $userRepository;
     protected $roleRepository;
 
-    public function __construct(FileRepository $fileRepository, UserRepository $userRepository, RoleRepository $roleRepository) 
+    public function __construct(FileRepository $fileRepository, UserRepository $userRepository, 
+                                RoleRepository $roleRepository, CommentRepository $commentRepository) 
     {
         $this->repo = $fileRepository;
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     public function filesPagination($limit, $page)
@@ -38,8 +40,7 @@ class FileModel extends Model
 
     public function getFileByHash($hash)
     {
-        $answer;
-        $error = array();
+        $answer = array();
         $datePage['file'] = $this->repo->getFileByHash($hash);
 
         if (!empty($datePage['file']))
@@ -50,10 +51,28 @@ class FileModel extends Model
         }
         else
         {
-            $error[] = "Файла с хэшем " . $hash . " нет на сервере";
-            $answer['error'] = $error;
+            $answer['error'] = "Файла с хэшем " . $hash . " нет на сервере";
         }
 
         return $answer;
+    } 
+
+    public function getCommentFile($idFile)
+    {
+        $comment = $this->commentRepository->getCommentFile($idFile);
+
+        return $comment;
+    }
+
+    public function addCommentFile($infoComment)
+    {
+        $fileInfo = $this->repo->getFileByHash($infoComment['hash_file']);
+
+        $infoComment['user_id'] = $fileInfo['user_id'];
+        $infoComment['file_id'] = $fileInfo['id'];
+
+        $status = $this->commentRepository->addCommentFile($infoComment);
+
+        return $status;
     }
 }

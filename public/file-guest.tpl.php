@@ -39,7 +39,6 @@
           <div class="panel-body">
             <ul id="myTab" class="nav nav-pills">
               <li class="active"><a href="#detail" data-toggle="tab">О файле</a></li>
-              <li class=""><a href="#contact" data-toggle="tab">Написать комментарий</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
               <hr>
@@ -78,19 +77,6 @@
                   </tbody>
                 </table>
               </div>
-              <div class="tab-pane fade" id="contact">
-                <p></p>
-                <form method="post" action="/file?comment=<?php echo $pageData['file']['hash']; ?>">
-                  <div class="form-group">
-                    <label>Текст Вашего комментария</label>
-                    <textarea type="text" class="form-control rounded" name="comment" style="height: 100px;"></textarea>
-                    <p class="help-block">Текст комментария будет отправлен на страницу файла</p>
-                  </div>
-                  <div class="form-group">
-                    <button type="submit" class="btn btn-success" data-original-title="" title="">Отправить</button>
-                  </div>
-                </form>
-              </div>
             </div>
           </div>
         </div>
@@ -98,7 +84,7 @@
     </div>
   </div>
 
-<?php foreach($pageData['comment'] as $comment): ?>
+  <?php foreach($pageData['comment'] as $comment): ?>
     <div class ="panel panel-default">
     <h5>Дата комментария: <?php echo $comment['date_create']; ?></h3>
     <h4><?php echo $comment['role_name']; ?>: <?php echo $comment['name']; ?> </h4>
