@@ -67,8 +67,7 @@ class FileModel extends Model
     public function addCommentFile($infoComment)
     {
         $fileInfo = $this->repo->getFileByHash($infoComment['hash_file']);
-
-        $infoComment['user_id'] = $fileInfo['user_id'];
+        $infoComment['user_id'] = $this->userRepository->getUserIdByEmail($infoComment['user_email'])['id'];
         $infoComment['file_id'] = $fileInfo['id'];
 
         $status = $this->commentRepository->addCommentFile($infoComment);

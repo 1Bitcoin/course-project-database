@@ -16,11 +16,19 @@ class MySqlStorage implements StorageInterface
     {
         $sql = "SELECT comment.content, comment.date_create, comment.raiting, user.name, user.raiting, 
                 role.name AS role_name FROM comment JOIN user ON comment.user_id=user.id JOIN role on role.id = user.role_id 
-                WHERE file_id = '$idFile';
-        ";
+                WHERE file_id = '$idFile';";
 
         $result = mysqli_query($this->connection, $sql);
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        
+        return $rows;
+    }
+
+    public function getUserIdByEmail($email)
+    {
+        $sql = "SELECT id FROM user WHERE email = '$email'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
         
         return $rows;
     }
