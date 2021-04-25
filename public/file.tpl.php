@@ -2,26 +2,31 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="../css/file.css" />
 <link rel="stylesheet" href="../css/style-like-button.css" />
+<link href="../css/style-header.css" rel="stylesheet">
+<link href="../css/style-logo.css" rel="stylesheet">
 <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
 <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
 <title>Информация о файле</title>
 
-<br>
-<br>
-<br>
+<div id = "wrap">
+    <header>
+    <p class="logo"><a href="/">
+        <img src="/public/logo.png" alt="Логотип в шапке" width="80" height="80" />
+    </a></p>
+    </header>
+</div>
 
 <div class="container">
   <div id="main">
-
     <div class="row" id="real-estates-detail">
       <div class="col-lg-4 col-md-4 col-xs-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <header class="panel-title">
+            <div class="panel-title">
               <div class="text-center">
                 <strong>Пользователь сайта</strong>
               </div>
-            </header>
+            </div>
           </div>
           <div class="panel-body">
             <div class="text-center" id="author">
