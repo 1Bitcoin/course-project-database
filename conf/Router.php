@@ -43,7 +43,7 @@ class Routing
 
             case "/file":
                 $controller = new FileController();
-                $controller->getFile();  
+                $controller->processingRequest();  
                 break;  
 
             case "/logout":

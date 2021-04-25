@@ -36,17 +36,34 @@ class FileController extends Controller
         $this->view->render($this->pageData);
     }
 
-    public function getFile() 
+    public function processingRequest() 
+    {
+        if (isset($_POST['comment']) && isset($_GET['hash']))
+        {
+            $this->addCommentFile();
+        }
+        else if (isset($_GET['hash']))
+        {
+            $this->getFile();
+        }
+        else
+        {
+            $this->errorView->render($this->pageData);
+        }
+    }
+
+    public function getFile()
     {
         if (isset($_GET['hash']))
         {
             $hash = $_GET['hash'];
 
             $this->pageData = $this->model->getFileByHash($hash);
-            $this->pageData['info']['comment'] = $this->model->getCommentFile($this->pageData['info']['file']['id']);
     
             if (empty($this->pageData['error']))
             {
+                $this->pageData['info']['comment'] = $this->model->getCommentFile($this->pageData['info']['file']['id']);
+                
                 if (isset($_SESSION['logged_user']))
                 {
                     $this->view->filePage($this->pageData['info']);
@@ -61,10 +78,6 @@ class FileController extends Controller
                 $this->errorView->render($this->pageData['error']);
             }
         }
-        else if (isset($_GET['comment']))
-        {
-            $this->addCommentFile();
-        }
         else
         {
             $this->errorView->render($this->pageData);
@@ -73,7 +86,7 @@ class FileController extends Controller
 
     public function addCommentFile()
     {
-        $hash = $_GET['comment'];
+        $hash = $_GET['hash'];
 
         // Получаем данные из формы
         $infoComment['comment'] = htmlspecialchars($_POST['comment']);

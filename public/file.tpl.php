@@ -80,7 +80,7 @@
               </div>
               <div class="tab-pane fade" id="contact">
                 <p></p>
-                <form method="post" action="/file?comment=<?php echo $pageData['file']['hash']; ?>">
+                <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
                   <div class="form-group">
                     <label>Текст Вашего комментария</label>
                     <textarea type="text" class="form-control rounded" name="comment" style="height: 100px;"></textarea>

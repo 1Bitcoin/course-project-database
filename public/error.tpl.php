@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title><?php echo $pageData['title'];?></title>
+<title>Страница не найдена</title>
 <meta charset="utf-8">
 
 <style type="text/css">
