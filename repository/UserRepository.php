@@ -76,7 +76,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function delete($id)
     {
-        return $this->repo->delete('users', $id);
+        return $this->storage->delete('users', $id);
     }
 
 }

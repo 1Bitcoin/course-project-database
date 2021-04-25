@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="https://bootstraptema.ru/plugins/2015/bootstrap3/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link rel="stylesheet" href="../css/file.css" />
+<link rel="stylesheet" href="../css/style-like-button.css" />
 <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
 <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
 <title>Информация о файле</title>
@@ -69,7 +70,18 @@
                     </tr>
                     <tr>
                       <td class="active">Рейтинг файла:</td>
-                      <td><?php echo $pageData['file']['raiting']; ?></td>
+                      <span class="colortext"></span>
+                      <td><?php echo $pageData['file']['raiting']; ?> &nbsp;
+                            <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+                                <button class="dislike" type="submit" name="score" value="-1">
+                                    <i class="fa fa-thumbs-o-down" aria-hidden="flas"></i>
+                                </button>
+
+                                <button class="like" type="submit" name="score" value="1">
+                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                </button>
+                            </form>                      
+                      </td>
                     </tr>
                     <tr>
                       <td class="active">Ссылка для скачивания:</td>

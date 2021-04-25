@@ -8,6 +8,7 @@ require_once(ROOT . '/repository/FileRepository.php');
 require_once(ROOT . '/repository/UserRepository.php');
 require_once(ROOT . '/repository/RoleRepository.php');
 require_once(ROOT . '/repository/CommentRepository.php');
+require_once(ROOT . '/repository/ScoreRepository.php');
 require_once(ROOT . '/repository/MySqlStorage.php');
 
 class FileController extends Controller 
@@ -20,8 +21,9 @@ class FileController extends Controller
         $userRepository = new UserRepository($myStorage);
         $roleRepository = new RoleRepository($myStorage);
         $commentRepository = new CommentRepository($myStorage);
+        $scoreRepository = new ScoreRepository($myStorage);
 
-        $this->model = new FileModel($fileRepository, $userRepository, $roleRepository, $commentRepository);
+        $this->model = new FileModel($fileRepository, $userRepository, $roleRepository, $commentRepository, $scoreRepository);
 
         $this->view = new FileView();
         $this->errorView = new ErrorView();
@@ -42,6 +44,10 @@ class FileController extends Controller
         {
             $this->addCommentFile();
         }
+        else if (isset($_POST['score']) && isset($_GET['hash']))
+        {
+            $this->setScoreFile();
+        }
         else if (isset($_GET['hash']))
         {
             $this->getFile();
@@ -58,12 +64,16 @@ class FileController extends Controller
         {
             $hash = $_GET['hash'];
 
+            // Получаем информацию о файле.
             $this->pageData = $this->model->getFileByHash($hash);
     
             if (empty($this->pageData['error']))
             {
+                // Если файл получили - получаем комментарии к нему.
                 $this->pageData['info']['comment'] = $this->model->getCommentFile($this->pageData['info']['file']['id']);
-                
+
+                // Если пользователь авторизирован - добавить форму для написания комментария
+                // иначе - не добавлять.
                 if (isset($_SESSION['logged_user']))
                 {
                     $this->view->filePage($this->pageData['info']);
@@ -94,6 +104,21 @@ class FileController extends Controller
         $infoComment['user_email'] = $_SESSION['logged_user']['email'];
 
         $status = $this->model->addCommentFile($infoComment);
+
+        // Переадресация на страницу файла
+        $url = "https://iu7.ru/file?hash=" . $hash;
+        header("Location: $url");
+    }
+
+    public function setScoreFile()
+    {
+        $hash = $_GET['hash'];
+
+        $infoScore['hash_file'] = $hash;
+        $infoScore['value'] = $_POST['score'];
+        $infoScore['user_email'] = $_SESSION['logged_user']['email'];
+
+        $this->model->setScoreFile($infoScore);
 
         // Переадресация на страницу файла
         $url = "https://iu7.ru/file?hash=" . $hash;

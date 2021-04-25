@@ -6,14 +6,17 @@ class FileModel extends Model
 {
     protected $userRepository;
     protected $roleRepository;
+    protected $scoreRepository;
+    protected $commentRepository;
 
     public function __construct(FileRepository $fileRepository, UserRepository $userRepository, 
-                                RoleRepository $roleRepository, CommentRepository $commentRepository) 
+                                RoleRepository $roleRepository, CommentRepository $commentRepository, ScoreRepository $scoreRepository) 
     {
         $this->repo = $fileRepository;
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->commentRepository = $commentRepository;
+        $this->scoreRepository = $scoreRepository;
     }
 
     public function filesPagination($limit, $page)
@@ -72,6 +75,21 @@ class FileModel extends Model
 
         $status = $this->commentRepository->addCommentFile($infoComment);
 
+        return $status;
+    }
+
+    public function setScoreFile($infoScore)
+    {
+        $fileInfo = $this->repo->getFileByHash($infoScore['hash_file']);
+        $infoScore['user_id'] = $this->userRepository->getUserIdByEmail($infoScore['user_email'])['id'];
+        $infoScore['file_id'] = $fileInfo['id'];
+
+        // Обновляем или добавляем запись в таблицу score_file об оценке файла пользователем.
+        $this->scoreRepository->setScoreFile($infoScore);
+
+        // Обновляем общий рейтинг файла.
+        $status = $this->repo->updateScoreFile($infoScore);
+        
         return $status;
     }
 }

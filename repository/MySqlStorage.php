@@ -12,6 +12,52 @@ class MySqlStorage implements StorageInterface
         $this->connection = Connection::getInstance();
     }
 
+    public function updateScoreFile($infoScore)
+    {
+        $file_id = $infoScore['file_id'];
+
+        // Получаем сумму оценок всех пользователей.
+        $sqlPrepare = "SELECT SUM(type_score) as total FROM score_file WHERE file_id = '$file_id'";
+        $result = mysqli_query($this->connection, $sqlPrepare);
+        $rows = mysqli_fetch_assoc($result);
+
+        $value = $rows['total'];
+
+        // Устанавливаем полученную сумму как значение рейтинга файла
+        $sql = "UPDATE file SET date_upload = date_upload, raiting = '$value' WHERE id = '$file_id'";
+        $status = mysqli_query($this->connection, $sql);
+        
+        return $status;
+    }
+
+    public function setScoreFile($infoScore)
+    {
+        $value = $infoScore['value'];
+        $user_id = $infoScore['user_id'];
+        $file_id = $infoScore['file_id'];
+
+        // Получаем id записи с оценкой к файлу от пользователя, если она есть
+        $sqlPrepare = "SELECT id FROM score_file WHERE user_id = '$user_id' AND file_id = '$file_id'";
+        $result = mysqli_query($this->connection, $sqlPrepare);
+        $rows = mysqli_fetch_assoc($result);
+
+        // Если запись уже существует - обновляем поле type_score
+        // иначе - добавляем новую запись.
+        if (isset($rows['id']))
+        {
+            $idRow = $rows['id'];
+            $sql = "UPDATE score_file SET type_score = '$value' WHERE id = '$idRow'";
+        }
+        else
+        {
+            $sql = "INSERT INTO score_file (`user_id`, `file_id`, `type_score`) VALUES ('$user_id', '$file_id', '$value')";
+        }
+
+        $status = mysqli_query($this->connection, $sql); 
+        
+        return $status;
+    }
+
     public function getCommentFile($idFile)
     {
         $sql = "SELECT comment.content, comment.date_create, comment.raiting, user.name, user.raiting, 

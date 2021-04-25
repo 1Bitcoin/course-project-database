@@ -19,6 +19,12 @@ class FileRepository implements FileRepositoryInterface
     /**
     * Работаем с данными и хранилищем через класс репозитория
     */
+
+    public function updateScoreFile($infoFile)
+    {
+        return $this->storage->updateScoreFile($infoFile);
+    }
+
     public function all()
     {
         return $this->storage->findAll('file');
@@ -56,7 +62,7 @@ class FileRepository implements FileRepositoryInterface
 
     public function delete($id)
     {
-        return $this->repo->delete('file', $id);
+        return $this->storage->delete('file', $id);
     }
 
 }

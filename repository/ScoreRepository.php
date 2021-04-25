@@ -1,9 +1,9 @@
 <?php
 
-require_once(ROOT . '/repository/CommentRepositoryInterface.php');
+require_once(ROOT . '/repository/ScoreRepositoryInterface.php');
 require_once(ROOT . '/repository/StorageInterface.php');
 
-class CommentRepository implements CommentRepositoryInterface
+class ScoreRepository implements ScoreRepositoryInterface
 {
     private $storage;
     
@@ -20,34 +20,39 @@ class CommentRepository implements CommentRepositoryInterface
     * Работаем с данными и хранилищем через класс репозитория
     */
 
-    public function getCommentFile($idFile)
+    public function setScoreFile($infoScore)
     {
-        return $this->storage->getCommentFile($idFile);
-    }
-    
-    public function addCommentFile($infoComment)
-    {
-        return $this->storage->addCommentFile($infoComment);
+        return $this->storage->setScoreFile($infoScore);
     }
 
     public function all()
     {
-        return $this->storage->findAll('comment');
+        return $this->storage->findAll('file');
+    }
+
+    public function getRowsByLimit($start, $end)
+    {
+        return $this->storage->getRowsByLimit('file', $start, $end);
+    }
+
+    public function getCountRows()
+    {
+        return $this->storage->getCountRows('file');
     }
 
     public function create($data)
     {
-        return $this->storage->create('comment', $data);
+        return $this->storage->create('file', $data);
     }
 
     public function update($id, $data)
     {
-        return $this->storage->update('comment', $id, $data);
+        return $this->storage->update('file', $id, $data);
     }
 
     public function delete($id)
     {
-        return $this->storage->delete('comment', $id);
+        return $this->storage->delete('file', $id);
     }
 
 }

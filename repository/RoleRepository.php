@@ -41,7 +41,7 @@ class RoleRepository implements RoleRepositoryInterface
 
     public function delete($id)
     {
-        return $this->repo->delete('role', $id);
+        return $this->storage->delete('role', $id);
     }
 
 }
