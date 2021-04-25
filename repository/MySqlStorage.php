@@ -148,7 +148,6 @@ class MySqlStorage implements StorageInterface
         $hashPassword = $infoUser['hash_password'];
 
         $sql = "INSERT INTO user (`email`, `name`, `hash_password`) VALUES ('$email', '$name', '$hashPassword')";
-        echo $sql;
         $status = mysqli_query($this->connection, $sql);   
         
         return $status;
@@ -163,16 +162,6 @@ class MySqlStorage implements StorageInterface
         $result['nums'] = mysqli_num_rows($answerSql);   
         
         return $result;
-    }
-
-    public function checkUniquenessUser($infoUser)
-    {
-        $email = $infoUser['email'];
-
-        $sql = "SELECT * FROM user WHERE email = '$email'";
-        $result = mysqli_query($this->connection, $sql);   
-        
-        return mysqli_num_rows($result);
     }
 
     public function checkCoincidenceUser($infoUser)

@@ -22,7 +22,9 @@ class RegisterModel extends Model
         if ($infoUser['hash_password'] == "")
             $errors[] = "Введите пароль!";
 
-        if (!$this->repo->checkUniquenessUser($infoUser))
+        $result = $this->repo->checkExistsUser($infoUser); 
+
+        if (!$result['nums'])
         {           
             if ($infoUser['hash_password'] == $infoUser['repeat_hash_password'])
             {
