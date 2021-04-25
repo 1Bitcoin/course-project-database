@@ -28,4 +28,9 @@ class Connection
         
         return self::$link;
     }
+
+    public static function closeConnection()
+    {
+        mysqli_close(self::$link);
+    }
 }

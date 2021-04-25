@@ -11,6 +11,11 @@ class MySqlStorage implements StorageInterface
     {
         $this->connection = Connection::getInstance();
     }
+    
+    public function __destruct ()
+    {
+        Connection::closeConnection();
+    }
 
     public function updateScoreFile($infoScore)
     {
