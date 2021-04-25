@@ -27,10 +27,5 @@
       <a href="register" class="button-register">Регистрация</a>
       <a href="login" class="button-login">Авторизация</a>
 
-    <footer class="text-center">
-
-        <p><a href="https://www.iu7.ru">www.iu7.ru</a></p>
-    </footer>
-
   </body>
 </html>
