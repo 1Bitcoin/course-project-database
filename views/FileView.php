@@ -21,4 +21,10 @@ class FileView extends View
         $pageTpl = '/public/file-guest.tpl.php';
         include ROOT . $pageTpl;
     }
+
+    public function redirectionToFile($hash) 
+    {
+        $url = "https://iu7.ru/file?hash=" . $hash;
+        header("Location: $url");
+    }
 }

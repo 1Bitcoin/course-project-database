@@ -9,4 +9,10 @@ class IndexView extends View
         $pageTpl = '/public/main.tpl.php';
         include ROOT . $pageTpl;
     }
+
+    public function renderGuestPage($pageData) 
+    {
+        $pageTpl = '/public/main-guest.tpl.php';
+        include ROOT . $pageTpl;
+    }
 }

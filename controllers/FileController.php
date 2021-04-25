@@ -106,8 +106,7 @@ class FileController extends Controller
         $status = $this->model->addCommentFile($infoComment);
 
         // Переадресация на страницу файла
-        $url = "https://iu7.ru/file?hash=" . $hash;
-        header("Location: $url");
+        $this->view->redirectionToFile($hash);
     }
 
     public function setScoreFile()
@@ -121,7 +120,6 @@ class FileController extends Controller
         $this->model->setScoreFile($infoScore);
 
         // Переадресация на страницу файла
-        $url = "https://iu7.ru/file?hash=" . $hash;
-        header("Location: $url");
+        $this->view->redirectionToFile($hash);
     }
 }
