@@ -9,19 +9,17 @@ require_once(ROOT . '/repository/UserRepository.php');
 require_once(ROOT . '/repository/RoleRepository.php');
 require_once(ROOT . '/repository/CommentRepository.php');
 require_once(ROOT . '/repository/ScoreRepository.php');
-require_once(ROOT . '/repository/MySqlStorage.php');
 
 class FileController extends Controller 
 {
     public $errorView;
     public function __construct() 
     {
-        $myStorage = new MySqlStorage();
-        $fileRepository = new FileRepository($myStorage);
-        $userRepository = new UserRepository($myStorage);
-        $roleRepository = new RoleRepository($myStorage);
-        $commentRepository = new CommentRepository($myStorage);
-        $scoreRepository = new ScoreRepository($myStorage);
+        $fileRepository = new FileRepository();
+        $userRepository = new UserRepository();
+        $roleRepository = new RoleRepository();
+        $commentRepository = new CommentRepository();
+        $scoreRepository = new ScoreRepository();
 
         $this->model = new FileModel($fileRepository, $userRepository, $roleRepository, $commentRepository, $scoreRepository);
 

@@ -5,15 +5,13 @@ require_once(VIEW_PATH . 'RegisterView.php');
 require_once(VIEW_PATH . 'MainView.php');
 require_once(CONTROLLER_PATH . 'Controller.php');
 require_once(ROOT . '/repository/UserRepository.php');
-require_once(ROOT . '/repository/MySqlStorage.php');
 
 class RegisterController extends Controller 
 {
     public $mainView;
     public function __construct() 
     {
-        $myStorage = new MySqlStorage();
-        $userRepository = new UserRepository($myStorage);
+        $userRepository = new UserRepository();
 
         $this->model = new RegisterModel($userRepository);
 

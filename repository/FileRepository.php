@@ -1,68 +1,79 @@
 <?php
 
+require_once(ROOT . '/repository/Connection.php');
 require_once(ROOT . '/repository/FileRepositoryInterface.php');
-require_once(ROOT . '/repository/StorageInterface.php');
 
 class FileRepository implements FileRepositoryInterface
 {
-    private $storage;
+    private $connection;
     
-    /**
-    * В конструктор передаем класс хранилища, который реализует указанный интерфейс
-    * Таким образом мы храним нужное хранилище в свойстве $storage
-    */
-    public function __construct(StorageInterface $storage)
+    public function __construct()
     {
-        $this->storage = $storage;
-    }
-
-    /**
-    * Работаем с данными и хранилищем через класс репозитория
-    */
-
-    public function updateScoreFile($infoFile)
-    {
-        return $this->storage->updateScoreFile($infoFile);
-    }
-
-    public function all()
-    {
-        return $this->storage->findAll('file');
+        $this->connection = Connection::getInstance();
     }
     
+    /*public function __destruct ()
+    {
+        Connection::closeConnection();
+    }*/
+
+    public function updateScoreFile($infoScore)
+    {
+        $file_id = $infoScore['file_id'];
+        $sumScore = $infoScore['sum_score'];
+
+        // Устанавливаем полученную сумму как значение рейтинга файла
+        $sql = "UPDATE file SET date_upload = date_upload, raiting = '$sumScore' WHERE id = '$file_id'";
+        $status = mysqli_query($this->connection, $sql);
+        
+        return $status;
+    }
+
+    public function findAll()
+    {
+        $sql = "SELECT * FROM file";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        
+        return $rows;
+    }
+
     public function getFileByHash($hash)
     {
-        return $this->storage->getFileByHash($hash);
+        $sql = "SELECT * FROM file WHERE hash = '$hash'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
+        
+        return $rows;
     }
 
     public function addFile($infoFile)
     {
-        return $this->storage->addFile($infoFile);
+        $name = $infoFile['name'];
+        $hash = $infoFile['hash'];
+        $type = $infoFile['type'];
+        $size = $infoFile['size'];
+        $user_id = $infoFile['user_id'];
+
+        $sql = "INSERT INTO file (`name`, `hash`, `type`, `size`, `user_id`) VALUES ('$name', '$hash', '$type', '$size', '$user_id')";
+        $status = mysqli_query($this->connection, $sql);   
+        
+        return $status;
+    }
+    
+    public function getCountRows()
+    {
+        $result = mysqli_query($this->connection, "SELECT * FROM file");
+
+        return mysqli_num_rows($result);
     }
 
     public function getRowsByLimit($start, $end)
     {
-        return $this->storage->getRowsByLimit('file', $start, $end);
-    }
+        $sql = "SELECT * FROM file LIMIT $start, $end";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-    public function getCountRows()
-    {
-        return $this->storage->getCountRows('file');
+        return $rows;
     }
-
-    public function create($data)
-    {
-        return $this->storage->create('file', $data);
-    }
-
-    public function update($id, $data)
-    {
-        return $this->storage->update('file', $id, $data);
-    }
-
-    public function delete($id)
-    {
-        return $this->storage->delete('file', $id);
-    }
-
 }

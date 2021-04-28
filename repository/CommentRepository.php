@@ -1,53 +1,43 @@
 <?php
 
+require_once(ROOT . '/repository/Connection.php');
 require_once(ROOT . '/repository/CommentRepositoryInterface.php');
-require_once(ROOT . '/repository/StorageInterface.php');
 
 class CommentRepository implements CommentRepositoryInterface
 {
-    private $storage;
+    private $connection;
     
-    /**
-    * В конструктор передаем класс хранилища, который реализует указанный интерфейс
-    * Таким образом мы храним нужное хранилище в свойстве $storage
-    */
-    public function __construct(StorageInterface $storage)
+    public function __construct()
     {
-        $this->storage = $storage;
+        $this->connection = Connection::getInstance();
     }
-
-    /**
-    * Работаем с данными и хранилищем через класс репозитория
-    */
+    
+    /*public function __destruct ()
+    {
+        Connection::closeConnection();
+    }*/
 
     public function getCommentFile($idFile)
     {
-        return $this->storage->getCommentFile($idFile);
+        $sql = "SELECT comment.content, comment.date_create, comment.raiting, user.name, user.raiting, 
+                role.name AS role_name FROM comment JOIN user ON comment.user_id = user.id JOIN role on role.id = user.role_id 
+                WHERE file_id = '$idFile';";
+
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        
+        return $rows;
     }
-    
+
     public function addCommentFile($infoComment)
     {
-        return $this->storage->addCommentFile($infoComment);
+        $content = $infoComment['comment'];
+        $user_id = $infoComment['user_id'];
+        $file_id = $infoComment['file_id'];
+        
+        $sql = "INSERT INTO comment (`user_id`, `file_id`, `content`) VALUES ('$user_id', '$file_id', '$content')";
+        $status = mysqli_query($this->connection, $sql);   
+        
+        return $status;
     }
-
-    public function all()
-    {
-        return $this->storage->findAll('comment');
-    }
-
-    public function create($data)
-    {
-        return $this->storage->create('comment', $data);
-    }
-
-    public function update($id, $data)
-    {
-        return $this->storage->update('comment', $id, $data);
-    }
-
-    public function delete($id)
-    {
-        return $this->storage->delete('comment', $id);
-    }
-
 }

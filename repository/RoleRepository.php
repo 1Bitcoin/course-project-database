@@ -1,47 +1,28 @@
 <?php
 
+require_once(ROOT . '/repository/Connection.php');
 require_once(ROOT . '/repository/RoleRepositoryInterface.php');
-require_once(ROOT . '/repository/StorageInterface.php');
 
 class RoleRepository implements RoleRepositoryInterface
 {
-    private $storage;
+    private $connection;
     
-    /**
-    * В конструктор передаем класс хранилища, который реализует указанный интерфейс
-    * Таким образом мы храним нужное хранилище в свойстве $storage
-    */
-    public function __construct(StorageInterface $storage)
+    public function __construct()
     {
-        $this->storage = $storage;
+        $this->connection = Connection::getInstance();
     }
+    
+    /*public function __destruct ()
+    {
+        Connection::closeConnection();
+    }*/
 
-    /**
-    * Работаем с данными и хранилищем через класс репозитория
-    */
-    public function all()
-    {
-        return $this->storage->findAll('role');
-    }
-    
     public function getRoleById($id)
     {
-        return $this->storage->getRoleById($id);
+        $sql = "SELECT * FROM role WHERE id = '$id'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
+        
+        return $rows;
     }
-
-    public function create($data)
-    {
-        return $this->storage->create('role', $data);
-    }
-
-    public function update($id, $data)
-    {
-        return $this->storage->update('role', $id, $data);
-    }
-
-    public function delete($id)
-    {
-        return $this->storage->delete('role', $id);
-    }
-
 }

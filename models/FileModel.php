@@ -87,6 +87,9 @@ class FileModel extends Model
         // Обновляем или добавляем запись в таблицу score_file об оценке файла пользователем.
         $this->scoreRepository->setScoreFile($infoScore);
 
+        // Получить сумму оценок файла.
+        $infoScore['sum_score'] = $this->scoreRepository->getSumScore($infoScore);
+
         // Обновляем общий рейтинг файла.
         $status = $this->repo->updateScoreFile($infoScore);
         

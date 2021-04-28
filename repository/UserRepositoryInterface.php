@@ -2,12 +2,20 @@
 
 interface UserRepositoryInterface
 {
-    public function all();
+    public function findAll();
 
-    public function create($data);
+    public function getUserIdByEmail($email);
 
-    public function update($id, $data);
+    public function getUserById($id);
 
-    public function delete($id);
+    public function checkCoincidenceUser($infoUser);
 
+    public function checkExistsUser($infoUser);
+
+    public function addUser($infoUser);
+
+    public function getRowsByLimit($start, $end);
+
+    public function getCountRows();
+    
 }

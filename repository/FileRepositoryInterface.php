@@ -2,12 +2,16 @@
 
 interface FileRepositoryInterface
 {
-    public function all();
+    public function updateScoreFile($infoScore);
 
-    public function create($data);
+    public function findAll();
 
-    public function update($id, $data);
+    public function getFileByHash($hash);
 
-    public function delete($id);
+    public function addFile($infoFile);
+
+    public function getCountRows();
+
+    public function getRowsByLimit($start, $end);
 
 }

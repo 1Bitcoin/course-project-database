@@ -1,82 +1,98 @@
 <?php
 
+require_once(ROOT . '/repository/Connection.php');
 require_once(ROOT . '/repository/UserRepositoryInterface.php');
-require_once(ROOT . '/repository/StorageInterface.php');
 
 class UserRepository implements UserRepositoryInterface
 {
-    private $storage;
+    private $connection;
     
-    /**
-    * В конструктор передаем класс хранилища, который реализует указанный интерфейс
-    * Таким образом мы храним нужное хранилище в свойстве $storage
-    */
-    public function __construct(StorageInterface $storage)
+    public function __construct()
     {
-        $this->storage = $storage;
+        $this->connection = Connection::getInstance();
     }
-
-    /**
-    * Работаем с данными и хранилищем через класс репозитория
-    */
-    public function all()
+    
+    /*public function __destruct ()
     {
-        return $this->storage->findAll('users');
-    }
+        Connection::closeConnection();
+    }*/
 
+    public function findAll()
+    {
+        $sql = "SELECT * FROM user";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        
+        return $rows;
+    }
+    
     public function getUserIdByEmail($email)
     {
-        return $this->storage->getUserIdByEmail($email);
+        $sql = "SELECT id FROM user WHERE email = '$email'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
+        
+        return $rows;
     }
 
     public function getUserById($id)
     {
-        return $this->storage->getUserById($id);
+        $sql = "SELECT * FROM user WHERE id = '$id'";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_assoc($result);
+        
+        return $rows;
     }
 
     public function checkCoincidenceUser($infoUser)
     {
-        return $this->storage->checkCoincidenceUser($infoUser);
+        $email = $infoUser['email'];
+        $hashPassword = $infoUser['hash_password'];
+
+        $sql = "SELECT * FROM user WHERE email = '$email' AND hash_password = '$hashPassword'";
+        $answerSql = mysqli_query($this->connection, $sql);  
+        $result['response'] = mysqli_fetch_assoc($answerSql);
+        $result['nums'] = mysqli_num_rows($answerSql);   
+        
+        return $result;
     }
 
     public function checkExistsUser($infoUser)
     {
-        return $this->storage->checkExistsUser($infoUser);
-    }
+        $email = $infoUser['email'];
 
-    public function checkUniquenessUser($infoUser)
-    {
-        return $this->storage->checkUniquenessUser($infoUser);
+        $sql = "SELECT * FROM user WHERE email = '$email'";
+        $answerSql = mysqli_query($this->connection, $sql);  
+        $result['nums'] = mysqli_num_rows($answerSql);   
+        
+        return $result;
     }
 
     public function addUser($infoUser)
     {
-        return $this->storage->addUser($infoUser);
+        $email = $infoUser['email'];
+        $name = $infoUser['name'];
+        $hashPassword = $infoUser['hash_password'];
+
+        $sql = "INSERT INTO user (`email`, `name`, `hash_password`) VALUES ('$email', '$name', '$hashPassword')";
+        $status = mysqli_query($this->connection, $sql);   
+        
+        return $status;
     }
 
     public function getRowsByLimit($start, $end)
     {
-        return $this->storage->getRowsByLimit('users', $start, $end);
+        $sql = "SELECT * FROM user LIMIT $start, $end";
+        $result = mysqli_query($this->connection, $sql);
+        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        return $rows;
     }
 
     public function getCountRows()
     {
-        return $this->storage->getCountRows('users');
-    }
+        $result = mysqli_query($this->connection, "SELECT * FROM user");
 
-    public function create($data)
-    {
-        return $this->storage->create('users', $data);
+        return mysqli_num_rows($result);
     }
-
-    public function update($id, $data)
-    {
-        return $this->storage->update('users', $id, $data);
-    }
-
-    public function delete($id)
-    {
-        return $this->storage->delete('users', $id);
-    }
-
 }

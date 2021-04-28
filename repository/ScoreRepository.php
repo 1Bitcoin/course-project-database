@@ -1,58 +1,60 @@
 <?php
 
+require_once(ROOT . '/repository/Connection.php');
 require_once(ROOT . '/repository/ScoreRepositoryInterface.php');
-require_once(ROOT . '/repository/StorageInterface.php');
 
 class ScoreRepository implements ScoreRepositoryInterface
 {
-    private $storage;
+    private $connection;
     
-    /**
-    * В конструктор передаем класс хранилища, который реализует указанный интерфейс
-    * Таким образом мы храним нужное хранилище в свойстве $storage
-    */
-    public function __construct(StorageInterface $storage)
+    public function __construct()
     {
-        $this->storage = $storage;
+        $this->connection = Connection::getInstance();
     }
+    
+    /*public function __destruct ()
+    {
+        Connection::closeConnection();
+    }*/
 
-    /**
-    * Работаем с данными и хранилищем через класс репозитория
-    */
+    public function getSumScore($infoScore)
+    {
+        // Получаем сумму оценок всех пользователей.
+
+        $file_id = $infoScore['file_id'];
+        
+        $sqlPrepare = "SELECT SUM(type_score) as total FROM score_file WHERE file_id = '$file_id'";
+        $result = mysqli_query($this->connection, $sqlPrepare);
+        $rows = mysqli_fetch_assoc($result);
+
+        return $rows['total'];
+    }
 
     public function setScoreFile($infoScore)
     {
-        return $this->storage->setScoreFile($infoScore);
-    }
+        $value = $infoScore['value'];
+        $user_id = $infoScore['user_id'];
+        $file_id = $infoScore['file_id'];
 
-    public function all()
-    {
-        return $this->storage->findAll('file');
-    }
+        // Получаем id записи с оценкой к файлу от пользователя, если она есть
+        $sqlPrepare = "SELECT id FROM score_file WHERE user_id = '$user_id' AND file_id = '$file_id'";
+        $result = mysqli_query($this->connection, $sqlPrepare);
+        $rows = mysqli_fetch_assoc($result);
 
-    public function getRowsByLimit($start, $end)
-    {
-        return $this->storage->getRowsByLimit('file', $start, $end);
-    }
+        // Если запись уже существует - обновляем поле type_score
+        // иначе - добавляем новую запись.
+        if (isset($rows['id']))
+        {
+            $idRow = $rows['id'];
+            $sql = "UPDATE score_file SET type_score = '$value' WHERE id = '$idRow'";
+        }
+        else
+        {
+            $sql = "INSERT INTO score_file (`user_id`, `file_id`, `type_score`) VALUES ('$user_id', '$file_id', '$value')";
+        }
 
-    public function getCountRows()
-    {
-        return $this->storage->getCountRows('file');
+        $status = mysqli_query($this->connection, $sql); 
+        
+        return $status;
     }
-
-    public function create($data)
-    {
-        return $this->storage->create('file', $data);
-    }
-
-    public function update($id, $data)
-    {
-        return $this->storage->update('file', $id, $data);
-    }
-
-    public function delete($id)
-    {
-        return $this->storage->delete('file', $id);
-    }
-
 }
