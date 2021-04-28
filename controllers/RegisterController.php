@@ -48,7 +48,7 @@ class RegisterController extends Controller
         $infoUser['hash_password'] = htmlspecialchars($_POST['password']);
         $infoUser['repeat_hash_password'] = htmlspecialchars($_POST['repeat_password']);
 
-        $this->pageData = $this->model->userRegister($infoUser);
+        $this->pageData = $this->model->registerUser($infoUser);
 
         if (empty($this->pageData))
         {

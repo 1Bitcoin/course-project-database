@@ -46,7 +46,7 @@ class LoginController extends Controller
         $infoUser['email'] = htmlspecialchars($_POST['email']);
         $infoUser['hash_password'] = htmlspecialchars($_POST['password']);
 
-        $this->pageData = $this->model->userLogin($infoUser);
+        $this->pageData = $this->model->loginUser($infoUser);
 
        if (empty($this->pageData['errors']))
         {

@@ -9,7 +9,7 @@ class LoginModel extends Model
         $this->repo = $userRepository;
     }
     
-    public function userLogin($infoUser)
+    public function loginUser($infoUser)
     {
         $answer = array();
 

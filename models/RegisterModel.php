@@ -9,7 +9,7 @@ class RegisterModel extends Model
         $this->repo = $userRepository;
     }
 
-    public function userRegister($infoUser)
+    public function registerUser($infoUser)
     {
         $errors = array();
 
