@@ -9,13 +9,8 @@ class FileRepository implements FileRepositoryInterface
     
     public function __construct()
     {
-        $this->connection = Connection::getInstance();
+        $this->connection = new Connection();
     }
-    
-    /*public function __destruct ()
-    {
-        Connection::closeConnection();
-    }*/
 
     public function updateScoreFile($infoScore)
     {
@@ -24,7 +19,7 @@ class FileRepository implements FileRepositoryInterface
 
         // Устанавливаем полученную сумму как значение рейтинга файла
         $sql = "UPDATE file SET date_upload = date_upload, raiting = '$sumScore' WHERE id = '$file_id'";
-        $status = mysqli_query($this->connection, $sql);
+        $status = mysqli_query($this->connection->getConnection(), $sql);
         
         return $status;
     }
@@ -32,7 +27,7 @@ class FileRepository implements FileRepositoryInterface
     public function findAll()
     {
         $sql = "SELECT * FROM file";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
         return $rows;
@@ -41,7 +36,7 @@ class FileRepository implements FileRepositoryInterface
     public function getFileByHash($hash)
     {
         $sql = "SELECT * FROM file WHERE hash = '$hash'";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_assoc($result);
         
         return $rows;
@@ -56,14 +51,14 @@ class FileRepository implements FileRepositoryInterface
         $user_id = $infoFile['user_id'];
 
         $sql = "INSERT INTO file (`name`, `hash`, `type`, `size`, `user_id`) VALUES ('$name', '$hash', '$type', '$size', '$user_id')";
-        $status = mysqli_query($this->connection, $sql);   
+        $status = mysqli_query($this->connection->getConnection(), $sql);   
         
         return $status;
     }
     
     public function getCountRows()
     {
-        $result = mysqli_query($this->connection, "SELECT * FROM file");
+        $result = mysqli_query($this->connection->getConnection(), "SELECT * FROM file");
 
         return mysqli_num_rows($result);
     }
@@ -71,7 +66,7 @@ class FileRepository implements FileRepositoryInterface
     public function getRowsByLimit($start, $end)
     {
         $sql = "SELECT * FROM file LIMIT $start, $end";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         return $rows;

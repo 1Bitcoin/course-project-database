@@ -9,18 +9,13 @@ class UserRepository implements UserRepositoryInterface
     
     public function __construct()
     {
-        $this->connection = Connection::getInstance();
+        $this->connection = new Connection();
     }
-    
-    /*public function __destruct ()
-    {
-        Connection::closeConnection();
-    }*/
 
     public function findAll()
     {
         $sql = "SELECT * FROM user";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
         
         return $rows;
@@ -29,7 +24,7 @@ class UserRepository implements UserRepositoryInterface
     public function getUserIdByEmail($email)
     {
         $sql = "SELECT id FROM user WHERE email = '$email'";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_assoc($result);
         
         return $rows;
@@ -38,7 +33,7 @@ class UserRepository implements UserRepositoryInterface
     public function getUserById($id)
     {
         $sql = "SELECT * FROM user WHERE id = '$id'";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_assoc($result);
         
         return $rows;
@@ -50,7 +45,7 @@ class UserRepository implements UserRepositoryInterface
         $hashPassword = $infoUser['hash_password'];
 
         $sql = "SELECT * FROM user WHERE email = '$email' AND hash_password = '$hashPassword'";
-        $answerSql = mysqli_query($this->connection, $sql);  
+        $answerSql = mysqli_query($this->connection->getConnection(), $sql);  
         $result['response'] = mysqli_fetch_assoc($answerSql);
         $result['nums'] = mysqli_num_rows($answerSql);   
         
@@ -62,7 +57,7 @@ class UserRepository implements UserRepositoryInterface
         $email = $infoUser['email'];
 
         $sql = "SELECT * FROM user WHERE email = '$email'";
-        $answerSql = mysqli_query($this->connection, $sql);  
+        $answerSql = mysqli_query($this->connection->getConnection(), $sql);  
         $result['nums'] = mysqli_num_rows($answerSql);   
         
         return $result;
@@ -75,7 +70,7 @@ class UserRepository implements UserRepositoryInterface
         $hashPassword = $infoUser['hash_password'];
 
         $sql = "INSERT INTO user (`email`, `name`, `hash_password`) VALUES ('$email', '$name', '$hashPassword')";
-        $status = mysqli_query($this->connection, $sql);   
+        $status = mysqli_query($this->connection->getConnection(), $sql);   
         
         return $status;
     }
@@ -83,7 +78,7 @@ class UserRepository implements UserRepositoryInterface
     public function getRowsByLimit($start, $end)
     {
         $sql = "SELECT * FROM user LIMIT $start, $end";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
         return $rows;
@@ -91,7 +86,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getCountRows()
     {
-        $result = mysqli_query($this->connection, "SELECT * FROM user");
+        $result = mysqli_query($this->connection->getConnection(), "SELECT * FROM user");
 
         return mysqli_num_rows($result);
     }

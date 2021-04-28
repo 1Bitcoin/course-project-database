@@ -9,13 +9,8 @@ class ScoreRepository implements ScoreRepositoryInterface
     
     public function __construct()
     {
-        $this->connection = Connection::getInstance();
+        $this->connection = new Connection();
     }
-    
-    /*public function __destruct ()
-    {
-        Connection::closeConnection();
-    }*/
 
     public function getSumScore($infoScore)
     {
@@ -24,7 +19,7 @@ class ScoreRepository implements ScoreRepositoryInterface
         $file_id = $infoScore['file_id'];
         
         $sqlPrepare = "SELECT SUM(type_score) as total FROM score_file WHERE file_id = '$file_id'";
-        $result = mysqli_query($this->connection, $sqlPrepare);
+        $result = mysqli_query($this->connection->getConnection(), $sqlPrepare);
         $rows = mysqli_fetch_assoc($result);
 
         return $rows['total'];
@@ -38,7 +33,7 @@ class ScoreRepository implements ScoreRepositoryInterface
 
         // Получаем id записи с оценкой к файлу от пользователя, если она есть
         $sqlPrepare = "SELECT id FROM score_file WHERE user_id = '$user_id' AND file_id = '$file_id'";
-        $result = mysqli_query($this->connection, $sqlPrepare);
+        $result = mysqli_query($this->connection->getConnection(), $sqlPrepare);
         $rows = mysqli_fetch_assoc($result);
 
         // Если запись уже существует - обновляем поле type_score
@@ -53,7 +48,7 @@ class ScoreRepository implements ScoreRepositoryInterface
             $sql = "INSERT INTO score_file (`user_id`, `file_id`, `type_score`) VALUES ('$user_id', '$file_id', '$value')";
         }
 
-        $status = mysqli_query($this->connection, $sql); 
+        $status = mysqli_query($this->connection->getConnection(), $sql); 
         
         return $status;
     }

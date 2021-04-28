@@ -9,18 +9,13 @@ class RoleRepository implements RoleRepositoryInterface
     
     public function __construct()
     {
-        $this->connection = Connection::getInstance();
+        $this->connection = new Connection();
     }
-    
-    /*public function __destruct ()
-    {
-        Connection::closeConnection();
-    }*/
 
     public function getRoleById($id)
     {
         $sql = "SELECT * FROM role WHERE id = '$id'";
-        $result = mysqli_query($this->connection, $sql);
+        $result = mysqli_query($this->connection->getConnection(), $sql);
         $rows = mysqli_fetch_assoc($result);
         
         return $rows;

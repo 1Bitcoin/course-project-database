@@ -1,36 +1,40 @@
 <?php
 
+require_once(ROOT . '/repository/ConfigManager.php');
+
 class Connection
 {
-    protected static $link;
-
-    public static function getInstance() 
+    private $link;
+    
+    public function __construct()
     {
+        $configManager = new ConfigManager();
 
-        $db_info = array(
-            "db_host" => "localhost",
-            "db_port" => "3306",
-            "db_user" => "root",
-            "db_pass" => "1234",
-            "db_name" => "file_hosting");
+        $host = $configManager->getHost();
+        $user = $configManager->getUser();
+        $password = $configManager->getPassword();
+        $name = $configManager->getName();
 
-        self::$link = mysqli_connect($db_info['db_host'], $db_info['db_user'], $db_info['db_pass'], $db_info['db_name']);
+        $this->link = mysqli_connect($host, $user, $password, $name);
 
-        if (self::$link == false)
+        if ($this->link == false)
         {
-            //print("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
+            print_r("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
         }
         else 
         {
-            //print("Соединение установлено успешно");
-            mysqli_set_charset(self::$link, "utf8");
+            // Соединение установлено успешно
+            mysqli_set_charset($this->link, "utf8");
         }
-        
-        return self::$link;
     }
 
-    public static function closeConnection()
+    public function __destruct() 
     {
-        mysqli_close(self::$link);
+        mysqli_close($this->link);
+    }
+
+    public function getConnection()
+    {
+        return $this->link;
     }
 }
