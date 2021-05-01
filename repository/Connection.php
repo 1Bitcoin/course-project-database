@@ -20,6 +20,7 @@ class Connection
         if ($this->link == false)
         {
             print_r("Ошибка: Невозможно подключиться к MySQL " . mysqli_connect_error());
+            $this->reconnection();
         }
         else 
         {
@@ -35,6 +36,31 @@ class Connection
 
     public function getConnection()
     {
-        return $this->link;
+        if ($this->link != false)
+            return $this->link;
+    }
+
+    public function reconnection()
+    {
+        $countTry = 5;
+        $connected = FALSE;
+
+        while ($countTry && !$connected)
+        {
+            // ожидание 3 секунды
+            sleep(3); 
+
+            if ($this->link->ping()) 
+            {
+                print_r("Соединение восстановлено!\n");
+                $connected = TRUE;
+            } 
+            else 
+            {
+                print_r("Ошибка: %s\n", $this->link->error);
+            }
+
+            $countTry--;
+        }
     }
 }
