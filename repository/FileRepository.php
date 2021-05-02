@@ -58,16 +58,15 @@ class FileRepository implements FileRepositoryInterface
     
     public function getCountRows()
     {
-        $result = mysqli_query($this->connection->getConnection(), "SELECT * FROM file");
+        $countFiles = R::count('file');
 
-        return mysqli_num_rows($result);
+        return $countFiles;
     }
 
     public function getRowsByLimit($start, $end)
     {
-        $sql = "SELECT * FROM file LIMIT $start, $end";
-        $result = mysqli_query($this->connection->getConnection(), $sql);
-        $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        //$sql = "SELECT * FROM file LIMIT $start, $end";
+        $rows = R::findAll('file', 'LIMIT ?, ?', [$start, $end]);  
 
         return $rows;
     }
