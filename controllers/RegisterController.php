@@ -4,7 +4,7 @@ require_once(MODEL_PATH . 'RegisterModel.php');
 require_once(VIEW_PATH . 'RegisterView.php');
 require_once(VIEW_PATH . 'MainView.php');
 require_once(CONTROLLER_PATH . 'Controller.php');
-require_once(ROOT . '/repository/UserRepository.php');
+require_once(ROOT . '/repository/user/UserRepository.php');
 
 class RegisterController extends Controller 
 {

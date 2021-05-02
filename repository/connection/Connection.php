@@ -1,6 +1,6 @@
 <?php
 
-require_once(ROOT . '/repository/ConfigManager.php');
+require_once(ROOT . '/repository/config/ConfigManager.php');
 require_once(ROOT . '/vendor/autoload.php');
 
 use \RedBeanPHP\R as R;
@@ -21,12 +21,10 @@ class Connection
         R::setup('mysql:host=localhost;dbname=file_hosting', 'root', '1234');
  
         // Проверка подключения к БД
-        if(!R::testConnection()) 
+        if (!R::testConnection()) 
+        {
             print_r('No DB connection!');
-        else
-            print_r("work!");
-
-        //mysqli_set_charset($this->link, "utf8");
+        }
     }
 
     public function __destruct() 

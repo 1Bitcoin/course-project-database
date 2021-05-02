@@ -1,9 +1,11 @@
 <?php
 
 require_once(MODEL_PATH . 'Model.php');
+require_once(ROOT . '/repository/connection/Connection.php');
 
 class FileModel extends Model 
 {
+    protected $connection;
     protected $userRepository;
     protected $roleRepository;
     protected $scoreRepository;
@@ -12,6 +14,8 @@ class FileModel extends Model
     public function __construct(FileRepository $fileRepository, UserRepository $userRepository, 
                                 RoleRepository $roleRepository, CommentRepository $commentRepository, ScoreRepository $scoreRepository) 
     {
+        $this->connection = new Connection();
+        
         $this->repo = $fileRepository;
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;

@@ -1,11 +1,15 @@
 <?php
 
 require_once(MODEL_PATH . 'Model.php');
+require_once(ROOT . '/repository/connection/Connection.php');
 
 class RegisterModel extends Model 
 {
+    protected $connection;
+
     public function __construct(UserRepository $userRepository) 
     {
+        $this->connection = new Connection();
         $this->repo = $userRepository;
     }
 

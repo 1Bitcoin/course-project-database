@@ -4,8 +4,6 @@ interface FileRepositoryInterface
 {
     public function updateScoreFile($infoScore);
 
-    public function findAll();
-
     public function getFileByHash($hash);
 
     public function addFile($infoFile);

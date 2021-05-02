@@ -4,11 +4,11 @@ require_once(MODEL_PATH . 'FileModel.php');
 require_once(VIEW_PATH . 'FileView.php');
 require_once(VIEW_PATH . 'ErrorView.php');
 require_once(CONTROLLER_PATH . 'Controller.php');
-require_once(ROOT . '/repository/FileRepository.php');
-require_once(ROOT . '/repository/UserRepository.php');
-require_once(ROOT . '/repository/RoleRepository.php');
-require_once(ROOT . '/repository/CommentRepository.php');
-require_once(ROOT . '/repository/ScoreRepository.php');
+require_once(ROOT . '/repository/file/FileRepository.php');
+require_once(ROOT . '/repository/user/UserRepository.php');
+require_once(ROOT . '/repository/role/RoleRepository.php');
+require_once(ROOT . '/repository/comment/CommentRepository.php');
+require_once(ROOT . '/repository/score/ScoreRepository.php');
 
 class FileController extends Controller 
 {

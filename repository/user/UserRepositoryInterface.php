@@ -2,7 +2,6 @@
 
 interface UserRepositoryInterface
 {
-    public function findAll();
 
     public function getUserIdByEmail($email);
 
@@ -13,9 +12,5 @@ interface UserRepositoryInterface
     public function checkExistsUser($infoUser);
 
     public function addUser($infoUser);
-
-    public function getRowsByLimit($start, $end);
-
-    public function getCountRows();
     
 }

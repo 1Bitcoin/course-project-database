@@ -4,7 +4,7 @@ require_once(MODEL_PATH . 'LoginModel.php');
 require_once(VIEW_PATH . 'LoginView.php');
 require_once(VIEW_PATH . 'MainView.php');
 require_once(CONTROLLER_PATH . 'Controller.php');
-require_once(ROOT . '/repository/UserRepository.php');
+require_once(ROOT . '/repository/user/UserRepository.php');
 
 
 class LoginController extends Controller 
