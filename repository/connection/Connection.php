@@ -23,6 +23,7 @@ class Connection
         if (!R::testConnection()) 
         {
             print_r('No DB connection!');
+            $this->reconnection();
         }
     }
 
@@ -31,15 +32,21 @@ class Connection
         R::close();
     }
 
-    public function getConnection()
-    {
-
-    }
-
     public function reconnection()
     {
         $countTry = 5;
         $connected = FALSE;
 
+        while ($countTry && !$connected)
+        {
+            sleep(5);
+            if (R::testConnection()) 
+            {
+                print_r('Connected!');
+                $connected = TRUE;
+            }
+
+            $countTry--;
+        }
     }
 }
