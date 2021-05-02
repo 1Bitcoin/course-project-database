@@ -7,8 +7,6 @@ use \RedBeanPHP\R as R;
 
 class Connection
 {
-    private $link;
-    
     public function __construct()
     {
         $configManager = new ConfigManager();

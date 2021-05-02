@@ -9,7 +9,7 @@ class ConfigManager
     
     public function __construct()
     {
-        $data = file_get_contents(ROOT . '/repository/config/DataBase.txt');
+        $data = file_get_contents(CONFIG_DATABASE);
         $dataConfig = explode(" ", $data);
 
         $this->host = $dataConfig[0];

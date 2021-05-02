@@ -8,6 +8,7 @@ define("CONTROLLER_PATH", ROOT . "/controllers/");
 define("MODEL_PATH", ROOT . "/models/");
 define("VIEW_PATH", ROOT . "/views/");
 define("UPLOAD_PATH", ROOT . "/uploaded_files/");
+define("CONFIG_DATABASE", ROOT . "/repository/config/DataBase.txt");
 
 require_once("Router.php");
 
