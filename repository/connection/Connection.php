@@ -18,9 +18,8 @@ class Connection
         $password = $configManager->getPassword();
         $name = $configManager->getName();
 
-        R::setup('mysql:host=localhost;dbname=file_hosting', 'root', '1234');
+        R::setup('mysql:host=' . $host . ';dbname=' . $name, $user, $password);
  
-        // Проверка подключения к БД
         if (!R::testConnection()) 
         {
             print_r('No DB connection!');

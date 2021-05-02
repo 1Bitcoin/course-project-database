@@ -9,10 +9,13 @@ class ConfigManager
     
     public function __construct()
     {
-        $this->host = "localhost";
-        $this->user = "root";
-        $this->password = "1234";
-        $this->name = "file_hosting";
+        $data = file_get_contents(ROOT . '/repository/config/DataBase.txt');
+        $dataConfig = explode(" ", $data);
+
+        $this->host = $dataConfig[0];
+        $this->user = $dataConfig[1];
+        $this->password = $dataConfig[2];
+        $this->name = $dataConfig[3];
     }
 
     public function getHost()
