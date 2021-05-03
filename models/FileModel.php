@@ -12,9 +12,10 @@ class FileModel extends Model
     protected $commentRepository;
 
     public function __construct(FileRepository $fileRepository, UserRepository $userRepository, 
-                                RoleRepository $roleRepository, CommentRepository $commentRepository, ScoreRepository $scoreRepository) 
+                                RoleRepository $roleRepository, CommentRepository $commentRepository, 
+                                ScoreRepository $scoreRepository, $roleID) 
     {
-        $this->connection = new Connection();
+        $this->connection = new Connection($roleID);
         
         $this->repo = $fileRepository;
         $this->userRepository = $userRepository;

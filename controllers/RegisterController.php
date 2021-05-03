@@ -11,9 +11,12 @@ class RegisterController extends Controller
     public $mainView;
     public function __construct() 
     {
+        // Необходимо для авторизации на уровне БД
+        $roleID = $this->getRole();
+
         $userRepository = new UserRepository();
 
-        $this->model = new RegisterModel($userRepository);
+        $this->model = new RegisterModel($userRepository, $roleID);
 
         $this->view = new RegisterView();
         $this->mainView = new MainView();

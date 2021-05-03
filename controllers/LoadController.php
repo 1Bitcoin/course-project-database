@@ -8,9 +8,12 @@ class LoadController extends Controller
 {
     public function __construct() 
     {
+        // Необходимо для авторизации на уровне БД
+        $roleID = $this->getRole();
+        
         $fileRepository = new FileRepository();
 
-        $this->model = new LoadModel($fileRepository);
+        $this->model = new LoadModel($fileRepository, $roleID);
         $this->view = new LoadView();
     }
 

@@ -12,9 +12,12 @@ class LoginController extends Controller
     public $mainView;
     public function __construct() 
     {
+        // Необходимо для авторизации на уровне БД
+        $roleID = $this->getRole();
+
         $userRepository = new UserRepository();
 
-        $this->model = new LoginModel($userRepository);
+        $this->model = new LoginModel($userRepository, $roleID);
 
         $this->view = new LoginView();
         $this->mainView = new MainView();

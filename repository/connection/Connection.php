@@ -7,16 +7,16 @@ use \RedBeanPHP\R as R;
 
 class Connection
 {
-    public function __construct()
+    public function __construct($roleID)
     {
-        $configManager = new ConfigManager();
+        $configManager = new ConfigManager($roleID);
 
         $host = $configManager->getHost();
-        $user = $configManager->getUser();
         $password = $configManager->getPassword();
-        $name = $configManager->getName();
+        $nameDatabase = $configManager->getNameDatabase();
+        $actor = $configManager->getActor();
 
-        R::setup('mysql:host=' . $host . ';dbname=' . $name, $user, $password);
+        R::setup('mysql:host=' . $host . ';dbname=' . $nameDatabase, $actor, $password);
  
         if (!R::testConnection()) 
         {

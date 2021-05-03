@@ -7,9 +7,9 @@ class LoginModel extends Model
 {
     protected $connection;
 
-    public function __construct(UserRepository $userRepository) 
+    public function __construct(UserRepository $userRepository, $roleID) 
     {
-        $this->connection = new Connection();
+        $this->connection = new Connection($roleID);
         $this->repo = $userRepository;
     }
     

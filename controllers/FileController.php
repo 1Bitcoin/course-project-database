@@ -15,13 +15,16 @@ class FileController extends Controller
     public $errorView;
     public function __construct() 
     {
+        // Необходимо для авторизации на уровне БД
+        $roleID = $this->getRole();
+
         $fileRepository = new FileRepository();
         $userRepository = new UserRepository();
         $roleRepository = new RoleRepository();
         $commentRepository = new CommentRepository();
         $scoreRepository = new ScoreRepository();
 
-        $this->model = new FileModel($fileRepository, $userRepository, $roleRepository, $commentRepository, $scoreRepository);
+        $this->model = new FileModel($fileRepository, $userRepository, $roleRepository, $commentRepository, $scoreRepository, $roleID);
 
         $this->view = new FileView();
         $this->errorView = new ErrorView();

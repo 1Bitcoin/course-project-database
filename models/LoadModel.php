@@ -7,9 +7,9 @@ class LoadModel extends Model
 {
     protected $connection;
 
-    public function __construct(FileRepository $fileRepository) 
+    public function __construct(FileRepository $fileRepository, $roleID) 
     {
-        $this->connection = new Connection();
+        $this->connection = new Connection($roleID);
         $this->repo = $fileRepository;
     }
     
