@@ -3,19 +3,34 @@
 class ConfigManager
 {
     private $host;
-    private $user;
     private $password;
-    private $name;
+    private $actor;
+    private $nameDatabase;
     
-    public function __construct()
+    public function __construct($roleID)
     {
-        $data = file_get_contents(CONFIG_DATABASE);
-        $dataConfig = explode(" ", $data);
+        $data = file(CONFIG_DATABASE);
 
-        $this->host = $dataConfig[0];
-        $this->user = $dataConfig[1];
-        $this->password = $dataConfig[2];
-        $this->name = $dataConfig[3];
+        $configActor = explode(" ", $data[$roleID]);
+        $configBase = explode(" ", $data[4]);
+
+        $user = $configActor[0];
+        $password = mb_substr($configActor[1], 0, -2);
+        
+        $localhost = $configBase[0];
+        $nameDatabase = $configBase[1];
+
+        $this->password = $password;
+        $this->actor = $user;
+        
+        $this->nameDatabase = $nameDatabase;
+        $this->host = $localhost;
+
+    }
+
+    public function getActor()
+    {
+        return $this->actor;
     }
 
     public function getHost()
@@ -23,18 +38,13 @@ class ConfigManager
         return $this->host;
     }
 
-    public function getUser()
-    {
-        return $this->user;
-    }
-
     public function getPassword()
     {
         return $this->password;
     }
 
-    public function getName()
+    public function getNameDatabase()
     {
-        return $this->name;
+        return $this->nameDatabase;
     }
 }
