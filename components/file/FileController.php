@@ -53,6 +53,10 @@ class FileController extends Controller
         {
             $this->setScoreUser();
         }
+        else if (isset($_POST['delete_comment']) && isset($_GET['hash']))
+        {
+            $this->deleteComment();
+        }
         else if (isset($_GET['hash']))
         {
             $this->getFile();
@@ -76,6 +80,8 @@ class FileController extends Controller
             {
                 // Если файл получили - получаем комментарии к нему.
                 $this->pageData['info']['comment'] = $this->model->getCommentFile($this->pageData['info']['file']['id']);
+                $this->pageData['info']['session']['id'] = $_SESSION['logged_user']['id'];
+                $this->pageData['info']['session']['role_id'] = $_SESSION['logged_user']['role_id'];
                 
                 // Если пользователь авторизирован - добавить форму для написания комментария
                 // иначе - не добавлять.
@@ -137,6 +143,20 @@ class FileController extends Controller
         $infoScore['user_id'] = $_SESSION['logged_user']['id'];
 
         $this->model->setScoreUser($infoScore);
+
+        // Переадресация на страницу файла
+        $this->view->redirectionToFile($hash);
+    }
+
+    public function deleteComment()
+    {
+        $hash = $_GET['hash'];
+
+        $infoComment['comment_id'] = $_POST['delete_comment'];
+        $infoComment['user_id'] = $_SESSION['logged_user']['id'];
+        $infoComment['role_id'] = $_SESSION['logged_user']['role_id'];
+
+        $this->model->deleteComment($infoComment);
 
         // Переадресация на страницу файла
         $this->view->redirectionToFile($hash);

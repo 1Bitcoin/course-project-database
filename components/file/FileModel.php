@@ -117,4 +117,15 @@ class FileModel extends Model
         
         return $status;
     }
+
+    public function deleteComment($infoComment)
+    {   
+        // Есть пользователь является модератором или администратором.
+        if ($infoComment['role_id'] > 1)
+        {
+            $this->commentRepository->deleteComment($infoComment);
+        }
+
+        return 0;
+    }
 }
