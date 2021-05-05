@@ -33,7 +33,7 @@ class LoginModel extends Model
             // Если существует, то проверить подходит ли пароль.
             $response = $this->repo->checkCoincidenceUser($infoUser);
             
-            if ($response['response'])
+            if (isset($response['response']))
             {
                 // Если пароль верный, авторизуем.
                 $answer['userInfo'] = $response['response'];

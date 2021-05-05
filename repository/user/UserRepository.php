@@ -33,7 +33,11 @@ class UserRepository implements UserRepositoryInterface
         $user = R::getAll('SELECT * FROM `user` WHERE `email` = ? AND `hash_password` = ?', [$email, $hashPassword]);
         $nums = R::count('user', 'email = ? AND hash_password = ?', [$email, $hashPassword]);
  
-        $result['response'] = $user[0];
+        if (isset($user[0]))
+        {
+            $result['response'] = $user[0];
+        }
+
         $result['nums'] = $nums;   
         
         return $result;
