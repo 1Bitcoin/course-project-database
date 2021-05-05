@@ -3,7 +3,7 @@
 require_once(COMPONENT_REGISTER . 'RegisterModel.php');
 require_once(COMPONENT_REGISTER . 'RegisterView.php');
 require_once(COMPONENT_BASE . 'Controller.php');
-require_once(ROOT . '/repository/user/UserRepository.php');
+require_once(REPOSITORY . 'user/UserRepository.php');
 
 class RegisterController extends Controller 
 {

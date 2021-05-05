@@ -1,7 +1,7 @@
 <?php
 
 require_once(COMPONENT_BASE . 'Model.php');
-require_once(ROOT . '/repository/connection/Connection.php');
+require_once(CONNECTION . 'Connection.php');
 
 class FileModel extends Model 
 {
