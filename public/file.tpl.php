@@ -35,7 +35,21 @@
               <small class="label label-danger"><?php echo $pageData['role']['name']; ?></small>
               <br>
               <br>
-              <p>Я простой Русский пацан и мне всё по барабану.</p>
+              <tr>
+                <td class="active">Рейтинг пользователя:</td>
+                <span class="colortext"></span>
+                <td><?php echo $pageData['user']['raiting']; ?> &nbsp;
+                    <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+                        <button class="dislike" type="submit" name="score_user" value="-1">
+                            <i class="fa fa-thumbs-o-down" aria-hidden="flas"></i>
+                        </button>
+
+                        <button class="like" type="submit" name="score_user" value="1">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        </button>
+                    </form>                      
+                </td>
+            </tr>
             </div>
           </div>
         </div>
@@ -78,11 +92,11 @@
                       <span class="colortext"></span>
                       <td><?php echo $pageData['file']['raiting']; ?> &nbsp;
                             <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
-                                <button class="dislike" type="submit" name="score" value="-1">
+                                <button class="dislike" type="submit" name="score_file" value="-1">
                                     <i class="fa fa-thumbs-o-down" aria-hidden="flas"></i>
                                 </button>
 
-                                <button class="like" type="submit" name="score" value="1">
+                                <button class="like" type="submit" name="score_file" value="1">
                                     <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                 </button>
                             </form>                      
@@ -115,11 +129,11 @@
     </div>
   </div>
 
-<?php foreach($pageData['comment'] as $comment): ?>
+  <?php foreach($pageData['comment'] as $comment): ?>
     <div class ="panel panel-default">
-    <h5>Дата комментария: <?php echo $comment['date_create']; ?></h3>
-    <h4><?php echo $comment['role_name']; ?>: <?php echo $comment['name']; ?> </h4>
-    <h3><?php echo $comment['content']; ?></h3>
+    <h5>&nbsp;Дата комментария: <?php echo $comment['date_create']; ?></h3>
+    <h4>&#8195;<?php echo $comment['role_name']; ?>: <?php echo $comment['name']; ?> </h4>
+    <h3>&#8195;<?php echo $comment['content']; ?></h3>
     </div>
 <?php endforeach; ?> 
 

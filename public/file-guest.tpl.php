@@ -35,7 +35,10 @@
               <small class="label label-danger"><?php echo $pageData['role']['name']; ?></small>
               <br>
               <br>
-              <p>Я простой Русский пацан и мне всё по барабану.</p>
+            <td class="active">Рейтинг пользователя:</td>
+            <span class="colortext"></span>
+            <td><?php echo $pageData['user']['raiting']; ?> &nbsp;
+            </td>
             </div>
           </div>
         </div>
@@ -92,9 +95,9 @@
 
   <?php foreach($pageData['comment'] as $comment): ?>
     <div class ="panel panel-default">
-    <h5>Дата комментария: <?php echo $comment['date_create']; ?></h3>
-    <h4><?php echo $comment['role_name']; ?>: <?php echo $comment['name']; ?> </h4>
-    <h3><?php echo $comment['content']; ?></h3>
+    <h5>&nbsp;Дата комментария: <?php echo $comment['date_create']; ?></h3>
+    <h4>&#8195;<?php echo $comment['role_name']; ?>: <?php echo $comment['name']; ?> </h4>
+    <h3>&#8195;<?php echo $comment['content']; ?></h3>
     </div>
 <?php endforeach; ?> 
 

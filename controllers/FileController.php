@@ -45,9 +45,13 @@ class FileController extends Controller
         {
             $this->addCommentFile();
         }
-        else if (isset($_POST['score']) && isset($_GET['hash']))
+        else if (isset($_POST['score_file']) && isset($_GET['hash']))
         {
             $this->setScoreFile();
+        }
+        else if (isset($_POST['score_user']) && isset($_GET['hash']))
+        {
+            $this->setScoreUser();
         }
         else if (isset($_GET['hash']))
         {
@@ -72,7 +76,7 @@ class FileController extends Controller
             {
                 // Если файл получили - получаем комментарии к нему.
                 $this->pageData['info']['comment'] = $this->model->getCommentFile($this->pageData['info']['file']['id']);
-
+                
                 // Если пользователь авторизирован - добавить форму для написания комментария
                 // иначе - не добавлять.
                 if (isset($_SESSION['logged_user']))
@@ -115,10 +119,24 @@ class FileController extends Controller
         $hash = $_GET['hash'];
 
         $infoScore['hash_file'] = $hash;
-        $infoScore['value'] = $_POST['score'];
+        $infoScore['value'] = $_POST['score_file'];
         $infoScore['user_email'] = $_SESSION['logged_user']['email'];
 
         $this->model->setScoreFile($infoScore);
+
+        // Переадресация на страницу файла
+        $this->view->redirectionToFile($hash);
+    }
+
+    public function setScoreUser()
+    {
+        $hash = $_GET['hash'];
+
+        $infoScore['hash_file'] = $hash;
+        $infoScore['value'] = $_POST['score_user'];
+        $infoScore['user_id'] = $_SESSION['logged_user']['id'];
+
+        $this->model->setScoreUser($infoScore);
 
         // Переадресация на страницу файла
         $this->view->redirectionToFile($hash);

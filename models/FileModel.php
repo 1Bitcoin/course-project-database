@@ -100,4 +100,21 @@ class FileModel extends Model
         
         return $status;
     }
+
+    public function setScoreUser($infoScore)
+    {
+        $fileInfo = $this->repo->getFileByHash($infoScore['hash_file']);
+        $infoScore['user_id_received'] = $fileInfo['user_id'];
+
+        // Обновляем или добавляем запись в таблицу score_user об оценке файла пользователем.
+        $this->scoreRepository->setScoreUser($infoScore);
+
+        // Получить сумму оценок пользователя.
+        $infoScore['sum_score'] = $this->scoreRepository->getSumScoreUser($infoScore);
+
+        // Обновляем общий рейтинг пользователя.
+        $status = $this->userRepository->updateScoreUser($infoScore);
+        
+        return $status;
+    }
 }

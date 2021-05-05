@@ -71,4 +71,16 @@ class UserRepository implements UserRepositoryInterface
         
         return 0;
     }
+
+    public function updateScoreUser($infoScore)
+    {
+        $user_id_received = $infoScore['user_id_received'];
+        $sumScore = $infoScore['sum_score'];
+
+        $user = R::load('user', $user_id_received);
+        $user->raiting = $sumScore;
+        R::store($user);
+        
+        return 0;
+    }
 }
