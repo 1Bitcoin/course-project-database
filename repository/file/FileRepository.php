@@ -33,6 +33,9 @@ class FileRepository implements FileRepositoryInterface
     public function getFileByHash($hash)
     {
         $file = R::getAll('SELECT * FROM `file` WHERE `hash` = ?', [$hash]);
+
+        if (isset($file[0]))
+            $file = $file[0];
         
         return $file;
     }

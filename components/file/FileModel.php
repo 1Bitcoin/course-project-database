@@ -49,14 +49,12 @@ class FileModel extends Model
     public function getFileByHash($hash)
     {
         $answer = array();
-        $result = $this->repo->getFileByHash($hash);
+        $datePage['file'] = $this->repo->getFileByHash($hash);
 
         // Из базы вощвращается массив, но т.к файл с определенным хэшем
         // только один - берем нулевой элемент.
-        if (isset($result[0]))
+        if (isset($datePage['file']))
         {
-            $datePage['file'] = $result[0];
-
             $datePage['user'] = $this->userRepository->getUserById($datePage['file']['user_id']);
             $datePage['role'] = $this->roleRepository->getRoleById($datePage['user']['role_id']);
             $answer['info'] = $datePage;
