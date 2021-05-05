@@ -128,4 +128,15 @@ class FileModel extends Model
 
         return 0;
     }
+
+    public function deleteFile($infoFile)
+    {   
+        // Есть пользователь является модератором или администратором.
+        if ($infoFile['role_id'] > 1)
+        {
+            $this->repo->deleteFile($infoFile);
+        }
+
+        return 0;
+    }
 }

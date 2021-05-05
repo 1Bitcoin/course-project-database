@@ -49,6 +49,12 @@
                         </button>
                     </form>                      
                 </td>
+                <?php if ($pageData['session']['role_id'] == 3 && $pageData['user']['role_id'] != 3): ?>
+                    <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+                        &#8195;<button type="submit" class="label label-danger" name="delete_user" 
+                                        value="<?php echo $pageData['user']['id']; ?>">Удалить аккаунт</button>
+                    </form>
+                <?php endif; ?> 
             </tr>
             </div>
           </div>
@@ -60,6 +66,14 @@
             <ul id="myTab" class="nav nav-pills">
               <li class="active"><a href="#detail" data-toggle="tab">О файле</a></li>
               <li class=""><a href="#contact" data-toggle="tab">Написать комментарий</a></li>
+
+              <?php if ($pageData['session']['role_id'] > 1): ?>
+                        <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+                            &#8195;<button type="submit" class="label label-danger" style="height:40px;width:100px" name="delete_file" 
+                                        value="<?php echo $pageData['file']['id']; ?>">Удалить файл</button>
+                        </form>
+              <?php endif; ?> 
+
             </ul>
             <div id="myTabContent" class="tab-content">
               <hr>
@@ -104,7 +118,8 @@
                     </tr>
                     <tr>
                       <td class="active">Ссылка для скачивания:</td>
-                      <td><a href="uploaded_files/<?php echo $pageData['file']['hash']; ?>" download="<?php echo $pageData['file']['name']; ?>">Скачать</a></td>
+                      <td><a href="uploaded_files/<?php echo $pageData['file']['hash']; ?>" 
+                            download="<?php echo $pageData['file']['name']; ?>">Скачать</a></td>
                     </tr>
                   </tbody>
                 </table>
@@ -134,6 +149,12 @@
     <h5>&nbsp;Дата комментария: <?php echo $comment['date_create']; ?></h3>
     <h4>&#8195;<?php echo $comment['role_name']; ?>: <?php echo $comment['name']; ?> </h4>
     <h3>&#8195;<?php echo $comment['content']; ?></h3>
+    <?php if ($pageData['session']['role_id'] > 1): ?>
+        <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+            &#8195;<button type="submit" class="label label-danger" name="delete_comment" 
+                        value="<?php echo $comment['id']; ?>">Удалить</button>
+        </form>
+    <?php endif; ?> 
     </div>
 <?php endforeach; ?> 
 

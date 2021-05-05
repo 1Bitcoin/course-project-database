@@ -57,6 +57,10 @@ class FileController extends Controller
         {
             $this->deleteComment();
         }
+        else if (isset($_POST['delete_file']) && isset($_GET['hash']))
+        {
+            $this->deleteFile();
+        }
         else if (isset($_GET['hash']))
         {
             $this->getFile();
@@ -160,5 +164,19 @@ class FileController extends Controller
 
         // Переадресация на страницу файла
         $this->view->redirectionToFile($hash);
+    }
+
+    public function deleteFile()
+    {
+        $hash = $_GET['hash'];
+
+        $infoFile['file_id'] = $_POST['delete_file'];
+        $infoFile['user_id'] = $_SESSION['logged_user']['id'];
+        $infoFile['role_id'] = $_SESSION['logged_user']['role_id'];
+
+        $this->model->deleteFile($infoFile);
+
+        // Переадресация на список файлов
+        $this->view->redirectionToListFiles();
     }
 }

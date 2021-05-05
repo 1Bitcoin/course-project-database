@@ -13,7 +13,7 @@ class CommentRepository implements CommentRepositoryInterface
     
     public function getCommentFile($idFile)
     {
-        $comments = R::getAll('SELECT comment.content, comment.date_create, comment.raiting, user.name, user.raiting, 
+        $comments = R::getAll('SELECT comment.id, comment.content, comment.date_create, comment.raiting, user.name, user.raiting, 
                             role.name AS role_name FROM `comment` JOIN `user` ON comment.user_id = user.id JOIN `role` ON
                             role.id = user.role_id WHERE `file_id` = ?', [$idFile]);
 
@@ -37,6 +37,14 @@ class CommentRepository implements CommentRepositoryInterface
         // Сохраняем объект
         R::store($comment); 
         
+        return 0;
+    }
+
+    public function deleteComment($infoComment)
+    {
+        $idComment = $infoComment['comment_id'];
+        R::trashBatch('comment', [$idComment]);
+
         return 0;
     }
 }

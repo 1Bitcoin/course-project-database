@@ -66,4 +66,12 @@ class FileRepository implements FileRepositoryInterface
 
         return $files;
     }
+
+    public function deleteFile($infoFile)
+    {
+        $idFile = $infoFile['file_id'];
+        R::trashBatch('file', [$idFile]);
+
+        return 0;
+    }
 }

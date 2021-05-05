@@ -64,3 +64,20 @@ a.button-list:active { background: linear-gradient(#f59500, #f5ae00) #f59500; }
 
   a.button-logout:hover { background: linear-gradient(#f30f79, #f30f79) #f30f79; }
   a.button-logout:active { background: linear-gradient(#f30f79, #f30f79) #f30f79; }
+
+  .button-delete {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    outline: none;
+    border-width: 1px 0;
+    border-style: solid none;
+    border-radius: 10px;
+    background: linear-gradient(#e40e0e, #e40e0e) #e40e0e;
+    transition: 0.2s;
+  
+  } 
+
+  li.button-delete:hover { background: linear-gradient(#e40e0e, #e40e0e) #e40e0e; }
+  li.button-delete:active { background: linear-gradient(#e40e0e, #e40e0e) #e40e0e; }
