@@ -1,8 +1,8 @@
 <?php
 
-require_once(MODEL_PATH . 'LoadModel.php');
-require_once(VIEW_PATH . 'LoadView.php');
-require_once(CONTROLLER_PATH . 'Controller.php');
+require_once(COMPONENT_LOAD . 'LoadModel.php');
+require_once(COMPONENT_LOAD . 'LoadView.php');
+require_once(COMPONENT_BASE . 'Controller.php');
 
 class LoadController extends Controller 
 {

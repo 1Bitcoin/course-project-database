@@ -1,7 +1,7 @@
 <?php
 
-require_once(VIEW_PATH . 'IndexView.php');
-require_once(CONTROLLER_PATH . 'Controller.php');
+require_once(COMPONENT_INDEX . 'IndexView.php');
+require_once(COMPONENT_BASE . 'Controller.php');
 
 class IndexController extends Controller 
 {

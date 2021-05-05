@@ -1,12 +1,12 @@
 <?php
 
-require(CONTROLLER_PATH . "IndexController.php");
-require(CONTROLLER_PATH . "LoginController.php");
-require(CONTROLLER_PATH . "LoadController.php");
-require(CONTROLLER_PATH . "ErrorController.php");
-require(CONTROLLER_PATH . "FileController.php");
-require(CONTROLLER_PATH . "RegisterController.php");
-require(CONTROLLER_PATH . "LogoutController.php");
+require(COMPONENT_INDEX . "IndexController.php");
+require(COMPONENT_LOGIN . "LoginController.php");
+require(COMPONENT_LOAD . "LoadController.php");
+require(COMPONENT_ERROR . "ErrorController.php");
+require(COMPONENT_FILE . "FileController.php");
+require(COMPONENT_REGISTER . "RegisterController.php");
+require(COMPONENT_LOGOUT . "LogoutController.php");
 
 class Routing 
 {

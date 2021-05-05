@@ -1,6 +1,6 @@
 <?php
 
-require_once(VIEW_PATH . 'View.php');
+require_once(COMPONENT_BASE . 'View.php');
 
 class ErrorView extends View
 {

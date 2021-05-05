@@ -1,15 +1,13 @@
 <?php
 
-require_once(MODEL_PATH . 'LoginModel.php');
-require_once(VIEW_PATH . 'LoginView.php');
-require_once(VIEW_PATH . 'MainView.php');
-require_once(CONTROLLER_PATH . 'Controller.php');
+require_once(COMPONENT_LOGIN . 'LoginModel.php');
+require_once(COMPONENT_LOGIN . 'LoginView.php');
+require_once(COMPONENT_BASE . 'Controller.php');
 require_once(ROOT . '/repository/user/UserRepository.php');
 
 
 class LoginController extends Controller 
 {
-    public $mainView;
     public function __construct() 
     {
         // Необходимо для авторизации на уровне БД
@@ -20,7 +18,6 @@ class LoginController extends Controller
         $this->model = new LoginModel($userRepository, $roleID);
 
         $this->view = new LoginView();
-        $this->mainView = new MainView();
     }
 
     public function loginPage() 
@@ -34,7 +31,7 @@ class LoginController extends Controller
             // Иначе отображаем форму для авторизации, если пользователь не авторизован.
             if (isset($_SESSION['logged_user']))
             {
-                $this->mainView->render($this->pageData);
+                $this->view->main($this->pageData);
             }
             else
             {
@@ -54,7 +51,7 @@ class LoginController extends Controller
        if (empty($this->pageData['errors']))
         {
             $_SESSION['logged_user'] = $this->pageData['userInfo'];
-            $this->mainView->render($this->pageData);
+            $this->view->main($this->pageData);
         }
         else
         {

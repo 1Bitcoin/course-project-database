@@ -1,8 +1,7 @@
 <?php
 
-require_once(VIEW_PATH . 'MainView.php');
-require_once(MODEL_PATH . 'LogoutModel.php');
-require_once(CONTROLLER_PATH . 'Controller.php');
+require_once(COMPONENT_LOGOUT . 'LogoutModel.php');
+require_once(COMPONENT_BASE . 'Controller.php');
 
 class LogoutController extends Controller 
 {

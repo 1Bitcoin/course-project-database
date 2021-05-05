@@ -1,9 +1,9 @@
 <?php
 
-require_once(MODEL_PATH . 'FileModel.php');
-require_once(VIEW_PATH . 'FileView.php');
-require_once(VIEW_PATH . 'ErrorView.php');
-require_once(CONTROLLER_PATH . 'Controller.php');
+require_once(COMPONENT_FILE . 'FileModel.php');
+require_once(COMPONENT_FILE . 'FileView.php');
+require_once(COMPONENT_ERROR . 'ErrorView.php');
+require_once(COMPONENT_BASE . 'Controller.php');
 require_once(ROOT . '/repository/file/FileRepository.php');
 require_once(ROOT . '/repository/user/UserRepository.php');
 require_once(ROOT . '/repository/role/RoleRepository.php');

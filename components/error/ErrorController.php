@@ -1,7 +1,7 @@
 <?php
 
-require_once(VIEW_PATH . 'ErrorView.php');
-require_once(CONTROLLER_PATH . 'Controller.php');
+require_once(COMPONENT_ERROR . 'ErrorView.php');
+require_once(COMPONENT_BASE . 'Controller.php');
 
 class ErrorController extends Controller 
 {

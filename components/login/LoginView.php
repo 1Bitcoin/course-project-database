@@ -1,6 +1,6 @@
 <?php
 
-require_once(VIEW_PATH . 'View.php');
+require_once(COMPONENT_BASE . 'View.php');
 
 class LoginView extends View
 {
@@ -8,5 +8,10 @@ class LoginView extends View
     {
         $pageTpl = '/public/login.tpl.php';
         include ROOT. $pageTpl;
+    }
+
+    public function main($pageData) 
+    {
+        header("Location: https://iu7.ru");
     }
 }

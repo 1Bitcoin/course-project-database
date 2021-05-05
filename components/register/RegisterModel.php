@@ -1,6 +1,6 @@
 <?php
 
-require_once(MODEL_PATH . 'Model.php');
+require_once(COMPONENT_BASE . 'Model.php');
 require_once(ROOT . '/repository/connection/Connection.php');
 
 class RegisterModel extends Model 

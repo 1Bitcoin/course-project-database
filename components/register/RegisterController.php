@@ -1,14 +1,12 @@
 <?php
 
-require_once(MODEL_PATH . 'RegisterModel.php');
-require_once(VIEW_PATH . 'RegisterView.php');
-require_once(VIEW_PATH . 'MainView.php');
-require_once(CONTROLLER_PATH . 'Controller.php');
+require_once(COMPONENT_REGISTER . 'RegisterModel.php');
+require_once(COMPONENT_REGISTER . 'RegisterView.php');
+require_once(COMPONENT_BASE . 'Controller.php');
 require_once(ROOT . '/repository/user/UserRepository.php');
 
 class RegisterController extends Controller 
 {
-    public $mainView;
     public function __construct() 
     {
         // Необходимо для авторизации на уровне БД
@@ -19,7 +17,6 @@ class RegisterController extends Controller
         $this->model = new RegisterModel($userRepository, $roleID);
 
         $this->view = new RegisterView();
-        $this->mainView = new MainView();
     }
 
     public function registerPage() 
@@ -34,7 +31,7 @@ class RegisterController extends Controller
             // Иначе отображаем форму для регистрации, если пользователь не авторизован.
             if (isset($_SESSION['logged_user']))
             {
-                $this->mainView->render($this->pageData);
+                $this->view->main($this->pageData);
             }
             else
             {
@@ -55,7 +52,7 @@ class RegisterController extends Controller
 
         if (empty($this->pageData))
         {
-            $this->mainView->render($this->pageData);
+            $this->view->main($this->pageData);
         }
         else
         {
