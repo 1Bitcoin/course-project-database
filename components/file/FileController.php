@@ -57,9 +57,13 @@ class FileController extends Controller
         {
             $this->deleteComment();
         }
-        else if (isset($_POST['delete_file']) && isset($_GET['hash']))
+        else if (isset($_POST['delete_file']))
         {
             $this->deleteFile();
+        }
+        else if (isset($_POST['delete_user']))
+        {
+            $this->deleteUser();
         }
         else if (isset($_GET['hash']))
         {
@@ -168,13 +172,23 @@ class FileController extends Controller
 
     public function deleteFile()
     {
-        $hash = $_GET['hash'];
-
         $infoFile['file_id'] = $_POST['delete_file'];
         $infoFile['user_id'] = $_SESSION['logged_user']['id'];
         $infoFile['role_id'] = $_SESSION['logged_user']['role_id'];
 
         $this->model->deleteFile($infoFile);
+
+        // Переадресация на список файлов
+        $this->view->redirectionToListFiles();
+    }
+
+    public function deleteUser()
+    {
+        $infoUser['delete_user_id'] = $_POST['delete_user'];
+        $infoUser['user_id'] = $_SESSION['logged_user']['id'];
+        $infoUser['role_id'] = $_SESSION['logged_user']['role_id'];
+
+        $this->model->deleteUser($infoUser);
 
         // Переадресация на список файлов
         $this->view->redirectionToListFiles();

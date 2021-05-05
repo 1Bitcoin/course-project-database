@@ -139,4 +139,15 @@ class FileModel extends Model
 
         return 0;
     }
+
+    public function deleteUser($infoUser)
+    {   
+        // Есть пользователь является модератором или администратором.
+        if ($infoUser['role_id'] == 3)
+        {
+            $this->userRepository->deleteUser($infoUser);
+        }
+
+        return 0;
+    }
 }

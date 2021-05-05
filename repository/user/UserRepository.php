@@ -83,4 +83,12 @@ class UserRepository implements UserRepositoryInterface
         
         return 0;
     }
+
+    public function deleteUser($infoUser)
+    {
+        $idUser = $infoUser['delete_user_id'];
+        R::trashBatch('user', [$idUser]);
+
+        return 0;
+    }
 }
