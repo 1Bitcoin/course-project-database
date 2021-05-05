@@ -88,13 +88,13 @@ class FileController extends Controller
             {
                 // Если файл получили - получаем комментарии к нему.
                 $this->pageData['info']['comment'] = $this->model->getCommentFile($this->pageData['info']['file']['id']);
-                $this->pageData['info']['session']['id'] = $_SESSION['logged_user']['id'];
-                $this->pageData['info']['session']['role_id'] = $_SESSION['logged_user']['role_id'];
                 
                 // Если пользователь авторизирован - добавить форму для написания комментария
                 // иначе - не добавлять.
                 if (isset($_SESSION['logged_user']))
                 {
+                    $this->pageData['info']['session']['id'] = $_SESSION['logged_user']['id'];
+                    $this->pageData['info']['session']['role_id'] = $_SESSION['logged_user']['role_id'];
                     $this->view->filePage($this->pageData['info']);
                 } 
                 else
