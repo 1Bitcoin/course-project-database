@@ -34,7 +34,7 @@ class FileRepository implements FileRepositoryInterface
     {
         $file = R::getAll('SELECT * FROM `file` WHERE `hash` = ?', [$hash]);
         
-        return $file[0];
+        return $file;
     }
 
     public function addFile($infoFile)
