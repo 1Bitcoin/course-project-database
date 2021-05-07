@@ -13,8 +13,8 @@ class IndexController extends Controller
     public function indexPage() 
     {
         $this->pageData['title'] = "Главная страница";
-
-        if (isset($_SESSION['logged_user']))
+        
+        if (isset($_COOKIE['logged_user']))
         {
             $this->view->render($this->pageData);
         }

@@ -6,6 +6,6 @@ class LogoutView extends View
 {
     public function render($pageData) 
     {
-        header("Location: https://iu7.ru");
+        header("Location: /");
     }
 }

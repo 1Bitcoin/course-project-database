@@ -14,7 +14,7 @@ class LogoutController extends Controller
 
     public function logout() 
     {
-        unset($_SESSION['logged_user']);
+        setcookie("logged_user", "", time() - 3600);
         $this->view->render($this->pageData);
     }
 }

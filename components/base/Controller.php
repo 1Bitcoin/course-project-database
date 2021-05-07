@@ -17,9 +17,10 @@ class Controller
         // roleID = 0 - гость
         $roleID = 0;
 
-        if (isset($_SESSION['logged_user']))
+        if (isset($_COOKIE['logged_user']))
         {
-            $roleID = $_SESSION['logged_user']['role_id'];
+            $data = json_decode($_COOKIE['logged_user'], true);
+            $roleID = $data['role_id'];
         }
 
         return $roleID;

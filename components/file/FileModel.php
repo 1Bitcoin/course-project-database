@@ -53,7 +53,7 @@ class FileModel extends Model
 
         // Из базы вощвращается массив, но т.к файл с определенным хэшем
         // только один - берем нулевой элемент.
-        if (isset($datePage['file']))
+        if ($datePage['file'] != NULL)
         {
             $datePage['user'] = $this->userRepository->getUserById($datePage['file']['user_id']);
             $datePage['role'] = $this->roleRepository->getRoleById($datePage['user']['role_id']);

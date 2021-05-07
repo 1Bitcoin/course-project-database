@@ -24,12 +24,12 @@ class FileView extends View
     
     public function redirectionToFile($hash) 
     {
-        $url = "https://iu7.ru/file?hash=" . $hash;
+        $url = "/file?hash=" . $hash;
         header("Location: $url");
     }
 
     public function redirectionToListFiles() 
     {
-        header("Location: https://www.iu7.ru/list?page=1");
+        header("Location: /list?page=1");
     }
 }

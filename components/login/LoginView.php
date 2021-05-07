@@ -12,6 +12,6 @@ class LoginView extends View
 
     public function main($pageData) 
     {
-        header("Location: https://iu7.ru");
+        header("Location: /");
     }
 }

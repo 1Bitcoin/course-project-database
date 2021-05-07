@@ -29,7 +29,7 @@ class LoginController extends Controller
         else
         {
             // Иначе отображаем форму для авторизации, если пользователь не авторизован.
-            if (isset($_SESSION['logged_user']))
+            if (isset($_COOKIE['logged_user']))
             {
                 $this->view->main($this->pageData);
             }
@@ -50,7 +50,9 @@ class LoginController extends Controller
 
        if (empty($this->pageData['errors']))
         {
-            $_SESSION['logged_user'] = $this->pageData['userInfo'];
+            $value = $this->pageData['userInfo'];
+            setcookie('logged_user', json_encode($value), time()+3600, "/");
+            
             $this->view->main($this->pageData);
         }
         else

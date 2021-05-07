@@ -91,10 +91,12 @@ class FileController extends Controller
                 
                 // Если пользователь авторизирован - добавить форму для написания комментария
                 // иначе - не добавлять.
-                if (isset($_SESSION['logged_user']))
+                if (isset($_COOKIE['logged_user']))
                 {
-                    $this->pageData['info']['session']['id'] = $_SESSION['logged_user']['id'];
-                    $this->pageData['info']['session']['role_id'] = $_SESSION['logged_user']['role_id'];
+                    $data = json_decode($_COOKIE['logged_user'], true);
+
+                    $this->pageData['info']['session']['id'] = $data['id'];
+                    $this->pageData['info']['session']['role_id'] = $data['role_id'];
                     $this->view->filePage($this->pageData['info']);
                 } 
                 else
@@ -116,11 +118,12 @@ class FileController extends Controller
     public function addCommentFile()
     {
         $hash = $_GET['hash'];
+        $data = json_decode($_COOKIE['logged_user'], true);
 
         // Получаем данные из формы
         $infoComment['comment'] = htmlspecialchars($_POST['comment']);
         $infoComment['hash_file'] = $hash;
-        $infoComment['user_email'] = $_SESSION['logged_user']['email'];
+        $infoComment['user_email'] = $data['email'];
 
         $status = $this->model->addCommentFile($infoComment);
 
@@ -131,10 +134,11 @@ class FileController extends Controller
     public function setScoreFile()
     {
         $hash = $_GET['hash'];
+        $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoScore['hash_file'] = $hash;
         $infoScore['value'] = $_POST['score_file'];
-        $infoScore['user_email'] = $_SESSION['logged_user']['email'];
+        $infoScore['user_email'] = $data['email'];
 
         $this->model->setScoreFile($infoScore);
 
@@ -145,10 +149,11 @@ class FileController extends Controller
     public function setScoreUser()
     {
         $hash = $_GET['hash'];
+        $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoScore['hash_file'] = $hash;
         $infoScore['value'] = $_POST['score_user'];
-        $infoScore['user_id'] = $_SESSION['logged_user']['id'];
+        $infoScore['user_id'] = $data['id'];
 
         $this->model->setScoreUser($infoScore);
 
@@ -159,10 +164,11 @@ class FileController extends Controller
     public function deleteComment()
     {
         $hash = $_GET['hash'];
+        $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoComment['comment_id'] = $_POST['delete_comment'];
-        $infoComment['user_id'] = $_SESSION['logged_user']['id'];
-        $infoComment['role_id'] = $_SESSION['logged_user']['role_id'];
+        $infoComment['user_id'] = $data['id'];
+        $infoComment['role_id'] = $data['role_id'];
 
         $this->model->deleteComment($infoComment);
 
@@ -172,9 +178,11 @@ class FileController extends Controller
 
     public function deleteFile()
     {
+        $data = json_decode($_COOKIE['logged_user'], true);
+
         $infoFile['file_id'] = $_POST['delete_file'];
-        $infoFile['user_id'] = $_SESSION['logged_user']['id'];
-        $infoFile['role_id'] = $_SESSION['logged_user']['role_id'];
+        $infoFile['user_id'] = $data['id'];
+        $infoFile['role_id'] = $data['role_id'];
 
         $this->model->deleteFile($infoFile);
 
@@ -184,9 +192,11 @@ class FileController extends Controller
 
     public function deleteUser()
     {
+        $data = json_decode($_COOKIE['logged_user'], true);
+
         $infoUser['delete_user_id'] = $_POST['delete_user'];
-        $infoUser['user_id'] = $_SESSION['logged_user']['id'];
-        $infoUser['role_id'] = $_SESSION['logged_user']['role_id'];
+        $infoUser['user_id'] = $data['id'];
+        $infoUser['role_id'] = $data['role_id'];
 
         $this->model->deleteUser($infoUser);
 
