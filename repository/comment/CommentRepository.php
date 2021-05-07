@@ -37,7 +37,8 @@ class CommentRepository implements CommentRepositoryInterface
         // Сохраняем объект
         R::store($comment); 
         
-        return 0;
+        // Вернуть id добавленной записи
+        return $comment->id;
     }
 
     public function deleteComment($infoComment)

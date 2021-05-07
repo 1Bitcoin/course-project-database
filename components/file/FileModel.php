@@ -2,6 +2,7 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
+require_once(ROOT . '/service/Logger.php');
 
 class FileModel extends Model 
 {
@@ -22,6 +23,8 @@ class FileModel extends Model
         $this->roleRepository = $roleRepository;
         $this->commentRepository = $commentRepository;
         $this->scoreRepository = $scoreRepository;
+
+        $this->logger = new Logger();
     }
 
     public function filesPagination($limit, $page)
@@ -80,9 +83,11 @@ class FileModel extends Model
         $infoComment['user_id'] = $this->userRepository->getUserIdByEmail($infoComment['user_email'])['id'];
         $infoComment['file_id'] = $fileInfo['id'];
 
-        $status = $this->commentRepository->addCommentFile($infoComment);
+        $idComment = $this->commentRepository->addCommentFile($infoComment);
 
-        return $status;
+        $this->addLog($infoComment['user_id'], $infoComment['ip'], "add comment", $idComment);
+
+        return 0;
     }
 
     public function setScoreFile($infoScore)
@@ -99,6 +104,10 @@ class FileModel extends Model
 
         // Обновляем общий рейтинг файла.
         $status = $this->repo->updateScoreFile($infoScore);
+
+        $action = ($infoScore['value'] == 1) ? "increase raiting file" : "decrease raiting file";
+
+        $this->addLog($infoScore['user_id'], $infoScore['ip'], $action, $infoScore['file_id']);
         
         return $status;
     }
@@ -116,6 +125,10 @@ class FileModel extends Model
 
         // Обновляем общий рейтинг пользователя.
         $status = $this->userRepository->updateScoreUser($infoScore);
+
+        $action = ($infoScore['value'] == 1) ? "increase raiting user" : "decrease raiting user";
+
+        $this->addLog($infoScore['user_id'], $infoScore['ip'], $action, $infoScore['user_id_received']);
         
         return $status;
     }
@@ -126,6 +139,8 @@ class FileModel extends Model
         if ($infoComment['role_id'] > 1)
         {
             $this->commentRepository->deleteComment($infoComment);
+
+            $this->addLog($infoComment['user_id'], $infoComment['ip'], "delete comment", $infoComment['comment_id']);
         }
 
         return 0;
@@ -137,6 +152,8 @@ class FileModel extends Model
         if ($infoFile['role_id'] > 1)
         {
             $this->repo->deleteFile($infoFile);
+
+            $this->addLog($infoFile['user_id'], $infoFile['ip'], "delete file", $infoFile['file_id']);
         }
 
         return 0;
@@ -148,8 +165,22 @@ class FileModel extends Model
         if ($infoUser['role_id'] == 3)
         {
             $this->userRepository->deleteUser($infoUser);
+
+            $this->addLog($infoUser['user_id'], $infoUser['ip'], "delete user", $infoUser['delete_user_id']);
         }
 
         return 0;
+    }
+
+    public function addLog($user, $ip, $action, $object_id)
+    {
+        $infoLog = array();
+
+        $infoLog['user_id'] = $user; 
+        $infoLog['ip'] = $ip; 
+        $infoLog['action'] = $action; 
+        $infoLog['object_id'] = $object_id; 
+
+        $this->logger->addLog($infoLog);
     }
 }

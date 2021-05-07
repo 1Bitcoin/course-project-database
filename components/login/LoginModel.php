@@ -2,6 +2,7 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
+require_once(ROOT . '/service/Logger.php');
 
 class LoginModel extends Model 
 {
@@ -11,6 +12,8 @@ class LoginModel extends Model
     {
         $this->connection = new Connection($roleID);
         $this->repo = $userRepository;
+
+        $this->logger = new Logger();
     }
     
     public function loginUser($infoUser)
@@ -33,10 +36,12 @@ class LoginModel extends Model
             // Если существует, то проверить подходит ли пароль.
             $response = $this->repo->checkCoincidenceUser($infoUser);
             
-            if (isset($response['response']))
+            if (isset($response['user']))
             {
                 // Если пароль верный, авторизуем.
-                $answer['userInfo'] = $response['response'];
+                $answer['userInfo'] = $response['user'];
+                $this->addLog($answer['userInfo']['id'], $infoUser['ip'], "login", NULL);
+
             }
             else
             {
@@ -49,5 +54,17 @@ class LoginModel extends Model
         }
 
         return $answer;
+    }
+
+    public function addLog($user, $ip, $action, $object_id)
+    {
+        $infoLog = array();
+
+        $infoLog['user_id'] = $user; 
+        $infoLog['ip'] = $ip; 
+        $infoLog['action'] = $action; 
+        $infoLog['object_id'] = $object_id; 
+
+        $this->logger->addLog($infoLog);
     }
 }

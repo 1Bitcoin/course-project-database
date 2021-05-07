@@ -47,11 +47,16 @@ class RegisterController extends Controller
         $infoUser['name'] = htmlspecialchars($_POST['name']);
         $infoUser['hash_password'] = htmlspecialchars($_POST['password']);
         $infoUser['repeat_hash_password'] = htmlspecialchars($_POST['repeat_password']);
+        $infoUser['ip'] = $_SERVER['REMOTE_ADDR'];
 
         $this->pageData = $this->model->registerUser($infoUser);
 
-        if (empty($this->pageData))
+        if (empty($this->pageData['error']))
         {
+            // Сразу логиним нового пользователя.
+            $value = $this->pageData['user'];
+            setcookie('logged_user', json_encode($value), time()+3600, "/");
+
             $this->view->main($this->pageData);
         }
         else

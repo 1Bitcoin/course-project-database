@@ -2,6 +2,7 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
+require_once(ROOT . '/service/Logger.php');
 
 class RegisterModel extends Model 
 {
@@ -11,20 +12,22 @@ class RegisterModel extends Model
     {
         $this->connection = new Connection($roleID);
         $this->repo = $userRepository;
+
+        $this->logger = new Logger();
     }
 
     public function registerUser($infoUser)
     {
-        $errors = array();
+        $answer = array();
 
         if ($infoUser['email'] == "")
-            $errors[] = "Введите email!";
+            $answer['error'] = "Введите email!";
 
         if ($infoUser['name'] == "")
-            $errors[] = "Введите name!";
+            $answer['error'] = "Введите name!";
 
         if ($infoUser['hash_password'] == "")
-            $errors[] = "Введите пароль!";
+            $answer['error'] = "Введите пароль!";
 
         $result = $this->repo->checkExistsUser($infoUser); 
 
@@ -35,20 +38,35 @@ class RegisterModel extends Model
                 $infoUser['hash_password'] = md5($infoUser['hash_password']);
                 $infoUser['repeat_hash_password'] = md5($infoUser['repeat_hash_password']);
                 
-                $this->repo->addUser($infoUser);
+                $idUser = $this->repo->addUser($infoUser);
+                $this->addLog($idUser, $infoUser['ip'], "register", NULL);
+
+                $answer['user'] = $this->repo->getUserById($idUser);
             }
             else
             {
                 // Введенные пароли не совпадают
-                $errors[] = "Пароли не совпадают!";
+                $answer['error'] = "Пароли не совпадают!";
             }
         }
         else
         {
             // Пользователь уже зарегистрирован
-            $errors[] = "Пользователь уже зарегистрирован!";
+            $answer['error'] = "Пользователь уже зарегистрирован!";
         }
 
-        return $errors;
+        return $answer;
+    }
+    
+    public function addLog($user, $ip, $action, $object_id)
+    {
+        $infoLog = array();
+
+        $infoLog['user_id'] = $user; 
+        $infoLog['ip'] = $ip; 
+        $infoLog['action'] = $action; 
+        $infoLog['object_id'] = $object_id; 
+
+        $this->logger->addLog($infoLog);
     }
 }

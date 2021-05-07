@@ -2,6 +2,7 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
+require_once(ROOT . '/service/Logger.php');
 
 class LoadModel extends Model 
 {
@@ -11,6 +12,8 @@ class LoadModel extends Model
     {
         $this->connection = new Connection($roleID);
         $this->repo = $fileRepository;
+
+        $this->logger = new Logger();
     }
     
     public function loadFile($dataFile)
@@ -64,8 +67,21 @@ class LoadModel extends Model
     {
         if (isset($infoFile['name']))
         {
-            $this->repo->addFile($infoFile);  
+            $idFile = $this->repo->addFile($infoFile);  
+            $this->addLog($infoFile['user_id'], $infoFile['ip'], "upload file", $idFile);
         } 
+    }
+
+    public function addLog($user, $ip, $action, $object_id)
+    {
+        $infoLog = array();
+
+        $infoLog['user_id'] = $user; 
+        $infoLog['ip'] = $ip; 
+        $infoLog['action'] = $action; 
+        $infoLog['object_id'] = $object_id; 
+
+        $this->logger->addLog($infoLog);
     }
 }
 

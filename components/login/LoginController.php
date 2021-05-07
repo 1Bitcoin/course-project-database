@@ -46,6 +46,9 @@ class LoginController extends Controller
         $infoUser['email'] = htmlspecialchars($_POST['email']);
         $infoUser['hash_password'] = htmlspecialchars($_POST['password']);
 
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $infoUser['ip'] = $ip;
+
         $this->pageData = $this->model->loginUser($infoUser);
 
        if (empty($this->pageData['errors']))

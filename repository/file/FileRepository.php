@@ -61,7 +61,7 @@ class FileRepository implements FileRepositoryInterface
         // Сохраняем объект
         R::store($file); 
         
-        return 0;
+        return $file->id;
     }
 
     public function getRowsByLimit($start, $end)

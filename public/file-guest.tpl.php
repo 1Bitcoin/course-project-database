@@ -81,7 +81,11 @@
                     </tr>
                     <tr>
                       <td class="active">Ссылка для скачивания:</td>
-                      <td><a href="uploaded_files/<?php echo $pageData['file']['hash']; ?>" download="<?php echo $pageData['file']['name']; ?>">Скачать</a></td>
+                      <td>
+                      <form method="post" action="/download">
+                            <button type="submit" name="download" value="<?php echo $pageData['file']['hash']; ?>">Скачать</button>
+                      </form>                    
+                      </td> 
                     </tr>
                   </tbody>
                 </table>

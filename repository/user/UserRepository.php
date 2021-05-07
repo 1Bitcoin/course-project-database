@@ -35,7 +35,7 @@ class UserRepository implements UserRepositoryInterface
  
         if (isset($user[0]))
         {
-            $result['response'] = $user[0];
+            $result['user'] = $user[0];
         }
 
         $result['nums'] = $nums;   
@@ -69,7 +69,7 @@ class UserRepository implements UserRepositoryInterface
         // Сохраняем объект
         R::store($user); 
         
-        return 0;
+        return $user->id;
     }
 
     public function updateScoreUser($infoScore)
@@ -81,7 +81,7 @@ class UserRepository implements UserRepositoryInterface
         $user->raiting = $sumScore;
         R::store($user);
         
-        return 0;
+        return $user->id;
     }
 
     public function deleteUser($infoUser)

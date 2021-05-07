@@ -7,6 +7,7 @@ require(COMPONENT_ERROR . "ErrorController.php");
 require(COMPONENT_FILE . "FileController.php");
 require(COMPONENT_REGISTER . "RegisterController.php");
 require(COMPONENT_LOGOUT . "LogoutController.php");
+require(COMPONENT_DOWNLOAD . "DownloadController.php");
 
 class Routing 
 {
@@ -49,6 +50,11 @@ class Routing
             case "/logout":
                 $controller = new LogoutController();
                 $controller->logout();  
+                break;  
+
+            case "/download":
+                $controller = new DownloadController();
+                $controller->download();  
                 break;  
 
             default:

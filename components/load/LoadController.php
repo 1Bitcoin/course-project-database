@@ -23,7 +23,11 @@ class LoadController extends Controller
         $data = json_decode($_COOKIE['logged_user'], true);
 
         $dataFiles['user_id'] = $data['id'];
+        $ip = $_SERVER['REMOTE_ADDR'];
+
         $infoFile = $this->model->loadFile($dataFiles);
+
+        $infoFile['ip'] = $ip;
         $this->model->addFile($infoFile);
     }
 

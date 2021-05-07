@@ -12,6 +12,7 @@ define("COMPONENT_LOAD", ROOT . "/components/load/");
 define("COMPONENT_LOGIN", ROOT . "/components/login/");
 define("COMPONENT_LOGOUT", ROOT . "/components/logout/");
 define("COMPONENT_REGISTER", ROOT . "/components/register/");
+define("COMPONENT_DOWNLOAD", ROOT . "/components/download/");
 define("COMPONENT_MAIN", ROOT . "/components/");
 
 define("REPOSITORY", ROOT . "/repository/");

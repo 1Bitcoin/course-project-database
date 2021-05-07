@@ -22,9 +22,10 @@ class FileController extends Controller
         $userRepository = new UserRepository();
         $roleRepository = new RoleRepository();
         $commentRepository = new CommentRepository();
-        $scoreRepository = new ScoreRepository();
+        $scoreRepository = new ScoreRepository();  
 
-        $this->model = new FileModel($fileRepository, $userRepository, $roleRepository, $commentRepository, $scoreRepository, $roleID);
+        $this->model = new FileModel($fileRepository, $userRepository, $roleRepository, 
+                                    $commentRepository, $scoreRepository, $roleID);
 
         $this->view = new FileView();
         $this->errorView = new ErrorView();
@@ -89,8 +90,7 @@ class FileController extends Controller
                 // Если файл получили - получаем комментарии к нему.
                 $this->pageData['info']['comment'] = $this->model->getCommentFile($this->pageData['info']['file']['id']);
                 
-                // Если пользователь авторизирован - добавить форму для написания комментария
-                // иначе - не добавлять.
+                // Если пользователь авторизирован - вывести соответствующую страницу файла.
                 if (isset($_COOKIE['logged_user']))
                 {
                     $data = json_decode($_COOKIE['logged_user'], true);
@@ -118,12 +118,14 @@ class FileController extends Controller
     public function addCommentFile()
     {
         $hash = $_GET['hash'];
+        $ip = $_SERVER['REMOTE_ADDR'];
         $data = json_decode($_COOKIE['logged_user'], true);
 
         // Получаем данные из формы
         $infoComment['comment'] = htmlspecialchars($_POST['comment']);
         $infoComment['hash_file'] = $hash;
         $infoComment['user_email'] = $data['email'];
+        $infoComment['ip'] = $ip;
 
         $status = $this->model->addCommentFile($infoComment);
 
@@ -134,11 +136,13 @@ class FileController extends Controller
     public function setScoreFile()
     {
         $hash = $_GET['hash'];
+        $ip = $_SERVER['REMOTE_ADDR'];
         $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoScore['hash_file'] = $hash;
         $infoScore['value'] = $_POST['score_file'];
         $infoScore['user_email'] = $data['email'];
+        $infoScore['ip'] = $ip;
 
         $this->model->setScoreFile($infoScore);
 
@@ -149,11 +153,13 @@ class FileController extends Controller
     public function setScoreUser()
     {
         $hash = $_GET['hash'];
+        $ip = $_SERVER['REMOTE_ADDR'];
         $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoScore['hash_file'] = $hash;
         $infoScore['value'] = $_POST['score_user'];
         $infoScore['user_id'] = $data['id'];
+        $infoScore['ip'] = $ip;
 
         $this->model->setScoreUser($infoScore);
 
@@ -164,11 +170,13 @@ class FileController extends Controller
     public function deleteComment()
     {
         $hash = $_GET['hash'];
+        $ip = $_SERVER['REMOTE_ADDR'];
         $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoComment['comment_id'] = $_POST['delete_comment'];
         $infoComment['user_id'] = $data['id'];
         $infoComment['role_id'] = $data['role_id'];
+        $infoComment['ip'] = $ip;
 
         $this->model->deleteComment($infoComment);
 
@@ -178,11 +186,13 @@ class FileController extends Controller
 
     public function deleteFile()
     {
+        $ip = $_SERVER['REMOTE_ADDR'];
         $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoFile['file_id'] = $_POST['delete_file'];
         $infoFile['user_id'] = $data['id'];
         $infoFile['role_id'] = $data['role_id'];
+        $infoFile['ip'] = $ip;
 
         $this->model->deleteFile($infoFile);
 
@@ -192,11 +202,13 @@ class FileController extends Controller
 
     public function deleteUser()
     {
+        $ip = $_SERVER['REMOTE_ADDR'];
         $data = json_decode($_COOKIE['logged_user'], true);
 
         $infoUser['delete_user_id'] = $_POST['delete_user'];
         $infoUser['user_id'] = $data['id'];
         $infoUser['role_id'] = $data['role_id'];
+        $infoUser['ip'] = $ip;
 
         $this->model->deleteUser($infoUser);
 
