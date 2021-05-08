@@ -17,7 +17,7 @@ class UploadController extends Controller
         $this->view = new UploadView();
     }
 
-    public function loadFile()
+    public function uploadFile()
     {
         $dataFiles = $_FILES;
         $data = json_decode($_COOKIE['logged_user'], true);
@@ -25,7 +25,7 @@ class UploadController extends Controller
         $dataFiles['user_id'] = $data['id'];
         $ip = $_SERVER['REMOTE_ADDR'];
 
-        $infoFile = $this->model->loadFile($dataFiles);
+        $infoFile = $this->model->uploadFile($dataFiles);
 
         $infoFile['ip'] = $ip;
         $this->model->addFile($infoFile);

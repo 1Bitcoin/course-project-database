@@ -2,6 +2,6 @@
 
 class Model 
 {
-    protected $repo;
-    protected $logger;
+    public $repo;
+    public $logger;
 }

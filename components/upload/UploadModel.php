@@ -16,7 +16,7 @@ class UploadModel extends Model
         $this->logger = new Logger();
     }
     
-    public function loadFile($dataFile)
+    public function uploadFile($dataFile)
     {
         $messages = '';
         $infoFile = array();

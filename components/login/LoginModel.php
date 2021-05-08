@@ -6,7 +6,7 @@ require_once(ROOT . '/service/Logger.php');
 
 class LoginModel extends Model 
 {
-    protected $connection;
+    public $connection;
 
     public function __construct(UserRepository $userRepository, $roleID) 
     {
@@ -21,10 +21,16 @@ class LoginModel extends Model
         $answer = array();
 
         if ($infoUser['email'] == "")
+        {
             $answer['errors'] = "Введите email!";
+            return $answer;
+        }
 
         if ($infoUser['hash_password'] == "")
+        {
             $answer['errors'] = "Введите пароль!";
+            return $answer;
+        }
 
         $infoUser['hash_password'] = md5($infoUser['hash_password']);
 

@@ -29,7 +29,7 @@ class Routing
 
             case "/load":
                 $controller = new UploadController();
-                $controller->loadFile();  
+                $controller->uploadFile();  
                 break;  
 
             case "/register":
