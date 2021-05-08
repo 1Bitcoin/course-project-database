@@ -4,7 +4,7 @@ require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
 require_once(ROOT . '/service/Logger.php');
 
-class LoadModel extends Model 
+class UploadModel extends Model 
 {
     protected $connection;
 

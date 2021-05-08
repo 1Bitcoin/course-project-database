@@ -1,10 +1,10 @@
 <?php
 
-require_once(COMPONENT_LOAD . 'LoadModel.php');
-require_once(COMPONENT_LOAD . 'LoadView.php');
+require_once(COMPONENT_UPLOAD . 'UploadModel.php');
+require_once(COMPONENT_UPLOAD . 'UploadView.php');
 require_once(COMPONENT_BASE . 'Controller.php');
 
-class LoadController extends Controller 
+class UploadController extends Controller 
 {
     public function __construct() 
     {
@@ -13,8 +13,8 @@ class LoadController extends Controller
         
         $fileRepository = new FileRepository();
 
-        $this->model = new LoadModel($fileRepository, $roleID);
-        $this->view = new LoadView();
+        $this->model = new UploadModel($fileRepository, $roleID);
+        $this->view = new UploadView();
     }
 
     public function loadFile()

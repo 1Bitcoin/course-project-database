@@ -8,7 +8,7 @@ define("COMPONENT_BASE", ROOT . "/components/base/");
 define("COMPONENT_ERROR", ROOT . "/components/error/");
 define("COMPONENT_FILE", ROOT . "/components/file/");
 define("COMPONENT_INDEX", ROOT . "/components/index/");
-define("COMPONENT_LOAD", ROOT . "/components/load/");
+define("COMPONENT_UPLOAD", ROOT . "/components/upload/");
 define("COMPONENT_LOGIN", ROOT . "/components/login/");
 define("COMPONENT_LOGOUT", ROOT . "/components/logout/");
 define("COMPONENT_REGISTER", ROOT . "/components/register/");

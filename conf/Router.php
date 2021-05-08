@@ -2,7 +2,7 @@
 
 require(COMPONENT_INDEX . "IndexController.php");
 require(COMPONENT_LOGIN . "LoginController.php");
-require(COMPONENT_LOAD . "LoadController.php");
+require(COMPONENT_UPLOAD . "UploadController.php");
 require(COMPONENT_ERROR . "ErrorController.php");
 require(COMPONENT_FILE . "FileController.php");
 require(COMPONENT_REGISTER . "RegisterController.php");
@@ -28,7 +28,7 @@ class Routing
                 break;
 
             case "/load":
-                $controller = new LoadController();
+                $controller = new UploadController();
                 $controller->loadFile();  
                 break;  
 

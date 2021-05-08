@@ -71,7 +71,8 @@
     </main> <!-- /container -->
 
     <footer class="text-center">
-        <p><a href="https://www.iu7.ru">www.iu7.ru</a></p>
+        <p><a href="/">www.iu7.ru</a></p>
+        
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
