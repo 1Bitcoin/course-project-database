@@ -9,7 +9,7 @@ require(COMPONENT_REGISTER . "RegisterController.php");
 require(COMPONENT_LOGOUT . "LogoutController.php");
 require(COMPONENT_DOWNLOAD . "DownloadController.php");
 
-class Routing 
+class Router
 {
     public static function run() 
     {

@@ -6,7 +6,7 @@ require_once(ROOT . '/service/Logger.php');
 
 class LoginModel extends Model 
 {
-    public $connection;
+    protected $connection;
 
     public function __construct(UserRepository $userRepository, $roleID) 
     {

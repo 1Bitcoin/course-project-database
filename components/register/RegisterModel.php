@@ -21,24 +21,37 @@ class RegisterModel extends Model
         $answer = array();
 
         if ($infoUser['email'] == "")
+        {
             $answer['error'] = "Введите email!";
+            return $answer;
+        }
 
         if ($infoUser['name'] == "")
+        {
             $answer['error'] = "Введите name!";
+            return $answer;
+        }
 
         if ($infoUser['hash_password'] == "")
+        {
             $answer['error'] = "Введите пароль!";
+            return $answer;
+        }
+
+        
 
         $result = $this->repo->checkExistsUser($infoUser); 
 
         if (!$result['nums'])
-        {           
+        {          
+            
             if ($infoUser['hash_password'] == $infoUser['repeat_hash_password'])
             {
                 $infoUser['hash_password'] = md5($infoUser['hash_password']);
                 $infoUser['repeat_hash_password'] = md5($infoUser['repeat_hash_password']);
                 
                 $idUser = $this->repo->addUser($infoUser);
+                
                 $this->addLog($idUser, $infoUser['ip'], "register", NULL);
 
                 $answer['user'] = $this->repo->getUserById($idUser);

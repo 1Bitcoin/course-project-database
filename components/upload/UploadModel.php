@@ -40,23 +40,22 @@ class UploadModel extends Model
 
             if (move_uploaded_file($fileTmpPath, $destPath)) 
             {
-                $message ='Файл успешно загружен.';
+                $infoFile['name'] = $fileName; 
+                $infoFile['size'] = $fileSize; 
+                $infoFile['type'] = $fileType; 
+                $infoFile['hash'] = $newFileName;
+                $infoFile['user_id'] = $fileUser;
             }
             else 
             {
-                $message = 'Возникла проблема с записью файла в директорию. На директории должны быть права записи.';
+                $infoFile['file']['error'] = 'Возникла проблема с записью файла в директорию. На директории должны быть права записи.';
             }
-
-            $infoFile['name'] = $fileName; 
-            $infoFile['size'] = $fileSize; 
-            $infoFile['type'] = $fileType; 
-            $infoFile['hash'] = $newFileName;
-            $infoFile['user_id'] = $fileUser;
         }
         else
         {
-            $message = 'Ошибка во время загрузки файла. Изучите возникшую ошибку.<br>';
-            $message .= 'Error:' . $dataFile['file']['error'];
+            $message = 'Ошибка во время загрузки файла. Изучите возникшую ошибку.';
+            $message .= ' Error: ' . $dataFile['file']['error'];
+            $infoFile['file']['error'] = $message;
             print_r($message);
         }
 

@@ -57,7 +57,7 @@ class UserRepository implements UserRepositoryInterface
     {
         $email = $infoUser['email'];
         $name = $infoUser['name'];
-        $hashPassword = $infoUser['hash_password'];
+        $hashPassword = $infoUser['hash_password'];  
 
         $user = R::dispense('user');
 
@@ -66,7 +66,7 @@ class UserRepository implements UserRepositoryInterface
         $user->name = $name;
         $user->hash_password = $hashPassword;
 
-        // Сохраняем объект
+       // Сохраняем объект
         R::store($user); 
         
         return $user->id;

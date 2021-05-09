@@ -27,8 +27,10 @@ class UploadController extends Controller
 
         $infoFile = $this->model->uploadFile($dataFiles);
 
-        $infoFile['ip'] = $ip;
-        $this->model->addFile($infoFile);
+        if (empty($infoFile['file']['error']))
+        {
+            $infoFile['ip'] = $ip;
+            $this->model->addFile($infoFile);
+        }
     }
-
 }

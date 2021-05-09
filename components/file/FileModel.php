@@ -135,19 +135,26 @@ class FileModel extends Model
 
     public function deleteComment($infoComment)
     {   
+        $answer = array();
+
         // Есть пользователь является модератором или администратором.
         if ($infoComment['role_id'] > 1)
         {
             $this->commentRepository->deleteComment($infoComment);
-
             $this->addLog($infoComment['user_id'], $infoComment['ip'], "delete comment", $infoComment['comment_id']);
         }
+        else
+        {
+            $answer['error'] = 'Недостаточно прав для удаления комментария!';
+        }
 
-        return 0;
+        return $answer;
     }
 
     public function deleteFile($infoFile)
     {   
+        $answer = array();
+
         // Есть пользователь является модератором или администратором.
         if ($infoFile['role_id'] > 1)
         {
@@ -155,21 +162,31 @@ class FileModel extends Model
 
             $this->addLog($infoFile['user_id'], $infoFile['ip'], "delete file", $infoFile['file_id']);
         }
+        else
+        {
+            $answer['error'] = 'Недостаточно прав для удаления файла!';
+        }
 
-        return 0;
+        return $answer;
     }
 
     public function deleteUser($infoUser)
     {   
+        $answer = array();
+
         // Есть пользователь является модератором или администратором.
-        if ($infoUser['role_id'] == 3)
+        if ($infoUser['role_id'] > 2)
         {
             $this->userRepository->deleteUser($infoUser);
 
             $this->addLog($infoUser['user_id'], $infoUser['ip'], "delete user", $infoUser['delete_user_id']);
         }
+        else
+        {
+            $answer['error'] = 'Недостаточно прав для удаления файла!';
+        }
 
-        return 0;
+        return $answer;
     }
 
     public function addLog($user, $ip, $action, $object_id)
