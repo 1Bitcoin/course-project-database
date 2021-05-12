@@ -20,12 +20,17 @@ class DownloadController extends Controller
     public function download() 
     {
         $ip = $_SERVER['REMOTE_ADDR'];
-        $data = json_decode($_COOKIE['logged_user'], true);
+        $data['id'] = NULL;
+
+        if (isset($_COOKIE['logged_user']))
+            $data = json_decode($_COOKIE['logged_user'], true);
+
         $hash = $_POST['download'];
 
         $infoUser['user_id'] = $data['id'];
         $infoUser['ip'] = $ip;
 
-        $this->model->download($hash, $infoUser);
+        $this->pageData = $this->model->download($hash, $infoUser);
+        $this->view->render($this->pageData);
     }
 }
