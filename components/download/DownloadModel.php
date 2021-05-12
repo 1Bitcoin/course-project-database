@@ -32,8 +32,6 @@ class DownloadModel extends Model
         $infoLog['action'] = $action; 
         $infoLog['object_id'] = $object_id; 
 
-        print_r($infoLog);
-
         $this->logger->addLog($infoLog);
     }
 }
