@@ -16,6 +16,8 @@ class Connection
         $nameDatabase = $configManager->getNameDatabase();
         $actor = $configManager->getActor();
 
+        // Red Bean имеет поддержку многих СУБД, например PostgreSQL
+        //R::setup('pgsql:host=' . $host . ';dbname=' . $nameDatabase, $actor, $password);
         R::setup('mysql:host=' . $host . ';dbname=' . $nameDatabase, $actor, $password);
  
         if (!R::testConnection()) 
