@@ -2,7 +2,8 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
-require_once(ROOT . '/service/Logger.php');
+require_once(SERVICE_LOGGER . 'Logger.php');
+require_once(SERVICE_STATISTICS . 'Statistics.php');
 
 class RegisterModel extends Model 
 {
@@ -14,6 +15,7 @@ class RegisterModel extends Model
         $this->repo = $userRepository;
 
         $this->logger = new Logger();
+        $this->statistics = new Statistics();
     }
 
     public function registerUser($infoUser)
@@ -38,13 +40,10 @@ class RegisterModel extends Model
             return $answer;
         }
 
-        
-
         $result = $this->repo->checkExistsUser($infoUser); 
 
         if (!$result['nums'])
         {          
-            
             if ($infoUser['hash_password'] == $infoUser['repeat_hash_password'])
             {
                 $infoUser['hash_password'] = md5($infoUser['hash_password']);
@@ -53,6 +52,7 @@ class RegisterModel extends Model
                 $idUser = $this->repo->addUser($infoUser);
                 
                 $this->addLog($idUser, $infoUser['ip'], "register", NULL);
+                $this->statistics->setUsersStatistics();
 
                 $answer['user'] = $this->repo->getUserById($idUser);
             }

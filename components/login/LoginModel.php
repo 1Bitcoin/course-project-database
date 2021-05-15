@@ -2,7 +2,7 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
-require_once(ROOT . '/service/Logger.php');
+require_once(SERVICE_LOGGER . 'Logger.php');
 
 class LoginModel extends Model 
 {

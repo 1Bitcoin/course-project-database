@@ -1,7 +1,7 @@
 <?php
 
 require_once(COMPONENT_BASE . 'Model.php');
-require_once(ROOT . '/service/Logger.php');
+require_once(SERVICE_LOGGER . 'Logger.php');
 
 class LogoutModel extends Model 
 {

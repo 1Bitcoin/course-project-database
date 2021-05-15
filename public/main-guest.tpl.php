@@ -12,6 +12,7 @@
     <!-- Custom styles -->
     <link href="../css/styles-main.css" rel="stylesheet">
     <link href="../css/styles-button.css" rel="stylesheet">
+    <link href="../css/statistics-table.css" rel="stylesheet">
   </head>
 
   <body>
@@ -26,6 +27,38 @@
       <a href="list?page=1" class="button-list">Список файлов</a>
       <a href="register" class="button-register">Регистрация</a>
       <a href="login" class="button-login">Авторизация</a>
+
+      <p></p>
+
+      <p class="lead mb-4">
+        Статистика сайта.
+      </p>
+
+    <table class="simple-little-table" cellspacing='0'>
+        <tr>
+            <th>Количество администраторов</th>
+            <th>Количество модераторов</th>
+            <th>Количество пользователей</th>
+            <th>Количество комментариев</th>
+            <th>Файлов загружено</th>
+            <th>Файлов скачано</th>
+        </tr>
+    
+        <tr>
+            <td><?php echo $pageData['statistics']['count_administrators']; ?></td>
+            <td><?php echo $pageData['statistics']['count_moderators']; ?></td>
+            <td><?php echo $pageData['statistics']['count_users']; ?></td>
+            <td><?php echo $pageData['statistics']['count_comments']; ?></td>
+            <td><?php echo $pageData['statistics']['count_upload_files']; ?></td>
+            <td><?php echo $pageData['statistics']['count_download_files']; ?></td>
+        </tr>
+    </table>
+
+    <footer class="text-center">
+        <p></p>
+        <p><a href="/">www.iu7.ru</a></p>
+        
+    </footer>
 
   </body>
 </html>

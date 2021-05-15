@@ -2,7 +2,8 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
-require_once(ROOT . '/service/Logger.php');
+require_once(SERVICE_LOGGER . 'Logger.php');
+require_once(SERVICE_STATISTICS . 'Statistics.php');
 
 class UploadModel extends Model 
 {
@@ -14,6 +15,7 @@ class UploadModel extends Model
         $this->repo = $fileRepository;
 
         $this->logger = new Logger();
+        $this->statistics = new Statistics();
     }
     
     public function uploadFile($dataFile)
@@ -33,7 +35,7 @@ class UploadModel extends Model
             $fileExtension = strtolower(end($fileNameCmps));
 
             // Изменяем имя файла для хранения
-            $newFileName = md5(time() . $fileName);
+            $newFileName = md5(time() . $fileName . rand(0, 500));
 
             // Директория загрузки файлов
             $destPath = UPLOAD_PATH . $newFileName;
@@ -68,6 +70,7 @@ class UploadModel extends Model
         {
             $idFile = $this->repo->addFile($infoFile);  
             $this->addLog($infoFile['user_id'], $infoFile['ip'], "upload file", $idFile);
+            $this->statistics->setUploadFilesStatistics();
         } 
     }
 

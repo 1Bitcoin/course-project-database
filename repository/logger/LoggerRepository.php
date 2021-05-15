@@ -30,4 +30,10 @@ class LoggerRepository implements LoggerRepositoryInterface
         return 0;
     }
 
+    public function getLogs()
+    {
+        $logs = R::getAll('SELECT * FROM `logging` ORDER BY id DESC LIMIT ?', [1000]);
+
+        return $logs;
+    }
 }

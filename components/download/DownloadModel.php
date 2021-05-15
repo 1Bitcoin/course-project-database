@@ -1,7 +1,9 @@
 <?php
 
 require_once(COMPONENT_BASE . 'Model.php');
-require_once(ROOT . '/service/Logger.php');
+require_once(SERVICE_LOGGER . 'Logger.php');
+require_once(SERVICE_STATISTICS . 'Statistics.php');
+
 
 class DownloadModel extends Model 
 {
@@ -10,6 +12,7 @@ class DownloadModel extends Model
         $this->repo = $fileRepository;
         $this->connection = new Connection($roleID);
         $this->logger = new Logger();
+        $this->statistics = new Statistics();
     }
 
     public function download($hash, $infoUser)
@@ -17,6 +20,7 @@ class DownloadModel extends Model
         $answer = array();
         $file = $this->repo->getFileByHash($hash);
         $this->addLog($infoUser['user_id'], $infoUser['ip'], "download file", $file['id']);
+        $this->statistics->setDownloadFilesStatistics();
 
         $answer['hash'] = $hash;
         $answer['name'] = $file['name'];

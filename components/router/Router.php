@@ -8,6 +8,7 @@ require(COMPONENT_FILE . "FileController.php");
 require(COMPONENT_REGISTER . "RegisterController.php");
 require(COMPONENT_LOGOUT . "LogoutController.php");
 require(COMPONENT_DOWNLOAD . "DownloadController.php");
+require(COMPONENT_LOGGING . "LoggingController.php");
 
 class Router
 {
@@ -55,6 +56,11 @@ class Router
             case "/download":
                 $controller = new DownloadController();
                 $controller->download();  
+                break; 
+                
+            case "/logging":
+                $controller = new LoggingController();
+                $controller->getLogs();  
                 break;  
 
             default:

@@ -2,7 +2,8 @@
 
 require_once(COMPONENT_BASE . 'Model.php');
 require_once(CONNECTION . 'Connection.php');
-require_once(ROOT . '/service/Logger.php');
+require_once(SERVICE_LOGGER . 'Logger.php');
+require_once(SERVICE_STATISTICS . 'Statistics.php');
 
 class FileModel extends Model 
 {
@@ -25,6 +26,7 @@ class FileModel extends Model
         $this->scoreRepository = $scoreRepository;
 
         $this->logger = new Logger();
+        $this->statistics = new Statistics();
     }
 
     public function filesPagination($limit, $page)
@@ -86,6 +88,7 @@ class FileModel extends Model
         $idComment = $this->commentRepository->addCommentFile($infoComment);
 
         $this->addLog($infoComment['user_id'], $infoComment['ip'], "add comment", $idComment);
+        $this->statistics->setCommentsStatistics();
 
         return 0;
     }
@@ -142,6 +145,7 @@ class FileModel extends Model
         {
             $this->commentRepository->deleteComment($infoComment);
             $this->addLog($infoComment['user_id'], $infoComment['ip'], "delete comment", $infoComment['comment_id']);
+            $this->statistics->setCommentsStatistics();
         }
         else
         {
@@ -159,8 +163,10 @@ class FileModel extends Model
         if ($infoFile['role_id'] > 1)
         {
             $this->repo->deleteFile($infoFile);
-
+            
             $this->addLog($infoFile['user_id'], $infoFile['ip'], "delete file", $infoFile['file_id']);
+            $this->statistics->setUploadFilesStatistics();
+            $this->statistics->setCommentsStatistics();
         }
         else
         {
@@ -180,6 +186,9 @@ class FileModel extends Model
             $this->userRepository->deleteUser($infoUser);
 
             $this->addLog($infoUser['user_id'], $infoUser['ip'], "delete user", $infoUser['delete_user_id']);
+            $this->statistics->setUsersStatistics();
+            $this->statistics->setUploadFilesStatistics();
+            $this->statistics->setCommentsStatistics();
         }
         else
         {
