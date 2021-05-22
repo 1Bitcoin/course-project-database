@@ -66,7 +66,7 @@ class FileRepository implements FileRepositoryInterface
 
     public function getRowsByLimit($start, $end)
     {
-        $files = R::getAll('SELECT * FROM `file` LIMIT ?, ?', [$start, $end]);
+        $files = R::getAll('SELECT * FROM `file` ORDER BY date_upload DESC LIMIT ?, ?', [$start, $end]);
 
         return $files;
     }

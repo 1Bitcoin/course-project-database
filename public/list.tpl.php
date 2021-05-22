@@ -31,15 +31,15 @@
         Список файлов
     </caption>
     <tr>
-        <th class="test"></th> 
+        <th class="test"> 
+            <?php foreach($pageData['files'] as $file): ?>
+            <tr>  
+                <td><a href="file?hash=<?php echo $file["hash"]; ?>"> <?php echo $file["name"]; ?></td>  
+                <td><?php echo $file["date_upload"]; ?></td>  
+            </tr>
+            <?php endforeach; ?> 
+        </th>
     </tr>
-
-    <?php foreach($pageData['files'] as $file): ?>
-        <tr>  
-            <td><a href="file?hash=<?php echo $file["hash"]; ?>"> <?php echo $file["name"]; ?></td>  
-        </tr>
-    <?php endforeach; ?> 
-
 </table>
 </div>
    
