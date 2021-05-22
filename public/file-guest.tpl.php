@@ -32,7 +32,17 @@
             <div class="text-center" id="author">
               <img src="/public/avatar.png">
               <h3><?php echo $pageData['user']['name']; ?></h3>
-              <small class="label label-danger"><?php echo $pageData['role']['name']; ?></small>
+              <?php if ($pageData['user']['role_id'] == 1): ?>
+                <small class="label label-primary"><?php echo $pageData['role']['name']; ?></small>
+              <?php endif; ?> 
+
+              <?php if ($pageData['user']['role_id'] == 2): ?>
+                <small class="label label-warning"><?php echo $pageData['role']['name']; ?></small>
+              <?php endif; ?> 
+
+              <?php if ($pageData['user']['role_id'] == 3): ?>
+                <small class="label label-danger"><?php echo $pageData['role']['name']; ?></small>
+              <?php endif; ?> 
               <br>
               <br>
             <td class="active">Рейтинг пользователя:</td>
