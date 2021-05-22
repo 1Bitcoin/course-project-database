@@ -61,25 +61,18 @@ class ScoreRepository implements ScoreRepositoryInterface
             $idRow = $rows[0]['id'];
 
             $score = R::load('score_file', $idRow);
+            $oldTypeScore = $score->type_score;
             $score->type_score = $value;
             R::store($score);
+
+            return $oldTypeScore;
         }
         else
         {
             $res = R::exec("INSERT INTO score_file (user_id, file_id, type_score) VALUES (?,?,?)", [$user_id, $file_id, $value]);
 
-            /*$score = R::dispense('score_file');
-
-            // Заполняем объект свойствами
-            $score->user_id = $user_id;
-            $score->file_id = $file_id;
-            $score->type_score = $value;
-    
-            // Сохраняем объект
-            R::store($score); */
+            return 0;
         }
-        
-        return 0;
     }
 
     public function setScoreUser($infoScore)
@@ -98,14 +91,17 @@ class ScoreRepository implements ScoreRepositoryInterface
             $idRow = $rows[0]['id'];
 
             $score = R::load('score_user', $idRow);
+            $oldTypeScore = $score->type_score;
             $score->type_score = $value;
             R::store($score);
+
+            return $oldTypeScore;
         }
         else
         {
-            $res = R::exec("INSERT INTO score_user (user_id, user_id_received, type_score) VALUES (?,?,?)", [$user_id, $user_id_received, $value]);
+            $res = R::exec("INSERT INTO score_user (user_id, user_id_received, type_score) 
+                                        VALUES (?,?,?)", [$user_id, $user_id_received, $value]);
+            return 0;
         }
-        
-        return 0;
     }
 }

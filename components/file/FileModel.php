@@ -130,7 +130,7 @@ class FileModel extends Model
         $infoScore['file_id'] = $fileInfo['id'];
 
         // Обновляем или добавляем запись в таблицу score_file об оценке файла пользователем.
-        $this->scoreRepository->setScoreFile($infoScore);
+        $oldTypeScore = $this->scoreRepository->setScoreFile($infoScore);
 
         // Получить сумму оценок файла.
         $infoScore['sum_score'] = $this->scoreRepository->getSumScore($infoScore);
@@ -138,9 +138,12 @@ class FileModel extends Model
         // Обновляем общий рейтинг файла.
         $status = $this->repo->updateScoreFile($infoScore);
 
-        $action = ($infoScore['value'] == 1) ? "increase raiting file" : "decrease raiting file";
+        if ($infoScore['value'] != $oldTypeScore)
+        {
+            $action = ($infoScore['value'] == 1) ? "increase raiting file" : "decrease raiting file";
 
-        $this->addLog($infoScore['user_id'], $infoScore['ip'], $action, $infoScore['file_id']);
+            $this->addLog($infoScore['user_id'], $infoScore['ip'], $action, $infoScore['file_id']);
+        }
         
         return $status;
     }
@@ -151,7 +154,7 @@ class FileModel extends Model
         $infoScore['user_id_received'] = $fileInfo['user_id'];
 
         // Обновляем или добавляем запись в таблицу score_user об оценке файла пользователем.
-        $this->scoreRepository->setScoreUser($infoScore);
+        $oldTypeScore = $this->scoreRepository->setScoreUser($infoScore);
 
         // Получить сумму оценок пользователя.
         $infoScore['sum_score'] = $this->scoreRepository->getSumScoreUser($infoScore);
@@ -159,9 +162,12 @@ class FileModel extends Model
         // Обновляем общий рейтинг пользователя.
         $status = $this->userRepository->updateScoreUser($infoScore);
 
-        $action = ($infoScore['value'] == 1) ? "increase raiting user" : "decrease raiting user";
+        if ($infoScore['value'] != $oldTypeScore)
+        {
+            $action = ($infoScore['value'] == 1) ? "increase raiting user" : "decrease raiting user";
 
-        $this->addLog($infoScore['user_id'], $infoScore['ip'], $action, $infoScore['user_id_received']);
+            $this->addLog($infoScore['user_id'], $infoScore['ip'], $action, $infoScore['user_id_received']);
+        }
         
         return $status;
     }
