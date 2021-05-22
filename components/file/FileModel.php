@@ -206,6 +206,7 @@ class FileModel extends Model
         $infoLog['ip'] = $ip; 
         $infoLog['action'] = $action; 
         $infoLog['object_id'] = $object_id; 
+        $infoLog['call_from'] = "FileModel Class"; 
 
         $this->logger->addLog($infoLog);
     }

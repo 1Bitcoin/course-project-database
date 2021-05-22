@@ -17,7 +17,6 @@
 
 <div class="container">
   <div id="main">
-
     <div class="row" id="real-estates-detail">
       <div class="col-lg-4 col-md-4 col-xs-12">
         <div class="panel panel-default">

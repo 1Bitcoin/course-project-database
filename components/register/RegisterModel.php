@@ -79,6 +79,7 @@ class RegisterModel extends Model
         $infoLog['ip'] = $ip; 
         $infoLog['action'] = $action; 
         $infoLog['object_id'] = $object_id; 
+        $infoLog['call_from'] = "RegisterModel Class"; 
 
         $this->logger->addLog($infoLog);
     }

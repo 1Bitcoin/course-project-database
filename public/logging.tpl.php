@@ -26,12 +26,13 @@
     <div class="layer">
     <p><?php foreach($pageData as $log): ?>
         <div style="text-align: center;" class ="panel panel-default">
-            <?php echo("| " . "id: " . $log['id'] . " | "); ?>
+            <?php echo("| date: " . $log['date']); ?>
+            <?php echo("| " . "log_id: " . $log['id'] . " | "); ?>
             <?php echo("user_id: " . $log['user_id'] . " | "); ?>
             <?php echo("action: " . $log['action'] . " | "); ?>
             <?php echo("object_id: " . $log['object_id'] . " | "); ?>
-            <?php echo("date: " . $log['date'] . " | "); ?>
             <?php echo("ip: " . $log['ip'] . " | "); ?>
+            <?php echo("call_from: " . $log['call_from'] . " | "); ?>
         </div>
     <?php endforeach; ?> </p>
   </div> 

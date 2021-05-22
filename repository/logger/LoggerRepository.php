@@ -17,10 +17,12 @@ class LoggerRepository implements LoggerRepositoryInterface
         $ip = $infoLog['ip'];
         $action = $infoLog['action'];
         $object_id = $infoLog['object_id'];
+        $call_from = $infoLog['call_from'];
 
         $log = R::dispense('logging');
 
         $log->ip = $ip;
+        $log->call_from = $call_from;
         $log->user_id = $user_id;
         $log->action = $action;
         $log->object_id = $object_id;

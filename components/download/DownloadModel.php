@@ -36,6 +36,7 @@ class DownloadModel extends Model
         $infoLog['ip'] = $ip; 
         $infoLog['action'] = $action; 
         $infoLog['object_id'] = $object_id; 
+        $infoLog['call_from'] = "DownloadModel Class"; 
 
         $this->logger->addLog($infoLog);
     }

@@ -19,6 +19,7 @@ class LogoutModel extends Model
         $infoLog['ip'] = $ip; 
         $infoLog['action'] = $action; 
         $infoLog['object_id'] = $object_id; 
+        $infoLog['call_from'] = "LogoutModel Class"; 
 
         $this->logger->addLog($infoLog);
     }
