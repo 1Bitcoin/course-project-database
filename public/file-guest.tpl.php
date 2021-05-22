@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="../css/file.css" />
 <link href="../css/style-header.css" rel="stylesheet">
 <link href="../css/style-logo.css" rel="stylesheet">
+<link href="../css/styles-button.css" rel="stylesheet">
 <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
 <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
 <title>Информация о файле</title>
@@ -47,6 +48,7 @@
           <div class="panel-body">
             <ul id="myTab" class="nav nav-pills">
               <li class="active"><a href="#detail" data-toggle="tab">О файле</a></li>
+              <li class=""><a href="list?page=1">К списку файлов</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
               <hr>

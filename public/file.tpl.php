@@ -4,16 +4,20 @@
 <link rel="stylesheet" href="../css/style-like-button.css" />
 <link href="../css/style-header.css" rel="stylesheet">
 <link href="../css/style-logo.css" rel="stylesheet">
+<link href="../css/styles-button.css" rel="stylesheet">
 <script src="https://bootstraptema.ru/plugins/jquery/jquery-1.11.3.min.js"></script>
 <script src="https://bootstraptema.ru/plugins/2015/b-v3-3-6/bootstrap.min.js"></script>
 <title>Информация о файле</title>
 
 <div id = "wrap">
     <header>
-    <p class="logo"><a href="/">
+    <p class="logo">
+    <a href="/">
         <img src="/public/logo.png" alt="Логотип в шапке" width="80" height="80" />
-    </a></p>
+    </a>
+    </p>
     </header>
+
 </div>
 
 <div class="container">
@@ -65,6 +69,8 @@
           <div class="panel-body">
             <ul id="myTab" class="nav nav-pills">
               <li class="active"><a href="#detail" data-toggle="tab">О файле</a></li>
+              <li class=""><a href="list?page=1">К списку файлов</a></li>
+
               <li class=""><a href="#contact" data-toggle="tab">Написать комментарий</a></li>
 
               <?php if ($pageData['session']['role_id'] > 1): ?>
@@ -122,8 +128,7 @@
 
                       <form method="post" action="/download">
                             <button type="submit" name="download" value="<?php echo $pageData['file']['hash']; ?>">Скачать</button>
-                      </form>
-                      
+                      </form>                  
                       </td>                                           
                     </tr>
                   </tbody>
