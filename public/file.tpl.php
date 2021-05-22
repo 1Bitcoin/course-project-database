@@ -39,26 +39,27 @@
               <small class="label label-danger"><?php echo $pageData['role']['name']; ?></small>
               <br>
               <br>
+                <?php if ($pageData['session']['role_id'] == 3 && $pageData['user']['role_id'] != 3): ?>
+                        <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+                            <button type="submit" class="label label-danger" name="delete_user" 
+                                            value="<?php echo $pageData['user']['id']; ?>">Удалить аккаунт</button>
+                        </form>
+                    <?php endif; ?> 
               <tr>
                 <td class="active">Рейтинг пользователя:</td>
                 <span class="colortext"></span>
-                <td><?php echo $pageData['user']['raiting']; ?> &nbsp;
-                    <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
-                        <button class="dislike" type="submit" name="score_user" value="-1">
-                            <i class="fa fa-thumbs-o-down" aria-hidden="flas"></i>
-                        </button>
+                <?php echo $pageData['user']['raiting']; ?> &nbsp;
+                <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+                    <button class="dislike" type="submit" name="score_user" value="-1">
+                        <i class="fa fa-thumbs-o-down" aria-hidden="flas"></i>
+                        <li><?php echo $pageData['user']['score']['count_dislikes']; ?></li>
+                    </button>
 
-                        <button class="like" type="submit" name="score_user" value="1">
-                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                        </button>
-                    </form>                      
-                </td>
-                <?php if ($pageData['session']['role_id'] == 3 && $pageData['user']['role_id'] != 3): ?>
-                    <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
-                        &#8195;<button type="submit" class="label label-danger" name="delete_user" 
-                                        value="<?php echo $pageData['user']['id']; ?>">Удалить аккаунт</button>
-                    </form>
-                <?php endif; ?> 
+                    <button class="like" type="submit" name="score_user" value="1">
+                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        <li><?php echo $pageData['user']['score']['count_likes']; ?></li>
+                    </button>
+                </form> 
             </tr>
             </div>
           </div>
@@ -111,21 +112,26 @@
                       <td class="active">Рейтинг файла:</td>
                       <span class="colortext"></span>
                       <td><?php echo $pageData['file']['raiting']; ?> &nbsp;
-                            <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
-                                <button class="dislike" type="submit" name="score_file" value="-1">
-                                    <i class="fa fa-thumbs-o-down" aria-hidden="flas"></i>
-                                </button>
-
-                                <button class="like" type="submit" name="score_file" value="1">
-                                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                </button>
-                            </form>                      
                       </td>
+                    </tr>
+                    <tr>
+                      <td height="80" class="active">Оценивание:</td>
+                      <form method="post" action="/file?hash=<?php echo $pageData['file']['hash']; ?>">
+                      <td><button class="dislike" type="submit" name="score_file" value="-1">
+                            <i class="fa fa-thumbs-o-down" aria-hidden="flas"></i>
+                            <li><?php echo $pageData['file']['score']['count_dislikes']; ?></li>
+                        </button>
+                       
+                        <button class="like" type="submit" name="score_file" value="1">
+                            <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            <li><?php echo $pageData['file']['score']['count_likes']; ?></li>
+                        </button>
+                        </td>
+                    </form>
                     </tr>
                     <tr>
                       <td class="active">Ссылка для скачивания:</td>
                       <td>
-
                       <form method="post" action="/download">
                             <button type="submit" name="download" value="<?php echo $pageData['file']['hash']; ?>">Скачать</button>
                       </form>                  

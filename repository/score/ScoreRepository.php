@@ -13,6 +13,18 @@ class ScoreRepository implements ScoreRepositoryInterface
         
     }
 
+    public function getCountScore($searchInfo)
+    {
+        $target_id = $searchInfo['target_id'];
+        $type_score = $searchInfo['type_score'];
+        $table = $searchInfo['table'];
+        $searchField = $searchInfo['search_field'];
+
+        $nums = R::count($table, $searchField . ' = ? AND type_score = ?', [$target_id, $type_score]);
+
+        return $nums;
+    }
+
     public function getSumScore($infoScore)
     {
         $file_id = $infoScore['file_id'];

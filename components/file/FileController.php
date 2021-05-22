@@ -97,6 +97,11 @@ class FileController extends Controller
 
                     $this->pageData['info']['session']['id'] = $data['id'];
                     $this->pageData['info']['session']['role_id'] = $data['role_id'];
+
+                    // Получаем лайки и дизлайки файла и его автора
+                    $this->pageData['info']['file']['score'] = $this->model->getCountLikeDislikeFile($this->pageData['info']);
+                    $this->pageData['info']['user']['score'] = $this->model->getCountLikeDislikeUser($this->pageData['info']);
+
                     $this->view->filePage($this->pageData['info']);
                 } 
                 else

@@ -93,6 +93,36 @@ class FileModel extends Model
         return 0;
     }
 
+    public function getCountLikeDislikeFile($info)
+    {
+        $searchInfo['target_id'] = $info['file']['id'];
+        $searchInfo['table'] = "score_file";
+        $searchInfo['search_field'] = "file_id";
+
+        $searchInfo['type_score'] = 1;
+        $answer['count_likes'] = $this->scoreRepository->getCountScore($searchInfo);
+
+        $searchInfo['type_score'] = -1;
+        $answer['count_dislikes'] = $this->scoreRepository->getCountScore($searchInfo);
+
+        return $answer;
+    }
+
+    public function getCountLikeDislikeUser($info)
+    {
+        $searchInfo['target_id'] = $info['user']['id'];
+        $searchInfo['table'] = "score_user";
+        $searchInfo['search_field'] = "user_id_received";
+
+        $searchInfo['type_score'] = 1;
+        $answer['count_likes'] = $this->scoreRepository->getCountScore($searchInfo);
+
+        $searchInfo['type_score'] = -1;
+        $answer['count_dislikes'] = $this->scoreRepository->getCountScore($searchInfo);
+
+        return $answer;
+    }
+
     public function setScoreFile($infoScore)
     {
         $fileInfo = $this->repo->getFileByHash($infoScore['hash_file']);
