@@ -11,9 +11,9 @@ class FileRepository implements FileRepositoryInterface
 
     }
 
-    public function getCountRows()
+    public function getCountRows($searchString)
     {
-        $countFiles = R::count('file');
+        $countFiles = R::count("file", "name LIKE ?", ['%' . $searchString . '%']);
 
         return $countFiles;
     }
@@ -64,9 +64,10 @@ class FileRepository implements FileRepositoryInterface
         return $file->id;
     }
 
-    public function getRowsByLimit($start, $end)
+    public function getRowsByLimit($start, $end, $searchString)
     {
-        $files = R::getAll('SELECT * FROM `file` ORDER BY date_upload DESC LIMIT ?, ?', [$start, $end]);
+        $files = R::getAll('SELECT * FROM file WHERE name LIKE ? 
+                            ORDER BY date_upload DESC LIMIT ?, ?', ['%' . $searchString . '%', $start, $end]);
 
         return $files;
     }

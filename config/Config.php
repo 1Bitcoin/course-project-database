@@ -15,6 +15,7 @@ define("COMPONENT_REGISTER", ROOT . "/components/register/");
 define("COMPONENT_DOWNLOAD", ROOT . "/components/download/");
 define("COMPONENT_ROUTER", ROOT . "/components/router/");
 define("COMPONENT_LOGGING", ROOT . "/components/logging/");
+define("COMPONENT_LIST", ROOT . "/components/list/");
 define("COMPONENT_MAIN", ROOT . "/components/");
 define("SERVICE_LOGGER", ROOT . "/service/logger/");
 define("SERVICE_STATISTICS", ROOT . "/service/statistics/");

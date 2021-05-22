@@ -14,6 +14,7 @@
     <link href="../css/style-table.css" rel="stylesheet">
     <link href="../css/style-header.css" rel="stylesheet">
     <link href="../css/style-logo.css" rel="stylesheet">
+    <link href="../css/style-find-input.css" rel="stylesheet">
     <script src="../js/simplePagination.js"></script>
 </head>
 <body>
@@ -28,8 +29,14 @@
     <div class="my-table">
     <table>
     <caption>
-        Список файлов
+        <form name="test" method="post" action="/list?page=1" name="find_file">
+            <p><b>Поиск файлов:</b><br>
+                <input type="text" name="find_file" value="<?php echo $pageData['find_value']; ?>" class="colortext" size="40">
+                <button type="submit" class="colortext" data-original-title="" title="">Отправить</button>
+            </p>
+        </form>
     </caption>
+
     <tr>
         <th class="test"> 
             <?php foreach($pageData['files'] as $file): ?>
@@ -45,15 +52,15 @@
    
 <div class="php-pagination">
 <?php  
-$total_records = $pageData['count'];  
-$total_pages = ceil($total_records / $pageData['limit']);  
-$pagLink = "<nav><ul class='pagination'>";  
+    $total_records = $pageData['count'];  
+    $total_pages = ceil($total_records / $pageData['limit']);  
+    $pagLink = "<nav><ul class='pagination'>";  
 
-for ($i = 1; $i <= $total_pages; $i++) 
-{  
-    $pagLink .= "<li><a href='list?page=".$i."'>".$i."</a></li>";  
-};
-echo $pagLink . "</ul></nav>";  
+    for ($i = 1; $i <= $total_pages; $i++) 
+    {  
+        $pagLink .= "<li><a href='list?page=".$i."'>".$i."</a></li>";  
+    };
+    echo $pagLink . "</ul></nav>";  
 ?>
 </div>
 
@@ -68,6 +75,5 @@ $(document).ready(function(){
     });
 });
 </script>
-
 </body>
 </html>

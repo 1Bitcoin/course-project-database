@@ -9,6 +9,7 @@ require(COMPONENT_REGISTER . "RegisterController.php");
 require(COMPONENT_LOGOUT . "LogoutController.php");
 require(COMPONENT_DOWNLOAD . "DownloadController.php");
 require(COMPONENT_LOGGING . "LoggingController.php");
+require(COMPONENT_LIST . "ListController.php");
 
 class Router
 {
@@ -39,8 +40,8 @@ class Router
                 break; 
 
             case "/list":
-                $controller = new FileController();
-                $controller->showFiles();  
+                $controller = new ListController();
+                $controller->processingRequest();  
                 break;  
 
             case "/file":

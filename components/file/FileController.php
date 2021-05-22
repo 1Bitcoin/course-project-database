@@ -31,15 +31,6 @@ class FileController extends Controller
         $this->errorView = new ErrorView();
     }
 
-    public function showFiles() 
-    {
-        $limit = 15;
-        $page = $_GET['page'];
- 
-        $this->pageData = $this->model->filesPagination($limit, $page);  
-        $this->view->render($this->pageData);
-    }
-
     public function processingRequest() 
     {
         if (isset($_POST['comment']) && isset($_GET['hash']))

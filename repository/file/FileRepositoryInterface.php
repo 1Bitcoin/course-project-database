@@ -8,8 +8,8 @@ interface FileRepositoryInterface
 
     public function addFile($infoFile);
 
-    public function getCountRows();
+    public function getCountRows($searchString);
 
-    public function getRowsByLimit($start, $end);
+    public function getRowsByLimit($start, $end, $searchString);
 
 }
