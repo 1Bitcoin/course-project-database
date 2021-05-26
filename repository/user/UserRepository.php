@@ -91,4 +91,12 @@ class UserRepository implements UserRepositoryInterface
 
         return 0;
     }
+
+    public function clearScoreUserByUser($infoUser)
+    {
+        $idUser = $infoUser['delete_user_id'];
+        $result = R::getAll('call update_score_user_after_delete_user(?)', [$idUser]);
+
+        return 0;
+    }
 }

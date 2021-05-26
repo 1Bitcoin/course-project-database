@@ -216,9 +216,10 @@ class FileModel extends Model
     {   
         $answer = array();
 
-        // Есть пользователь является модератором или администратором.
+        // Есть пользователь является администратором.
         if ($infoUser['role_id'] > 2)
         {
+            $this->userRepository->clearScoreUserByUser($infoUser);
             $this->userRepository->deleteUser($infoUser);
 
             $this->addLog($infoUser['user_id'], $infoUser['ip'], "delete user", $infoUser['delete_user_id']);
