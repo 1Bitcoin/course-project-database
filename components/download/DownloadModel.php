@@ -19,10 +19,13 @@ class DownloadModel extends Model
     {
         $answer = array();
         $file = $this->repo->getFileByHash($hash);
+
         $this->addLog($infoUser['user_id'], $infoUser['ip'], "download file", $file['id']);
         $this->statistics->setDownloadFilesStatistics();
 
-        $answer['hash'] = $hash;
+        $answer['hash'] = $file['hash'];
+        $answer['size'] = $file['size'];
+        $answer['type'] = $file['type'];
         $answer['name'] = $file['name'];
 
         return $answer;
