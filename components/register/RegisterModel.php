@@ -40,6 +40,12 @@ class RegisterModel extends Model
             return $answer;
         }
 
+        if (!filter_var($infoUser['email'], FILTER_VALIDATE_EMAIL)) 
+        {
+            $answer['error'] = "E-mail адрес введен неверно";
+            return $answer;
+        }
+
         $result = $this->repo->checkExistsUser($infoUser); 
 
         if (!$result['nums'])
