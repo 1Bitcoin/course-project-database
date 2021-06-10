@@ -47,7 +47,7 @@ class RegisterModel extends Model
         }
 
         $result = $this->repo->checkExistsUser($infoUser); 
-
+        
         if (!$result['nums'])
         {          
             if ($infoUser['hash_password'] == $infoUser['repeat_hash_password'])
