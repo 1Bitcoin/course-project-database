@@ -1,25 +1,14 @@
-DELIMITER //  
-  
-CREATE PROCEDURE `update_scores` (in id int)  
-BEGIN  
+CREATE DEFINER=`root`@`83.149.21.177` TRIGGER `file_hosting`.`user_AFTER_INSERT` AFTER INSERT ON `user` FOR EACH ROW
+BEGIN
+	call update_count_users();
+END
 
-    DECLARE done INT DEFAULT FALSE;
-    DECLARE received_id, score INT;
-    DECLARE cur1 CURSOR FOR SELECT file_id, type_score FROM score_file;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+CREATE DEFINER=`root`@`83.149.21.177` TRIGGER `file_hosting`.`user_AFTER_UPDATE` AFTER UPDATE ON `user` FOR EACH ROW
+BEGIN
+	call update_count_users();
+END
 
-    OPEN cur1;
-    
-    read_loop: LOOP
-        IF done THEN
-            LEAVE read_loop;
-        END IF;
-        
-        FETCH cur1 INTO received_id, score;
-
-    END LOOP;
-    
-    CLOSE cur1;    
-          
-
-END //  
+CREATE DEFINER=`root`@`83.149.21.177` TRIGGER `file_hosting`.`user_BEFORE_DELETE` BEFORE DELETE ON `user` FOR EACH ROW
+BEGIN
+	call update_score_file_before_delete_user(OLD.id);
+END
